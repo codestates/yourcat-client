@@ -2,12 +2,10 @@ export default ({ value, type }) => {
   const errors = {};
   switch (type) {
     case 'email':
-      if (type === 'email') {
-        if (!value) {
-          errors.email = '이메일을 입력해주세요.';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-          errors.email = '이메일을 확인해주세요.';
-        }
+      if (!value) {
+        errors.email = '이메일을 입력해주세요.';
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+        errors.email = '이메일을 확인해주세요.';
       }
       break;
     case 'password':
@@ -17,6 +15,13 @@ export default ({ value, type }) => {
         )
       ) {
         errors.password = '비밀번호를 확인해주세요.';
+      }
+      break;
+    case 'signupNickname':
+      if (!value) {
+        errors.nickName = '이름을 입력해주세요';
+      } else if (/^[$`~!@$!%#^?&\\(\\)+]/.test(value)) {
+        errors.password = '사용 불가능한 특수문자 입니다.';
       }
       break;
     case 'signupPassword':
