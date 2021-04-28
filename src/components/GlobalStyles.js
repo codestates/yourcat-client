@@ -16,6 +16,14 @@ const GlobalStyles = createGlobalStyle`
         font-family: 'Montserrat', sans-serif;
 
     }
+
+    h1{
+        font-size: 30px;
+        
+    }
+    h4{
+        font-size: 18px;
+    }
     
 `;
 
