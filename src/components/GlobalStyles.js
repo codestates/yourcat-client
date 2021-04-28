@@ -18,12 +18,10 @@ const GlobalStyles = createGlobalStyle`
     }
 
     h1{
-        font-size: 30px;
+        font-size: 1.875rem;
         
     }
-    h4{
-        font-size: 18px;
-    }
+    
     
 `;
 

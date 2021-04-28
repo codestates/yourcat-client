@@ -15,32 +15,33 @@ const CatBox = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  padding-top: 120px;
+  padding-top: 200px;
+  background-color: #badfdb;
+  height: 500px;
 `;
 
 const Box = styled('div')`
   border: 1px solid black;
-  height: 300px;
+  height: 500px;
 `;
 
-const MintBox = styled('div')`
-  background-color: #badfdb;
-  height: 300px;
-`;
+// const MintBox = styled('div')`
+//   background-color: #badfdb;
+//   height: 500px;
+// `;
 
 const YellowBox = styled('div')`
   background-color: #fcf9ea;
-  height: 300px;
+  height: 500px;
 `;
 
 const OrangeBox = styled('div')`
   background-color: #ffc5a1;
-  height: 300px;
+  height: 500px;
 `;
 
 const TextBox = styled('div')`
-  height: 300px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,11 +63,9 @@ export default function LandingPage() {
     <div>
       <NavBar />
       <Box>
-        <MintBox>
-          <CatBox>
-            <CatImg />
-          </CatBox>
-        </MintBox>
+        <CatBox>
+          <CatImg />
+        </CatBox>
       </Box>
       <TextBox>
         <WelcomeTitle>Your Cat</WelcomeTitle>

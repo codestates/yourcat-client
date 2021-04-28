@@ -18,12 +18,12 @@ const Nav = styled('div')`
 `;
 
 const Column = styled('div')`
-  width: 33%;
+  width: 40%;
 `;
 
 const Logo = styled('div')`
   margin: 7px 20px;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 `;
 
@@ -36,12 +36,12 @@ const Div = styled('div')`
 `;
 
 const Category = styled('div')`
-  font-size: 14px;
+  font-size: 0.875rem;
 `;
 
 const SideTab = styled('div')`
   margin: 7.5px 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
