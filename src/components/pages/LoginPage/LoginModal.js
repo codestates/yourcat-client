@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import validation from '../../../utils/validator';
-import loginUserData from '../../../_actions/loginUser';
+import { loginUser, getUserInfo } from '../../../_actions/loginUser';
 
 const ButtonContainer = styled.div`
   width: 200px;
@@ -26,7 +27,6 @@ const Input = styled.input`
   flex: 1 1 0;
   width: 100px;
 `;
-// position: absolute;
 const ErrMsg = styled.span`
   position: absolute;
   pointer-events: none;
@@ -36,8 +36,9 @@ const ErrMsg = styled.span`
   color: #fd0202;
 `;
 
-const LoginModal = () => {
+const LoginModal = React.memo(() => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [loginInfo, setloginInfo] = useState({
     email: '',
     password: '',
@@ -57,16 +58,29 @@ const LoginModal = () => {
       setErrorMessage({ ...errMessage, [key]: '' });
     }
   };
-  const handleLogin = () => {
-    const { email, password } = errMessage;
-    if (email || password) {
+  const handleLogin = async () => {
+    const { email, password } = loginInfo;
+    if (errMessage.email || errMessage.password) {
       console.log('이메일과 비밀번호를 다시 확인해주세요');
     } else {
-      const a = dispatch(loginUserData({ email, password }));
-      console.log(a);
+      dispatch(loginUser({ email, password })) //
+        .then(({ payload: { data } }) => {
+          console.log(data);
+          // TODO : use Promise to handle login
+          if (true) {
+            // success
+            getUserInfo();
+          } else {
+            // TODO : loginInfo 초기화
+            setloginInfo({ email: '', password: '' });
+          }
+        });
     }
   };
-  const handleSignUp = () => {};
+  const handleSignUp = () => {
+    // TODO : history.push something
+    history.push('/users/signup');
+  };
   return (
     <>
       <span>Login</span>
@@ -103,6 +117,6 @@ const LoginModal = () => {
       </ButtonContainer>
     </>
   );
-};
+});
 
 export default LoginModal;
