@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FixedNav = styled('div')`
@@ -51,18 +52,30 @@ export default function NavBar() {
     <FixedNav>
       <Nav>
         <Column>
-          <Logo>Your Cat</Logo>
+          <Link to="/">
+            <Logo>Your Cat</Logo>
+          </Link>
         </Column>
 
         <Div>
-          <Category>Tutorials</Category>
-          <Category>Community</Category>
-          <Category>Photo</Category>
-          <Category>Calculator</Category>
+          <Link to="/tutorials">
+            <Category>Tutorials</Category>
+          </Link>
+          <Link to="/community">
+            <Category>Community</Category>
+          </Link>
+          <Link to="/photo">
+            <Category>Photo</Category>
+          </Link>
+          <Link to="/calculator">
+            <Category>Calculator</Category>
+          </Link>
         </Div>
 
         <Column>
-          <SideTab>Login</SideTab>
+          <Link to="/signin">
+            <SideTab>Login</SideTab>
+          </Link>
         </Column>
       </Nav>
     </FixedNav>
