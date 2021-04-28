@@ -5,7 +5,6 @@ export default function InputSection() {
   const [calorie, setCalorie] = useState('');
   const [RER, setRER] = useState(1);
   const [MER, setMER] = useState(1);
-  const [result, setResult] = useState('');
   const [spoon, setSpoon] = useState('');
   const catCriteria = useRef();
 
@@ -42,11 +41,11 @@ export default function InputSection() {
       case 'neuteredAdult':
         setMER(1.2 * rer);
         break;
-      case 'inactiveAdult':
-        setMER(0.8 * rer);
-        break;
       case 'activeAdult':
         setMER(1.6 * rer);
+        break;
+      case 'inactiveAdult':
+        setMER(0.8 * rer);
         break;
 
       default:
@@ -54,10 +53,10 @@ export default function InputSection() {
     }
   };
 
+  // FIXME: cat's criteria가 처음 클릭한 걸로만 계산 됨
   useEffect(() => {
     onRERHandler(weight);
     onMERHandler(RER);
-    setResult((MER / calorie) * 1000);
   });
 
   // 버튼을 누르면 그 값으로 계산해서 아웃풋으로 전달
@@ -65,14 +64,13 @@ export default function InputSection() {
     event.preventDefault();
 
     // 한 스푼당 11.5g 기준
-    setSpoon(Math.round(result / 11.5));
+    setSpoon(Math.round(((MER / calorie) * 1000) / 11.5));
 
     console.log(catCriteria.current.value);
     console.log('weight: ', weight);
     console.log('RER: ', RER);
     console.log('MER: ', MER);
-    console.log('result: 하루에 ', Math.round(result), 'g');
-    console.log('하루에 ', result / 11.5, '스푼');
+    console.log('하루에 ', spoon, '스푼');
 
     // setCalorie('');
     // setWeight('');
@@ -90,13 +88,15 @@ export default function InputSection() {
           onChange={onWeightHandler}
         />
         <select ref={catCriteria}>
+          <option value="default">--choose option--</option>
+
           <option value="babycat">0 to 3 months </option>
           <option value="4kitten">4 months to 6 months</option>
           <option value="7kitten">7 months to Adult</option>
           <option value="intactAdult">Intact adult</option>
           <option value="neuteredAdult">Neutered adult</option>
-          <option value="inactiveAdult">Inactive adult</option>
           <option value="activeAdult">Active adult</option>
+          <option value="inactiveAdult">Inactive adult</option>
         </select>
         <div>Please enter cat feed information.</div>
         <div>
@@ -111,7 +111,7 @@ export default function InputSection() {
 
         <button type="submit">Calculate</button>
       </form>
-      <div>급여량 계산 결과: {spoon} 스푼</div>
+      <div>Give your cat {spoon} spoons per day</div>
     </div>
   );
 }
