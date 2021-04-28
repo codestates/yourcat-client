@@ -1,6 +1,6 @@
 export default function loginreducer(state = {}, action) {
   switch (action.type) {
-    case 'USER_LOGIN':
+    case 'MY_INFO':
       return action.payload;
     default:
       return state;
