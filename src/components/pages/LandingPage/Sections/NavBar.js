@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const FixedNav = styled('div')`
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0;
+`;
 const Nav = styled('div')`
   background-color: #badfdb;
   display: flex;
   justify-content: center;
   color: white;
   padding: 5px 100px;
+  width: 100%;
 `;
 
 const Column = styled('div')`
@@ -41,21 +48,23 @@ const SideTab = styled('div')`
 
 export default function NavBar() {
   return (
-    <Nav>
-      <Column>
-        <Logo>Your Cat</Logo>
-      </Column>
+    <FixedNav>
+      <Nav>
+        <Column>
+          <Logo>Your Cat</Logo>
+        </Column>
 
-      <Div>
-        <Category>Tutorials</Category>
-        <Category>Community</Category>
-        <Category>Photo</Category>
-        <Category>Calculator</Category>
-      </Div>
+        <Div>
+          <Category>Tutorials</Category>
+          <Category>Community</Category>
+          <Category>Photo</Category>
+          <Category>Calculator</Category>
+        </Div>
 
-      <Column>
-        <SideTab>Login</SideTab>
-      </Column>
-    </Nav>
+        <Column>
+          <SideTab>Login</SideTab>
+        </Column>
+      </Nav>
+    </FixedNav>
   );
 }
