@@ -37,6 +37,13 @@ const LoginModal = React.memo(() => {
       dispatch(loginUser({ email, password })) //
         .then(({ payload: { data } }) => {
           dispatch(tokenHandler(data.accessToken));
+        })
+        .catch(err => {
+          setloginInfo({
+            email: '',
+            password: '',
+          });
+          return err;
         });
     }
   };
