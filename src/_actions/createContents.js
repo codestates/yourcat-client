@@ -1,13 +1,7 @@
-export const CREATE_CONTENT = 'CREATE_CONTENT';
-
-export function createContent(title, category, description, userId) {
+export default function createContent(data) {
+  const request = data;
   return {
-    type: CREATE_CONTENT,
-    payload: {
-      title,
-      category,
-      description,
-      userId,
-    },
+    type: 'CREATE_CONTENT',
+    payload: request,
   };
 }
