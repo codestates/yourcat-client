@@ -1,6 +1,6 @@
-export default function loginreducer(state = {}, action) {
+export default function photoFileReducer(state = {}, action) {
   switch (action.type) {
-    case 'MY_INFO':
+    case 'PHOTO_FILE':
       return action.payload;
     default:
       return state;
