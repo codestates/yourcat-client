@@ -13,7 +13,7 @@ const Button = styled.button`
   cursor: Pointer;
   background: white;
   border: 1px solid grey;
-  border-radius: 1px;
+  border-radius: 2px;
   width: ${props => props.width - 2}px;
   height: 20px;
   top: ${props => props.height + 10}px;
@@ -26,6 +26,7 @@ const Button = styled.button`
 const Container = styled.section`
   box-sizing: border-box;
   border: 1px solid grey;
+  border-radius: ${props => props.border};
   width: ${props => props.width}px;
   height: ${props => props.height}px;
 `;
@@ -73,7 +74,7 @@ const FileUploader = props => {
     hiddenFileInput.current.click();
   };
   return (
-    <Container width={width} height={height}>
+    <Container width={width} height={height} border={border}>
       {preview}
       <Button onClick={handleClick} width={width} height={height}>
         Upload Photo
