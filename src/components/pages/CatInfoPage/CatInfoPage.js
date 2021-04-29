@@ -52,7 +52,7 @@ function CatInfoPage() {
         <Div>
           <div>
             age
-            <Input onKeyDown={handleChange('age')} />
+            <Input type="number" onChange={handleChange('age')} />
           </div>
           <div>
             name
