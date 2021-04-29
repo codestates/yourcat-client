@@ -7,10 +7,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
-<<<<<<< HEAD
-=======
     "prop-types": "^15.7.2",
->>>>>>> [#11][Add] logger middleware
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -20,10 +17,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.3",
-<<<<<<< HEAD
     "styled-reset": "^4.3.4",
-=======
->>>>>>> [#11][Add] logger middleware
     "web-vitals": "^1.1.1"
   },
   "scripts": {
