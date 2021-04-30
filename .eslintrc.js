@@ -4,5 +4,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
     'import/no-unresolved': 'off',
+    'no-alert': 'off',
+    'no-console': 'off',
   },
 };
