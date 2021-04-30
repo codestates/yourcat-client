@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import FileUploader from '../../../utils/ImageUploader';
-import signUpRequest from '../../../_actions/signUpRequest';
+import signUpRequest from '../../../_actions/users/signUpRequest';
 
 const Div = styled.div`
   display: inline-block;

@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import validator from '../../../utils/validator';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
-import signUpUser from '../../../_actions/signUpUser';
+import signUpUser from '../../../_actions/users/signUpUser';
 
 const SignUpModal = React.memo(props => {
   const dispatch = useDispatch();

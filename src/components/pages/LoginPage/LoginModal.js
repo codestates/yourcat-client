@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import propTypes from 'prop-types';
 import validation from '../../../utils/validator';
-import { loginUser, tokenHandler } from '../../../_actions/loginUser';
+import { loginUser, tokenHandler } from '../../../_actions/users/loginUser';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
 
