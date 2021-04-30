@@ -8,7 +8,7 @@ import signUpUser from '../../../_actions/signUpUser';
 
 const SignUpModal = React.memo(props => {
   const dispatch = useDispatch();
-  const result = useSelector(state => state.photoFileReducer.userData);
+  const result = useSelector(state => state.signUpDataReducer.userData);
   const [formData, setFormData] = useState({
     nickname: (result && result.nickname) || '',
     email: (result && result.email) || '',
