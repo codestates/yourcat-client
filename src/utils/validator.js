@@ -17,11 +17,11 @@ export default ({ value, type }) => {
         errors.password = '비밀번호를 확인해주세요.';
       }
       break;
-    case 'signupNickname':
+    case 'nickname':
       if (!value) {
-        errors.signupNickname = '이름을 입력해주세요';
+        errors.nickname = '이름을 입력해주세요';
       } else if (/^[$`~!@$!%#^?&\\(\\)+\\;\\:\\[\]\\<\\>\\/\\?]/.test(value)) {
-        errors.signupNickname = '사용 불가능한 특수문자 입니다.';
+        errors.nickname = '사용 불가능한 특수문자 입니다.';
       }
       break;
     case 'signupPassword':

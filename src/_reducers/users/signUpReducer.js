@@ -1,6 +1,6 @@
-export default function photoFileReducer(state = {}, action) {
+export default function signUpReducer(state = {}, action) {
   switch (action.type) {
-    case 'PHOTO_FILE':
+    case 'USER_SIGNUP':
       return action.payload;
     default:
       return state;
