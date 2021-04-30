@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-// import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import propTypes from 'prop-types';
 import validator from '../../../utils/validator';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
+import signUpUser from '../../../_actions/signUpUser';
 
-const SignUpModal = React.memo(() => {
+const SignUpModal = React.memo(props => {
+  const dispatch = useDispatch();
+  const result = useSelector(state => state.photoFileReducer.userData);
   const [formData, setFormData] = useState({
-    signupNickname: '',
-    email: '',
+    nickname: (result && result.nickname) || '',
+    email: (result && result.email) || '',
     signupPassword: '',
     confirmsignupPassword: '',
   });
   const [errMessage, setErrMessage] = useState({
-    signupNickname: '',
+    nickname: '',
     email: '',
     signupPassword: '',
     confirmsignupPassword: '',
@@ -43,38 +47,54 @@ const SignUpModal = React.memo(() => {
   const handleFocus = key => () => {
     setErrMessage({ ...errMessage, [key]: '' });
   };
-  const handleCatInfoClick = () => {};
-  const handleCalcelClick = () => {};
+  const handleCatInfoClick = () => {
+    if (
+      !Object.values(formData).join('') ||
+      Object.values(errMessage).join('')
+    ) {
+      console.log('wrong!');
+    } else {
+      const { nickname, email, signupPassword } = formData;
+      dispatch(
+        signUpUser({ userData: { nickname, email, password: signupPassword } }),
+      );
+      props.setStep('catInfo');
+    }
+  };
+  const handleCalcelClick = () => {
+    props.setStep('login');
+  };
 
   return (
     <section>
       <form onSubmit={event => event.preventDefault}>
-        {['signupNickname', 'email', 'signupPassword', 'confirmPassword'].map(
-          key => {
-            return (
-              <Container key={key}>
-                <Input
-                  type={key.includes('Password') ? 'password' : 'text'}
-                  onChange={handleData(key)}
-                  onBlur={handleBlur(key)}
-                  onFocus={handleFocus(key)}
-                  value={formData[key] || ''}
-                />
-                <ErrMsg>{errMessage[key] ? errMessage[key] : null}</ErrMsg>
-              </Container>
-            );
-          },
-        )}
+        {['nickname', 'email', 'signupPassword', 'confirmPassword'].map(key => {
+          return (
+            <Container key={key}>
+              <Input
+                type={key.includes('Password') ? 'password' : 'text'}
+                onChange={handleData(key)}
+                onBlur={handleBlur(key)}
+                onFocus={handleFocus(key)}
+                value={formData[key] || ''}
+              />
+              <ErrMsg>{errMessage[key] ? errMessage[key] : null}</ErrMsg>
+            </Container>
+          );
+        })}
       </form>
       <ButtonContainer>
-        <Button type="button" onClick={handleCatInfoClick}>
-          다음
-        </Button>
         <Button type="button" onClick={handleCalcelClick}>
           취소
+        </Button>
+        <Button type="button" onClick={handleCatInfoClick}>
+          다음
         </Button>
       </ButtonContainer>
     </section>
   );
 });
+SignUpModal.propTypes = {
+  setStep: propTypes.func.isRequired,
+};
 export default SignUpModal;

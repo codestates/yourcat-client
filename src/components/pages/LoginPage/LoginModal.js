@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import propTypes from 'prop-types';
 import validation from '../../../utils/validator';
 import { loginUser, tokenHandler } from '../../../_actions/loginUser';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
 
-const LoginModal = React.memo(() => {
+const LoginModal = React.memo(props => {
   const dispatch = useDispatch();
   const [loginInfo, setloginInfo] = useState({
     email: '',
@@ -29,7 +30,7 @@ const LoginModal = React.memo(() => {
   const handleFocus = key => () => {
     setErrorMessage({ ...errMessage, [key]: '' });
   };
-  const handleLogin = async () => {
+  const handleLogin = () => {
     const { email, password } = loginInfo;
     if (errMessage.email || errMessage.password) {
       console.log('이메일과 비밀번호를 다시 확인해주세요');
@@ -37,18 +38,11 @@ const LoginModal = React.memo(() => {
       dispatch(loginUser({ email, password })) //
         .then(({ payload: { data } }) => {
           dispatch(tokenHandler(data.accessToken));
-        })
-        .catch(err => {
-          setloginInfo({
-            email: '',
-            password: '',
-          });
-          return err;
         });
     }
   };
   const handleSignUp = () => {
-    // TODO : history.push something or render another modal
+    props.setStep('signUp');
   };
   return (
     <>
@@ -79,5 +73,7 @@ const LoginModal = React.memo(() => {
     </>
   );
 });
-
+LoginModal.propTypes = {
+  setStep: propTypes.func.isRequired,
+};
 export default LoginModal;

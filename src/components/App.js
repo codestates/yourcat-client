@@ -3,11 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import TutorialsPage from './pages/TutorialsPage/TutorialsPage';
 import Tutorials from './pages/TutorialsPage/Tutorials';
-import CommunityPage from './pages/CommunityPage/CommunityPage';
-import PhotoPage from './pages/PhotoPage/PhotoPage';
+// import CommunityPage from './pages/CommunityPage/CommunityPage';
+// import PhotoPage from './pages/PhotoPage/PhotoPage';
 import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
-import LoginModal from './pages/LoginPage/LoginModal';
+// import LoginModal from './pages/LoginPage/LoginModal';
 import GlobalStyles from './GlobalStyles';
+import MultiStepForm from './pages/MultiStepForm/MultiStepForm';
 
 function App() {
   return (
@@ -26,16 +27,16 @@ function App() {
               <Tutorials />
             </Route>
             <Route exact path="/community">
-              <CommunityPage />
+              {/* <CommunityPage /> */}
             </Route>
             <Route exact path="/photo">
-              <PhotoPage />
+              {/* <PhotoPage /> */}
             </Route>
             <Route exact path="/calculator">
               <CalculatorPage />
             </Route>
             <Route exact path="/signin">
-              <LoginModal />
+              <MultiStepForm />
             </Route>
           </Switch>
         </div>
