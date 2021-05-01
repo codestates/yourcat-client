@@ -5,6 +5,7 @@ import validator from '../../../utils/validator';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
 import signUpUser from '../../../_actions/users/signUpUser';
+import ErrModal from '../../../utils/ErrModal/ErrModal';
 
 const SignUpModal = React.memo(props => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const SignUpModal = React.memo(props => {
     signupPassword: '',
     confirmsignupPassword: '',
   });
+  const [modalMessage, setModalMessage] = useState('');
   const [errMessage, setErrMessage] = useState({
     nickname: '',
     email: '',
@@ -52,7 +54,8 @@ const SignUpModal = React.memo(props => {
       !Object.values(formData).join('') ||
       Object.values(errMessage).join('')
     ) {
-      console.log('wrong!');
+      setModalMessage('회원가입 정보를 입력해주세요');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
       const { nickname, email, signupPassword } = formData;
       dispatch(
@@ -94,6 +97,7 @@ const SignUpModal = React.memo(props => {
           다음
         </Button>
       </ButtonContainer>
+      <ErrModal message={modalMessage} />
     </>
   );
 });

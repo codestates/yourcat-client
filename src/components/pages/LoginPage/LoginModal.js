@@ -5,9 +5,11 @@ import validation from '../../../utils/validator';
 import { loginUser, tokenHandler } from '../../../_actions/users/loginUser';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
+import ErrModal from '../../../utils/ErrModal/ErrModal';
 
 const LoginModal = React.memo(props => {
   const dispatch = useDispatch();
+  const [modalMessage, setModalMessage] = useState('');
   const [loginInfo, setloginInfo] = useState({
     email: '',
     password: '',
@@ -36,7 +38,8 @@ const LoginModal = React.memo(props => {
   const handleLogin = () => {
     const { email, password } = loginInfo;
     if (errMessage.email || errMessage.password) {
-      console.log('이메일과 비밀번호를 다시 확인해주세요');
+      setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
       dispatch(loginUser({ email, password })) //
         .then(({ payload: { data } }) => {
@@ -79,6 +82,7 @@ const LoginModal = React.memo(props => {
           로그인
         </Button>
       </ButtonContainer>
+      <ErrModal message={modalMessage} />
     </>
   );
 });

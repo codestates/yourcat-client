@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import signUpRequest from '../../../_actions/users/signUpRequest';
 import ImageUploader from '../../../utils/ImageUploader';
+import ErrModal from '../../../utils/ErrModal/ErrModal';
 // import useDelete from '../../../utils/useDelete';
 
 const Div = styled.div`
@@ -35,7 +36,7 @@ const Button = styled.button`
 
 const CatInfoPage = React.memo(props => {
   const dispatch = useDispatch();
-  // const [isRemoved, setIsRemoved] = useDelete();
+  const [modalMessage, setModalMessage] = useState('');
   const { userData } = useSelector(state => {
     return state.signUpData || {};
   });
@@ -83,7 +84,8 @@ const CatInfoPage = React.memo(props => {
         dispatch({ type: 'DELETE_USER_SIGNUP_RESPONSE' });
         props.setStep('login');
       } else {
-        console.log('something wrong');
+        setModalMessage('회원가입 정보를 다시 확인해주세요');
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
       }
     });
   };
@@ -94,14 +96,13 @@ const CatInfoPage = React.memo(props => {
     const { age, name, image } = data;
     console.log(data);
     if (age && name && image) {
-      // 모든 파일이 존재하는 경우
       handleRequest({
         ...userData,
         catInfo: { ...data, gender: checkGender.male ? 'male' : 'female' },
       });
     } else {
-      // TODO :  -- import 해와서 모달창 팝업 '전부 요청해야됨'
-      console.log('');
+      setModalMessage('고양이 정보를 모두 작성해주세요');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
     }
   };
   const test = response => {
@@ -111,8 +112,8 @@ const CatInfoPage = React.memo(props => {
     if (truePath) {
       setData({ ...data, image: truePath });
     } else {
-      // TODO :  -- import 해와서 모달창 팝업 서버오류
-      console.log('');
+      setModalMessage('응답에 실패했습니다.');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
     }
   };
   return (
@@ -170,6 +171,7 @@ const CatInfoPage = React.memo(props => {
           확인
         </Button>
       </ButtonWrap>
+      <ErrModal message={modalMessage} />
     </>
   );
 });

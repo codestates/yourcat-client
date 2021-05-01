@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import MultiStepForm from './MultiStepForm';
+import propTypes from 'prop-types';
+import ErrContent from './ErrContent';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ const Wrapper = styled.div`
   position: fixed;
   margin: auto;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   display: ${props => (props.view ? 'block' : 'none')};
 `;
 const Main = styled.div`
@@ -22,24 +23,30 @@ const Main = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  width: auto;
+  width: 200px;
   height: auto;
   border-radius: 5px;
   background-color: #badfdb;
   align-items: center;
 `;
-const MainChild = styled(MultiStepForm)`
+const MainChild = styled(ErrContent)`
   padding-top: 100px;
 `;
-export default function LoginModal() {
+export default function ErrModal({ message }) {
+  console.log(message);
   const {
-    userModal: { loginModal },
+    userModal: { errorModal },
   } = useSelector(state => state);
+  console.log(errorModal);
   return (
-    <Wrapper view={loginModal}>
+    <Wrapper view={errorModal}>
       <Main>
+        {message}
         <MainChild />
       </Main>
     </Wrapper>
   );
 }
+ErrModal.propTypes = {
+  message: propTypes.string.isRequired,
+};
