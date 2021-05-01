@@ -6,6 +6,8 @@ export default function loginreducer(state = {}, action) {
       return action.payload;
     case 'GET_TOKEN':
       return state;
+    case 'DELETE_TOKEN':
+      return {};
     default:
       return state;
   }

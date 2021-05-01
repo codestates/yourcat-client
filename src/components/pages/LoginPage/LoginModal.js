@@ -12,7 +12,10 @@ const LoginModal = React.memo(props => {
     email: '',
     password: '',
   });
-  const [errMessage, setErrorMessage] = useState({ email: '', password: '' });
+  const [errMessage, setErrorMessage] = useState({
+    email: ' ',
+    password: ' ',
+  });
   const handleChange = key => e => {
     setloginInfo({
       ...loginInfo,

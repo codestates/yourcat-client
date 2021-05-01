@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import ImageUploader from '../../../utils/ImageUploader';
 import signUpRequest from '../../../_actions/users/signUpRequest';
+import ImageUploader from '../../../utils/ImageUploader';
+// import useDelete from '../../../utils/useDelete';
 
 const Div = styled.div`
   display: inline-block;
@@ -26,6 +27,7 @@ const Input = styled.input`
 
 const CatInfoPage = React.memo(props => {
   const dispatch = useDispatch();
+  // const [isRemoved, setIsRemoved] = useDelete();
   const { userData } = useSelector(state => {
     return state.signUpDataReducer || {};
   });
@@ -67,7 +69,10 @@ const CatInfoPage = React.memo(props => {
         res.payload.data.message === '회원가입이 완료되었습니다.'
       ) {
         // TODO :  -- import 해와서 모달창 팝업, 모달창 버튼에 props.setStep('login') 연결
+
         alert('성공!');
+        dispatch({ type: 'DELETE_USER_DATA' });
+        dispatch({ type: 'DELETE_USER_SIGNUP_RESPONSE' });
         props.setStep('login');
       } else {
         console.log('something wrong');
@@ -103,10 +108,7 @@ const CatInfoPage = React.memo(props => {
     const truePath = response && response.data.filePath.split('/')[1];
     console.log(truePath);
     if (truePath) {
-      setData({
-        ...data,
-        image: truePath,
-      });
+      setData({ ...data, image: truePath });
     } else {
       // TODO :  -- import 해와서 모달창 팝업 서버오류
       console.log('');
