@@ -7,7 +7,7 @@ import CommunityPage from './pages/CommunityPage/CommunityPage';
 import PhotoPage from './pages/PhotoPage/PhotoPage';
 import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
 import GlobalStyles from './GlobalStyles';
-import LoginModal from './pages/MultiStepForm/LoginModal';
+import MainModal from './pages/MultiStepForm/MainModal';
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
           </Switch>
         </div>
       </BrowserRouter>
-      <LoginModal />
+      <MainModal />
     </>
   );
 }

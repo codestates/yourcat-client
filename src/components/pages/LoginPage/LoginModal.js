@@ -47,6 +47,9 @@ const LoginModal = React.memo(props => {
   const handleSignUp = () => {
     props.setStep('signUp');
   };
+  const handleCancel = () => {
+    dispatch({ type: 'LOGIN_MODAL_FALSE' });
+  };
   return (
     <>
       <span>Login</span>
@@ -66,6 +69,9 @@ const LoginModal = React.memo(props => {
         ))}
       </form>
       <ButtonContainer>
+        <Button type="button" onClick={handleCancel}>
+          취소
+        </Button>
         <Button type="button" onClick={handleSignUp}>
           회원가입
         </Button>
