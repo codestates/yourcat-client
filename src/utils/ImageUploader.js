@@ -37,7 +37,7 @@ const Container = styled.section`
 // img 태그 조절용
 //
 // 매개변수 :
-// --- width, height, border : FileUploader 엘리먼트가 props로 받아온 스타일링 데이터
+// --- width, height, border : ImageUploader 엘리먼트가 props로 받아온 스타일링 데이터
 // --- src : 렌더링 되는 이미지 source
 // --------------------------------------------------------------------------------------------------
 function imgTagGenerator(width, height, border, src) {
@@ -59,7 +59,7 @@ function imgTagGenerator(width, height, border, src) {
 //
 // 매개변수 :
 // --- formData : 요청보낼 formData
-// --- cb : FileUploader 엘리먼트가 props로 받아온 콜백함수
+// --- cb : ImageUploader 엘리먼트가 props로 받아온 콜백함수
 // --------------------------------------------------------------------------------------------------
 // @ TODO : 전달해주는 콜백함수에 추가해야 될 부분.
 //
@@ -77,19 +77,19 @@ function postRequest(formData, cb) {
     .catch(err => console.log(err));
 }
 // --------------------------------------------------------------------------------------------------
-// FileUploader 엘리먼트
+// ImageUploader 엘리먼트
 //
 // 매개변수 총 4개.
-// 1) FileUploader 엘리먼트가 props로 받아온 스타일링 데이터
+// 1) ImageUploader 엘리먼트가 props로 받아온 스타일링 데이터
 // --- width(number)
 // --- height(number)
 // --- border("5px", "50%", ... 등등 => borderRadius: `${border}`);
 //
 // 2) post 요청으로 응답받는 데이터를 상위로 전달하기 위한 역할
-// --- callback : FileUploader 엘리먼트가 props로 받아온 콜백함수
+// --- callback : ImageUploader 엘리먼트가 props로 받아온 콜백함수
 // --------------------------------------------------------------------------------------------------
 
-const FileUploader = props => {
+const ImageUploader = props => {
   const { width, height, border, callback } = props;
   const [file, setFile] = useState('');
   const [previewURL, setPreviewURL] = useState('');
@@ -138,10 +138,10 @@ const FileUploader = props => {
   );
 };
 
-FileUploader.propTypes = {
+ImageUploader.propTypes = {
   width: propTypes.number.isRequired,
   height: propTypes.number.isRequired,
   border: propTypes.string.isRequired,
   callback: propTypes.func.isRequired,
 };
-export default FileUploader;
+export default ImageUploader;
