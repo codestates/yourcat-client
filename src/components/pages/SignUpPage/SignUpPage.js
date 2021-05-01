@@ -62,16 +62,19 @@ const SignUpModal = React.memo(props => {
     }
   };
   const handleCalcelClick = () => {
+    dispatch({ type: 'DELETE_USER_DATA' });
     props.setStep('login');
   };
 
   return (
     <>
+      Sign In
       <form onSubmit={event => event.preventDefault}>
         {['nickname', 'email', 'signupPassword', 'confirmPassword'].map(key => {
           return (
             <Container key={key}>
               <Input
+                placeholder={key}
                 type={key.includes('Password') ? 'password' : 'text'}
                 onChange={handleData(key)}
                 onBlur={handleBlur(key)}

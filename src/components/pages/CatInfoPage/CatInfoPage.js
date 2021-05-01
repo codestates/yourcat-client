@@ -7,19 +7,27 @@ import ImageUploader from '../../../utils/ImageUploader';
 // import useDelete from '../../../utils/useDelete';
 
 const Div = styled.div`
-  display: inline-block;
-  margin: 0;
+  display: flex;
+  margin: 10px 0;
+  padding: auto;
 `;
 const Section = styled.section`
   display: flex;
+  margin-top: 5px;
 `;
 const Input = styled.input`
   all: unset;
-  border: 1px solid black;
-  margin-bottom: 20px;
+  border-bottom: 1px solid grey;
+  margin: 10px 0;
   width: 50px;
   height: 20px;
-  border-radius: 2px;
+`;
+const ButtonWrap = styled.section`
+  display: flex;
+`;
+const Button = styled.button`
+  width: 50px;
+  margin: 5px;
 `;
 //------------------------
 // 버튼 비활성화 CSS 추가 가능
@@ -80,14 +88,7 @@ const CatInfoPage = React.memo(props => {
     });
   };
   const handleWithoutCatSubmit = () => {
-    const { age, name, image } = data;
-    if (!age && !name && !image) {
-      // 전부다 없는 경우
-      handleRequest({ ...userData });
-    } else {
-      // TODO :  -- import 해와서 모달창 팝업 '전부 요청해야 됨'
-      console.log('');
-    }
+    handleRequest({ ...userData });
   };
   const handleWithCatSubmit = () => {
     const { age, name, image } = data;
@@ -116,28 +117,29 @@ const CatInfoPage = React.memo(props => {
   };
   return (
     <>
+      Cat Info
       <Section>
         <form onSubmit={event => event.preventDefault()}>
           <ImageUploader
-            width={150}
-            height={150}
+            width={200}
+            height={200}
             border="5px"
             callback={test}
           />
           <Div>
-            <div>
-              age
+            <span>
+              month
               <Input
                 name="age"
                 type="number"
                 min="0"
                 onChange={handleChange('age')}
               />
-            </div>
-            <div>
+            </span>
+            <span>
               name
               <Input name="name" onChange={handleChange('name')} />
-            </div>
+            </span>
           </Div>
           <div>
             male
@@ -157,17 +159,17 @@ const CatInfoPage = React.memo(props => {
           </div>
         </form>
       </Section>
-      <div>
-        <button type="button" onClick={handlePrevStep}>
+      <ButtonWrap>
+        <Button type="button" onClick={handlePrevStep}>
           이전
-        </button>
-        <button type="button" onClick={handleWithoutCatSubmit}>
+        </Button>
+        <Button type="button" onClick={handleWithoutCatSubmit}>
           스킵
-        </button>
-        <button type="button" onClick={handleWithCatSubmit}>
+        </Button>
+        <Button type="button" onClick={handleWithCatSubmit}>
           확인
-        </button>
-      </div>
+        </Button>
+      </ButtonWrap>
     </>
   );
 });

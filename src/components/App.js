@@ -34,10 +34,10 @@ function App() {
             <Route exact path="/calculator">
               <CalculatorPage />
             </Route>
-            <LoginModal />
           </Switch>
         </div>
       </BrowserRouter>
+      <LoginModal />
     </>
   );
 }
