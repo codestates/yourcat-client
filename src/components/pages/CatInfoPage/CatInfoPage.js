@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import FileUploader from '../../../utils/ImageUploader';
+import ImageUploader from '../../../utils/ImageUploader';
 import signUpRequest from '../../../_actions/users/signUpRequest';
 
 const Div = styled.div`
@@ -98,10 +98,10 @@ const CatInfoPage = React.memo(props => {
       console.log('');
     }
   };
-  const test = response => {
-    console.log(response);
+  const filePathAccepter = response => {
+    // TODO : 추후 변경 필요.
     const truePath = response && response.data.filePath.split('/')[1];
-    console.log(truePath);
+    //
     if (truePath) {
       setData({
         ...data,
@@ -116,7 +116,12 @@ const CatInfoPage = React.memo(props => {
     <>
       <Section>
         <form onSubmit={event => event.preventDefault()}>
-          <FileUploader width={150} height={150} border="5px" callback={test} />
+          <ImageUploader
+            width={150}
+            height={150}
+            border="5px"
+            callback={filePathAccepter}
+          />
           <Div>
             <div>
               age
