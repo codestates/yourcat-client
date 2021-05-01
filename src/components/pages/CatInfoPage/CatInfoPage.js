@@ -29,7 +29,7 @@ const CatInfoPage = React.memo(props => {
   const dispatch = useDispatch();
   // const [isRemoved, setIsRemoved] = useDelete();
   const { userData } = useSelector(state => {
-    return state.signUpDataReducer || {};
+    return state.signUpData || {};
   });
   const [data, setData] = useState({
     age: '',

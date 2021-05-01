@@ -8,7 +8,7 @@ import signUpUser from '../../../_actions/users/signUpUser';
 
 const SignUpModal = React.memo(props => {
   const dispatch = useDispatch();
-  const result = useSelector(state => state.signUpDataReducer.userData);
+  const result = useSelector(state => state.signUpData.userData);
   const [formData, setFormData] = useState({
     nickname: (result && result.nickname) || '',
     email: (result && result.email) || '',
@@ -66,7 +66,7 @@ const SignUpModal = React.memo(props => {
   };
 
   return (
-    <section>
+    <>
       <form onSubmit={event => event.preventDefault}>
         {['nickname', 'email', 'signupPassword', 'confirmPassword'].map(key => {
           return (
@@ -91,7 +91,7 @@ const SignUpModal = React.memo(props => {
           다음
         </Button>
       </ButtonContainer>
-    </section>
+    </>
   );
 });
 SignUpModal.propTypes = {
