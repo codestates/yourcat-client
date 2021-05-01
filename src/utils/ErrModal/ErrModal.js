@@ -33,11 +33,9 @@ const MainChild = styled(ErrContent)`
   padding-top: 100px;
 `;
 export default function ErrModal({ message }) {
-  console.log(message);
   const {
     userModal: { errorModal },
   } = useSelector(state => state);
-  console.log(errorModal);
   return (
     <Wrapper view={errorModal}>
       <Main>

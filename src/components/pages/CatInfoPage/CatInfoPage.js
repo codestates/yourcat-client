@@ -72,7 +72,6 @@ const CatInfoPage = React.memo(props => {
   };
   const handleRequest = reqData => {
     dispatch(signUpRequest(reqData)).then(res => {
-      console.log(res);
       if (
         res.payload &&
         res.payload.data.message === '회원가입이 완료되었습니다.'
@@ -94,7 +93,6 @@ const CatInfoPage = React.memo(props => {
   };
   const handleWithCatSubmit = () => {
     const { age, name, image } = data;
-    console.log(data);
     if (age && name && image) {
       handleRequest({
         ...userData,
@@ -106,9 +104,7 @@ const CatInfoPage = React.memo(props => {
     }
   };
   const test = response => {
-    console.log(response);
     const truePath = response && response.data.filePath.split('/')[1];
-    console.log(truePath);
     if (truePath) {
       setData({ ...data, image: truePath });
     } else {
