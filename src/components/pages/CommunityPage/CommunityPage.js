@@ -58,14 +58,14 @@ const SELECT = styled.select`
 const LISTCATEGORY = styled.div`
   display: flex;
   felx-direction: row;
-  justify-content: center;
+  padding: 0 0 0 370px;
 `;
 
 const CATEGORYTITLE = styled.div`
   display: flex;
   padding: 10px;
   border: none;
-  width: 40%;
+  width: 39%;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-weight: 300;
@@ -87,7 +87,7 @@ const CATEGORYDATE = styled.div`
   display: flex;
   padding: 10px;
   border: none;
-  width: 10%;
+  width: 23%;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-weight: 300;
