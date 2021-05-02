@@ -174,7 +174,7 @@ function CommunityPage() {
           <option value="knowhow">Knowhow</option>
         </SELECT>
       </LIST>
-      {categorys.map(({ title, contentId, userId, createdAt }) => (
+      {categorys.map(({ title, contentId, user, createdAt }) => (
         <LISTCATEGORY>
           {title.length > 30 ? (
             <CATEGORYTITLE key={title}>
@@ -187,8 +187,8 @@ function CommunityPage() {
               <Link to={`/community/detail/${contentId}`}>{title}</Link>
             </CATEGORYTITLE>
           )}
-          {userId !== undefined ? (
-            <CATEGORYWRITER key={userId}>{userId.nickname}</CATEGORYWRITER>
+          {user !== undefined ? (
+            <CATEGORYWRITER key={user}>{user.userName}</CATEGORYWRITER>
           ) : (
             <div> </div>
           )}

@@ -65,16 +65,16 @@ const DESCRIPTION = styled.div`
 `;
 
 function DetailContents() {
-  const [{ title, description, like, userId }, setContentData] = useState('');
+  const [{ title, description, like, user }, setContentData] = useState('');
 
   const [likeSwitch, setLikeSwitch] = useState(false);
 
   useEffect(() => {
     console.log('likeSwitch', likeSwitch);
     if (likeSwitch) {
-      setContentData({ title, description, userId, like: like + 1 });
+      setContentData({ title, description, user, like: like + 1 });
     } else {
-      setContentData({ title, description, userId, like: like - 1 });
+      setContentData({ title, description, user, like: like - 1 });
     }
   }, [likeSwitch]);
 
@@ -97,8 +97,8 @@ function DetailContents() {
     <>
       <TITLE>{title}</TITLE>
       <DIV>
-        {userId !== undefined ? (
-          <NICKNAME>😸Nickname: {userId.nickname}</NICKNAME>
+        {user !== undefined ? (
+          <NICKNAME>😸Nickname: {user.userName}</NICKNAME>
         ) : (
           <> </>
         )}
