@@ -61,7 +61,7 @@ export default function NavBar() {
           <Link to="/tutorials">
             <Category>Tutorials</Category>
           </Link>
-          <Link to="/community">
+          <Link to="/contents">
             <Category>Community</Category>
           </Link>
           <Link to="/photo">
