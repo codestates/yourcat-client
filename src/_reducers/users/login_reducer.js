@@ -1,4 +1,4 @@
-export default function loginreducer(state = {}, action) {
+export default function loginreducer(state = '', action) {
   switch (action.type) {
     case 'USER_LOGIN':
       return action.payload;
@@ -7,7 +7,7 @@ export default function loginreducer(state = {}, action) {
     case 'GET_TOKEN':
       return state;
     case 'DELETE_TOKEN':
-      return {};
+      return '';
     default:
       return state;
   }

@@ -41,9 +41,10 @@ const LoginModal = React.memo(props => {
       setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
       dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
-      dispatch(loginUser({ email, password })) //
+      dispatch(loginUser({ email, password })) // 서버오류처리
         .then(({ payload: { data } }) => {
           dispatch(tokenHandler(data.accessToken));
+          dispatch({ type: 'LOGIN_MODAL_FALSE' });
         });
     }
   };
@@ -90,3 +91,7 @@ LoginModal.propTypes = {
   setStep: propTypes.func.isRequired,
 };
 export default LoginModal;
+/* 1. 로그인 했니?
+로그인 상태를 페이지마다 가져와야 한다.
+전역상태관리엔 리덕스가 크게 이점이 없는듯.
+*/
