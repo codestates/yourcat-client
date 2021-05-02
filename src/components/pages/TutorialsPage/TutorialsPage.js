@@ -6,13 +6,14 @@ import dummy from './TutorialsDummy.json';
 const StyledTitle = styled.div`
   padding: 20px;
   width: 70%;
-  color: Black;
+  margin: 150px 150px 0px 300px;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-size: 30px;
   font-weight: bold;
-  background-color: #e8f5e9;
 `;
 const StyledDate = styled.div`
   padding: 15px 15px 15px 30px;
+  margin: 0px 0px 0px 300px;
   border: 3px;
   width: 70%;
   color: gray;
@@ -20,23 +21,24 @@ const StyledDate = styled.div`
 `;
 const Div = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  width: 70%;
+  margin: 0px 0px 0px 400px;
 `;
 const StyledThumbnails = styled.img`
-  display: flex;
-  flex-direction: column;
+  flex: none;
   padding: 20px;
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
+  box-shadow: inset 0 -2px 6px #ffc5a1;
 `;
 const StyledSummary = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 5px 25px 25px 25px;
+  flex: none;
+  padding: 110px 25px 100px 25px;
   border: 3px;
-  width: 70%;
-  color: black;
-  background-color: #ffebee;
+  width: 63%;
+  font-size: 20px;
+  background-color: #fcf9ea;
 `;
 
 function TutorialsPage() {
@@ -51,7 +53,7 @@ function TutorialsPage() {
           <Div>
             <StyledThumbnails
               key={el.id}
-              src={`http://placekitten.com/g/300/30${el.id}`}
+              src={`http://placekitten.com/300/30${el.id}`}
             >
               {}
             </StyledThumbnails>

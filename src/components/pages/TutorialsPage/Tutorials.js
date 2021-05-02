@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import dummy from './TutorialsDummy.json';
 
 const Title = styled.div`
-  margin: 15px;
-  padding: 30px;
-  border: 50px;
+  padding: 20px;
+  width: 70%;
+  margin: 150px 150px 0px 300px;
   width: 70%;
   font-size: 45px;
   font-weight: bold;
