@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import NavBar from './Sections/NavBar';
 import BlackCat from '../../../images/blackCat.png';
 
 const CatImg = styled('img')`
@@ -61,7 +60,6 @@ const WelcomeDesc = styled('p')`
 export default function LandingPage() {
   return (
     <div>
-      <NavBar />
       <Box>
         <CatBox>
           <CatImg />

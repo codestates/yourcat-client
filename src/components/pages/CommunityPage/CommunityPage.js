@@ -178,13 +178,13 @@ function CommunityPage() {
         <LISTCATEGORY>
           {title.length > 30 ? (
             <CATEGORYTITLE key={title}>
-              <Link to={`/contents/detail/${contentId}`}>
+              <Link to={`/community/detail/${contentId}`}>
                 {title.slice(0, 30)}...
               </Link>
             </CATEGORYTITLE>
           ) : (
             <CATEGORYTITLE key={title}>
-              <Link to={`/contents/detail/${contentId}`}>{title}</Link>
+              <Link to={`/community/detail/${contentId}`}>{title}</Link>
             </CATEGORYTITLE>
           )}
           {userId !== undefined ? (

@@ -85,7 +85,7 @@ function DetailContents() {
     axios
       .get(url)
       .then(response => {
-        // console.log('res.data.contentInfo ', response.data.contentInfo);
+        console.log('res.data ', response.data);
         setContentData(response.data.contentInfo);
       })
       .catch(err => {
