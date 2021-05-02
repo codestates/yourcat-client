@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import TutorialsPage from './pages/TutorialsPage/TutorialsPage';
 import Tutorials from './pages/TutorialsPage/Tutorials';
-import Category from './pages/CommunityPage/Sections/CategoryContents';
+import Community from './pages/CommunityPage/CommunityPage';
 import DetailPage from './pages/CommunityPage/Sections/DetailContents';
 import PhotoPage from './pages/PhotoPage/PhotoPage';
 import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
@@ -29,7 +29,7 @@ function App() {
               <Tutorials />
             </Route>
             <Route exact path="/community">
-              <Category />
+              <Community />
             </Route>
             <Route exact path="/community/detail/:contentId">
               <DetailPage />
