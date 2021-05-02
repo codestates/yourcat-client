@@ -3,18 +3,20 @@ import create from './contents/createContents_reducer';
 import edit from './contents/editContents_reducer';
 import detail from './contents/detailContents_reducer';
 import category from './contents/categoryContents_reducer';
-import signUpDataReducer from './users/signUpDataReducer';
-import signUpReducer from './users/signUpReducer';
-import loginreducer from './users/login_reducer';
+import signUpData from './users/signUpData_reducer';
+import signUpRequest from './users/signUpRequest_reducer';
+import login from './users/login_reducer';
+import userModal from './users/modal_reducer';
 
 const rootReducer = combineReducers({
-  loginreducer,
+  login,
   create,
   edit,
   detail,
   category,
-  signUpDataReducer,
-  signUpReducer,
+  signUpData,
+  signUpRequest,
+  userModal,
 });
 
 export default rootReducer;

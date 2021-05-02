@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import axios from 'axios';
 
 // post 요청 보내는 곳
-const url = 'http://localhost:4000/test/image';
+const url = 'http://localhost:4000/images/upload';
 
 // 렌더링 되는 엘리먼트 스타일링
 const Button = styled.button`
@@ -72,6 +72,7 @@ function postRequest(formData, cb) {
   axios
     .post(url, formData)
     .then(res => {
+      console.log(res);
       cb(res);
     })
     .catch(err => console.log(err));
@@ -90,26 +91,28 @@ function postRequest(formData, cb) {
 // --------------------------------------------------------------------------------------------------
 
 const ImageUploader = props => {
+  const formData = new FormData();
   const { width, height, border, callback } = props;
-  const [file, setFile] = useState('');
+  const [{ file }, setFile] = useState({ file: '' });
   const [previewURL, setPreviewURL] = useState('');
   const [preview, setPreview] = useState(null);
   const hiddenFileInput = React.useRef(null);
-  const formData = new FormData();
 
   useEffect(() => {
     if (file !== '') {
+      formData.append('image', file);
       setPreview(imgTagGenerator(width, height, border, previewURL));
       postRequest(formData, callback);
     }
   }, [previewURL]);
 
   const handleChange = event => {
+    console.log(1);
     const reader = new FileReader();
     const fileData = event.target.files[0];
     reader.onloadend = () => {
-      setFile(fileData);
-      formData.append('image', fileData);
+      console.log(2);
+      setFile({ file: fileData });
       setPreviewURL(reader.result);
     };
     if (fileData) {
@@ -117,6 +120,8 @@ const ImageUploader = props => {
     }
   };
   const handleClick = () => {
+    console.log(0);
+
     hiddenFileInput.current.click();
   };
   return (

@@ -7,7 +7,7 @@ import CommunityPage from './pages/CommunityPage/CommunityPage';
 import PhotoPage from './pages/PhotoPage/PhotoPage';
 import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
 import GlobalStyles from './GlobalStyles';
-import MultiStepForm from './pages/MultiStepForm/MultiStepForm';
+import MainModal from './pages/MultiStepForm/MainModal';
 
 function App() {
   return (
@@ -34,12 +34,10 @@ function App() {
             <Route exact path="/calculator">
               <CalculatorPage />
             </Route>
-            <Route exact path="/signin">
-              <MultiStepForm />
-            </Route>
           </Switch>
         </div>
       </BrowserRouter>
+      <MainModal />
     </>
   );
 }

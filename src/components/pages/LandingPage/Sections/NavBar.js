@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import SideTab from './SideTab';
 
 const FixedNav = styled('div')`
   position: fixed;
@@ -39,14 +40,6 @@ const Category = styled('div')`
   font-size: 0.875rem;
 `;
 
-const SideTab = styled('div')`
-  margin: 7.5px 20px;
-  font-size: 0.875rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
 export default function NavBar() {
   return (
     <FixedNav>
@@ -73,9 +66,7 @@ export default function NavBar() {
         </Div>
 
         <Column>
-          <Link to="/signin">
-            <SideTab>Login</SideTab>
-          </Link>
+          <SideTab />
         </Column>
       </Nav>
     </FixedNav>

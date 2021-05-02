@@ -5,16 +5,18 @@ import validator from '../../../utils/validator';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { ButtonContainer, Button } from '../../../utils/button';
 import signUpUser from '../../../_actions/users/signUpUser';
+import ErrModal from '../../../utils/ErrModal/ErrModal';
 
 const SignUpModal = React.memo(props => {
   const dispatch = useDispatch();
-  const result = useSelector(state => state.signUpDataReducer.userData);
+  const result = useSelector(state => state.signUpData.userData);
   const [formData, setFormData] = useState({
     nickname: (result && result.nickname) || '',
     email: (result && result.email) || '',
     signupPassword: '',
     confirmsignupPassword: '',
   });
+  const [modalMessage, setModalMessage] = useState('');
   const [errMessage, setErrMessage] = useState({
     nickname: '',
     email: '',
@@ -52,7 +54,8 @@ const SignUpModal = React.memo(props => {
       !Object.values(formData).join('') ||
       Object.values(errMessage).join('')
     ) {
-      console.log('wrong!');
+      setModalMessage('회원가입 정보를 입력해주세요');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
       const { nickname, email, signupPassword } = formData;
       dispatch(
@@ -62,16 +65,19 @@ const SignUpModal = React.memo(props => {
     }
   };
   const handleCalcelClick = () => {
+    dispatch({ type: 'DELETE_USER_DATA' });
     props.setStep('login');
   };
 
   return (
-    <section>
+    <>
+      Sign In
       <form onSubmit={event => event.preventDefault}>
         {['nickname', 'email', 'signupPassword', 'confirmPassword'].map(key => {
           return (
             <Container key={key}>
               <Input
+                placeholder={key}
                 type={key.includes('Password') ? 'password' : 'text'}
                 onChange={handleData(key)}
                 onBlur={handleBlur(key)}
@@ -91,7 +97,8 @@ const SignUpModal = React.memo(props => {
           다음
         </Button>
       </ButtonContainer>
-    </section>
+      <ErrModal message={modalMessage} />
+    </>
   );
 });
 SignUpModal.propTypes = {
