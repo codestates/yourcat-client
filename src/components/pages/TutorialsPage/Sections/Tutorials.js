@@ -1,34 +1,35 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import dummy from './TutorialsDummy.json';
+import dummy from '../TutorialsDummy.json';
 
 const Title = styled.div`
   padding: 20px;
   width: 70%;
   margin: 150px 150px 0px 300px;
   width: 70%;
-  font-size: 45px;
+  font-size: 50px;
   font-weight: bold;
   text-align: center;
-  background-color: #e8f5e9;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 `;
 const Date = styled.div`
-  margin: 20px;
+  margin: 0px 0px 0px 300px;
   padding: 15px;
   border: 3px;
   width: 70%;
   color: gray;
   font-size: 15px;
-  display: block;
 `;
 const Description = styled.div`
-  margin: 15px;
+  margin: 100px 0px 50px 410px;
   padding: 30px;
   border: 50px;
-  width: 70%;
-  color: black;
-  background-color: #ffebee;
+  width: 60%;
+  font-size: 25px;
+  font-weight: lighter;
+  line-height: 180%;
+  background-color: #fffeef;
 `;
 
 function Tutorials() {
