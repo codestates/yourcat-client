@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 
 const INPUT = styled.input`
@@ -12,6 +12,7 @@ const INPUT = styled.input`
 `;
 function EditContents({ title, description, setIsEdit, setContentData }) {
   const { contentId } = useParams();
+  const history = useHistory();
   const [change, setChange] = useState({ title, description });
   const [{ result }, setResult] = useCheckToken();
   const handleDetailChange = key => event => {
@@ -46,6 +47,25 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   const switchIsEdit = () => {
     setIsEdit(false);
   };
+  const commentDeleteHandler = () => {
+    setResult();
+    if (result) {
+      axios
+        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
+          headers: {
+            authorization: `Bearer ${result}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(res => {
+          console.log(res);
+          history.push('/community');
+        })
+        .catch(() => alert('불가능'));
+    } else {
+      alert('로그인이 필요합니다.');
+    }
+  };
   return (
     <form onSubmit={event => event.preventDefault}>
       <INPUT
@@ -64,6 +84,9 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
       </button>
       <button type="button" onClick={handleSubmit}>
         수정
+      </button>
+      <button type="button" onClick={commentDeleteHandler}>
+        삭제
       </button>
     </form>
   );
