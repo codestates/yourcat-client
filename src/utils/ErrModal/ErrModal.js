@@ -26,8 +26,9 @@ const Main = styled.div`
   width: 200px;
   height: auto;
   border-radius: 5px;
-  background-color: #badfdb;
+  background-color: #f8a978;
   align-items: center;
+  color: white;
 `;
 const MainChild = styled(ErrContent)`
   padding-top: 100px;

@@ -10,28 +10,35 @@ const url = 'http://localhost:4000/images/upload';
 const Button = styled.button`
   /* Insert your favorite CSS code to style a button */
   all: unset;
-  margin: 0;
+  margin: 10px 0;
   box-sizing: border-box;
   text-align: center;
   cursor: Pointer;
-  background: white;
-  border: 1px solid grey;
+  background: #badfdb;
+  color: white;
+  border: none;
   border-radius: 2px;
   width: ${props => props.width - 2}px;
   height: 20px;
   top: ${props => props.height + 10}px;
-  position: absolute;
+
   &:hover {
-    background-color: grey;
-    color: black;
+    background-color: #ffc5a1;
   }
 `;
 const Container = styled.section`
   box-sizing: border-box;
-  border: 1px solid grey;
+  border: 2px solid #ffc5a1;
   border-radius: ${props => props.border};
   width: ${props => props.width}px;
   height: ${props => props.height}px;
+`;
+
+const DIV = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 // --------------------------------------------------------------------------------------------------
 // img 태그 조절용
@@ -125,21 +132,24 @@ const ImageUploader = props => {
     hiddenFileInput.current.click();
   };
   return (
-    <Container width={width} height={height} border={border}>
-      {preview}
+    <DIV>
+      <Container width={width} height={height} border={border}>
+        {preview}
+
+        <label htmlFor="file">
+          <input
+            type="file"
+            accept=".gif, .jpg, .png"
+            ref={hiddenFileInput}
+            onChange={handleChange}
+            style={{ display: 'none' }}
+          />
+        </label>
+      </Container>
       <Button onClick={handleClick} width={width} height={height}>
         Upload Photo
       </Button>
-      <label htmlFor="file">
-        <input
-          type="file"
-          accept=".gif, .jpg, .png"
-          ref={hiddenFileInput}
-          onChange={handleChange}
-          style={{ display: 'none' }}
-        />
-      </label>
-    </Container>
+    </DIV>
   );
 };
 

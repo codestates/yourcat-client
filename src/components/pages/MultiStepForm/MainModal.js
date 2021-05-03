@@ -18,14 +18,14 @@ const Main = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  width: auto;
-  height: auto;
+  width: 420px;
+  height: 500px;
   border-radius: 5px;
-  background-color: #badfdb;
+  background-color: #fcf9ea;
   align-items: center;
 `;
 const MainChild = styled(MultiStepForm)`
