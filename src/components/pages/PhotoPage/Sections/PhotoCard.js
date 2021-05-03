@@ -1,4 +1,6 @@
 import React from 'react';
+import propTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -22,15 +24,11 @@ const useStyles = makeStyles(() => ({
     paddingTop: '56.25%', // 16:9
   },
 }));
-// cardheader : avatar-src: user고양이프로필사진
-// cardheader : title: user 닉네임
-// cardmedia.image : 업로드한 사진
-// cardcontent.typography : 업로드한 제목
-// response.data하면 촤르륵 나와요오
-// contents list(배열) 안에 contents가 촤르륵
-// 하나의 컨텐츠 안에 userId
-export default function PhotoCard() {
+
+export default function PhotoCard(props) {
   const classes = useStyles();
+  const { user, image, title } = props;
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -40,18 +38,21 @@ export default function PhotoCard() {
         action={
           <IconButton aria-label="add to favorites">{heartIcon}</IconButton>
         }
-        title="JawsJaws"
+        title={user}
       />
-      <CardMedia
-        className={classes.media}
-        image="http://placekitten.com/500/400"
-        title="Paella dish"
-      />
+      <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook.
+          {title}
         </Typography>
       </CardContent>
     </Card>
   );
 }
+
+PhotoCard.propTypes = {
+  user: propTypes.string.isRequired,
+  image: propTypes.string.isRequired,
+
+  title: propTypes.string.isRequired,
+};
