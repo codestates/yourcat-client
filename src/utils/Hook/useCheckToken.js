@@ -1,4 +1,4 @@
-import { useState } from 'react'; // useEffect,
+import { useEffect, useState } from 'react'; // useEffect,
 import { useSelector } from 'react-redux';
 
 // --------------------------
@@ -9,13 +9,17 @@ import { useSelector } from 'react-redux';
 // 실행시 result = token || false
 // --------------------------
 export default () => {
-  const [data, setData] = useState({});
   const result = useSelector(dat => {
     return dat.login ? dat.login : false;
   });
+  const [data, setData] = useState({ result });
+  useEffect(() => {
+    setData({ result });
+  }, [result]);
   const handler = () => {
     setData({ result });
   };
+
   return [data, handler];
 };
 

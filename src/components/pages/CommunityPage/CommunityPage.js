@@ -175,7 +175,7 @@ function CommunityPage() {
         </SELECT>
       </LIST>
       {categorys.map(({ title, contentId, user, createdAt }) => (
-        <LISTCATEGORY>
+        <LISTCATEGORY key={contentId}>
           {title.length > 30 ? (
             <CATEGORYTITLE key={title}>
               <Link to={`/community/detail/${contentId}`}>

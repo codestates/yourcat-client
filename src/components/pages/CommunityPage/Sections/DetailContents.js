@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+// import { useSelector } from 'react-redux';
+import useCheckToken from '../../../../utils/Hook/useCheckToken';
+import EditContents from './EditContents';
 
 axios.defaults.withCredentials = true;
 
@@ -66,8 +69,11 @@ const DESCRIPTION = styled.div`
 
 function DetailContents() {
   const [{ title, description, like, user }, setContentData] = useState('');
-
+  const [isEdit, setIsEdit] = useState(false);
   const [likeSwitch, setLikeSwitch] = useState(false);
+
+  const { contentId } = useParams();
+  const [{ result }, setResult] = useCheckToken();
 
   useEffect(() => {
     console.log('likeSwitch', likeSwitch);
@@ -77,8 +83,6 @@ function DetailContents() {
       setContentData({ title, description, user, like: like - 1 });
     }
   }, [likeSwitch]);
-
-  const { contentId } = useParams();
 
   useEffect(() => {
     const url = `http://localhost:4000/contents/detail/${contentId}`;
@@ -92,10 +96,29 @@ function DetailContents() {
         console.log(err);
       });
   }, []);
+  const switchIsEdit = () => {
+    setResult();
+    if (result) {
+      setIsEdit(true);
+    } else {
+      alert('로그인이 필요합니다.');
+    }
+  };
 
-  return (
+  return isEdit ? (
+    <EditContents
+      title={title}
+      description={description}
+      user={user}
+      setIsEdit={setIsEdit}
+      setContentData={setContentData}
+    />
+  ) : (
     <>
       <TITLE>{title}</TITLE>
+      <button type="button" onClick={switchIsEdit}>
+        수정
+      </button>
       <DIV>
         {user !== undefined ? (
           <NICKNAME>😸Nickname: {user.userName}</NICKNAME>
