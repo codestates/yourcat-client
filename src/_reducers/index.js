@@ -8,6 +8,7 @@ import signUpRequest from './users/signUpRequest_reducer';
 import login from './users/login_reducer';
 import userModal from './users/modal_reducer';
 import userInfo from './users/getuserinfo_reducer';
+import photo from './contents/createPhoto_reducer';
 
 const rootReducer = combineReducers({
   login,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   signUpRequest,
   userModal,
   userInfo,
+  photo,
 });
 
 export default rootReducer;

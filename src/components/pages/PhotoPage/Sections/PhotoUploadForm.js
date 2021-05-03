@@ -61,10 +61,7 @@ function PhotoUploadForm() {
   const handleRequest = reqData => {
     dispatch(createPhoto(reqData)).then(res => {
       console.log(res);
-      if (
-        res.payload &&
-        res.payload.data.message === '회원가입이 완료되었습니다.'
-      ) {
+      if (res.payload) {
         alert('성공!');
       } else {
         console.log('something wrong');
@@ -84,13 +81,13 @@ function PhotoUploadForm() {
     }
   };
   const getPhotoPath = response => {
-    console.log(response);
+    console.log('getphotopathres는 ', response);
     const truePath = response && response.data.filePath;
-    console.log(truePath);
+    console.log('path는 ', truePath);
     if (truePath) {
       setPhoto(truePath);
     } else {
-      console.log('');
+      console.log('응답 실패');
     }
   };
   return (
