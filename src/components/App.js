@@ -3,11 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import TutorialsPage from './pages/TutorialsPage/TutorialsPage';
 import Tutorials from './pages/TutorialsPage/Tutorials';
-import CommunityPage from './pages/CommunityPage/CommunityPage';
+import Community from './pages/CommunityPage/CommunityPage';
+import DetailPage from './pages/CommunityPage/Sections/DetailContents';
 import PhotoPage from './pages/PhotoPage/PhotoPage';
 import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
 import GlobalStyles from './GlobalStyles';
 import MainModal from './pages/MultiStepForm/MainModal';
+import NavBar from './pages/LandingPage/Sections/NavBar';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <div className="App">
+          <NavBar />
           <Switch>
             <Route exact path="/">
               <LandingPage />
@@ -26,7 +29,10 @@ function App() {
               <Tutorials />
             </Route>
             <Route exact path="/community">
-              <CommunityPage />
+              <Community />
+            </Route>
+            <Route exact path="/community/detail/:contentId">
+              <DetailPage />
             </Route>
             <Route exact path="/photo">
               <PhotoPage />
