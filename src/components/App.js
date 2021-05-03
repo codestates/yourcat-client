@@ -10,6 +10,7 @@ import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
 import GlobalStyles from './GlobalStyles';
 import MainModal from './pages/MultiStepForm/MainModal';
 import NavBar from './pages/LandingPage/Sections/NavBar';
+import PhotoUploadForm from './pages/PhotoPage/Sections/PhotoUploadForm';
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
             </Route>
             <Route exact path="/photo">
               <PhotoPage />
+            </Route>
+            <Route exact path="/photoupload">
+              <PhotoUploadForm />
             </Route>
             <Route exact path="/calculator">
               <CalculatorPage />

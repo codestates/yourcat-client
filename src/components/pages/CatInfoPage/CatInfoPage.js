@@ -113,7 +113,7 @@ const CatInfoPage = React.memo(props => {
     }
   };
   const test = response => {
-    const truePath = response && response.data.filePath.split('/')[1];
+    const truePath = response && response.data.filePath;
     if (truePath) {
       setData({ ...data, image: truePath });
     } else {

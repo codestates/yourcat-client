@@ -6,6 +6,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
+const heartIcon = <FontAwesomeIcon icon={faHeart} />;
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,6 +36,9 @@ export default function PhotoCard() {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" src="http://placekitten.com/300/400" />
+        }
+        action={
+          <IconButton aria-label="add to favorites">{heartIcon}</IconButton>
         }
         title="JawsJaws"
       />

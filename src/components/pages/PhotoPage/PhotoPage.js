@@ -1,22 +1,22 @@
-// import { response } from 'express';
 import React from 'react';
-import PhotoUploadForm from './Sections/PhotoUploadForm';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Grid from '@material-ui/core/Grid';
-// import PhotoCard from './Sections/PhotoCard';
-// import NavBar from '../LandingPage/Sections/NavBar';
-// const useStyles = makeStyles(() => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-// }));
+// import PhotoUploadForm from './Sections/PhotoUploadForm';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import PhotoCard from './Sections/PhotoCard';
+import NavBar from '../LandingPage/Sections/NavBar';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
 export default function PhotoPage() {
-  // const classes = useStyles();
+  const classes = useStyles();
   return (
     <>
-      {/* <NavBar /> */}
-      <PhotoUploadForm />
-      {/* <div
+      <NavBar />
+
+      <div
         className={classes.root}
         style={{
           paddingTop: '100px',
@@ -40,9 +40,8 @@ export default function PhotoPage() {
           <Grid item lg={3} md={4} xs={12}>
             <PhotoCard />
           </Grid>
-        </Grid> 
+        </Grid>
       </div>
-      */}
     </>
   );
 }
