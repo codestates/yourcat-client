@@ -95,6 +95,11 @@ export default function InputSection() {
   const [MER, setMER] = useState(1);
   const [spoon, setSpoon] = useState('');
   const catCriteria = useRef();
+  const [criteria, setCriteria] = useState('');
+
+  const optionHandler = event => {
+    setCriteria(event.currentTarget.value);
+  };
 
   const onWeightHandler = event => {
     setWeight(event.currentTarget.value);
@@ -141,7 +146,6 @@ export default function InputSection() {
     }
   };
 
-  // FIXME: cat's criteria가 처음 클릭한 걸로만 계산 됨
   useEffect(() => {
     onRERHandler(weight);
     onMERHandler(RER);
@@ -159,9 +163,6 @@ export default function InputSection() {
     console.log('RER: ', RER);
     console.log('MER: ', MER);
     console.log('하루에 ', spoon, '스푼');
-
-    // setCalorie('');
-    // setWeight('');
   };
 
   const onResetHandler = () => {
@@ -187,7 +188,7 @@ export default function InputSection() {
             kg
           </INPUTDIV>
           <INPUTDIV>
-            <select ref={catCriteria}>
+            <select onChange={optionHandler} value={criteria} ref={catCriteria}>
               <option value="default">--choose option--</option>
               <option value="babycat">0 to 3 months </option>
               <option value="4kitten">4 months to 6 months</option>
