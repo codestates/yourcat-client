@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
+import styled from 'styled-components';
+
 import validator from '../../../utils/validator';
 import { Container, Input, ErrMsg } from '../../../utils/InputBox';
+import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
 import { ButtonContainer, Button } from '../../../utils/button';
 import signUpUser from '../../../_actions/users/signUpUser';
 import ErrModal from '../../../utils/ErrModal/ErrModal';
+
+const INPUTDIV = styled('div')`
+  height: 50px;
+  margin: 70px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const SignUpModal = React.memo(props => {
   const dispatch = useDispatch();
@@ -70,25 +81,31 @@ const SignUpModal = React.memo(props => {
   };
 
   return (
-    <>
-      Sign In
-      <form onSubmit={event => event.preventDefault}>
-        {['nickname', 'email', 'signupPassword', 'confirmPassword'].map(key => {
-          return (
-            <Container key={key}>
-              <Input
-                placeholder={key}
-                type={key.includes('Password') ? 'password' : 'text'}
-                onChange={handleData(key)}
-                onBlur={handleBlur(key)}
-                onFocus={handleFocus(key)}
-                value={formData[key] || ''}
-              />
-              <ErrMsg>{errMessage[key] ? errMessage[key] : null}</ErrMsg>
-            </Container>
-          );
-        })}
-      </form>
+    <MODAL>
+      <HeaderBox>
+        <HEADER>Sign Up</HEADER>
+      </HeaderBox>
+      <INPUTDIV>
+        <form onSubmit={event => event.preventDefault}>
+          {['nickname', 'email', 'signupPassword', 'confirmPassword'].map(
+            key => {
+              return (
+                <Container key={key}>
+                  <Input
+                    placeholder={key}
+                    type={key.includes('Password') ? 'password' : 'text'}
+                    onChange={handleData(key)}
+                    onBlur={handleBlur(key)}
+                    onFocus={handleFocus(key)}
+                    value={formData[key] || ''}
+                  />
+                  <ErrMsg>{errMessage[key] ? errMessage[key] : null}</ErrMsg>
+                </Container>
+              );
+            },
+          )}
+        </form>
+      </INPUTDIV>
       <ButtonContainer>
         <Button type="button" onClick={handleCalcelClick}>
           취소
@@ -98,7 +115,7 @@ const SignUpModal = React.memo(props => {
         </Button>
       </ButtonContainer>
       <ErrModal message={modalMessage} />
-    </>
+    </MODAL>
   );
 });
 SignUpModal.propTypes = {

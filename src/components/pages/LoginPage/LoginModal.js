@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 import propTypes from 'prop-types';
 import validation from '../../../utils/validator';
 import { loginUser, tokenHandler } from '../../../_actions/users/loginUser';
-import { Container, Input, ErrMsg } from '../../../utils/InputBox';
+import { Container, INPUTDIV, Input, ErrMsg } from '../../../utils/InputBox';
+import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
+
 import { ButtonContainer, Button } from '../../../utils/button';
 import ErrModal from '../../../utils/ErrModal/ErrModal';
 
@@ -55,23 +57,29 @@ const LoginModal = React.memo(props => {
     dispatch({ type: 'LOGIN_MODAL_FALSE' });
   };
   return (
-    <>
-      <span>Login</span>
-      <form onSubmit={e => e.preventDefault()}>
-        {['email', 'password'].map(key => (
-          <Container key={key} isValid={errMessage[key]}>
-            <Input
-              type={key === 'password' ? 'password' : 'text'}
-              onBlur={handleBlur(key)}
-              onChange={handleChange(key)}
-              onFocus={handleFocus(key)}
-              value={loginInfo[key] || ''}
-              placeholder={key}
-            />
-            <ErrMsg>{errMessage[key] ? errMessage[key] : null}</ErrMsg>
-          </Container>
-        ))}
-      </form>
+    <MODAL>
+      <HeaderBox>
+        <HEADER>Login</HEADER>
+      </HeaderBox>
+
+      <INPUTDIV>
+        <form onSubmit={e => e.preventDefault()}>
+          {['email', 'password'].map(key => (
+            <Container key={key} isValid={errMessage[key]}>
+              <Input
+                type={key === 'password' ? 'password' : 'text'}
+                onBlur={handleBlur(key)}
+                onChange={handleChange(key)}
+                onFocus={handleFocus(key)}
+                value={loginInfo[key] || ''}
+                placeholder={key}
+              />
+              <ErrMsg>{errMessage[key] ? errMessage[key] : null}</ErrMsg>
+            </Container>
+          ))}
+        </form>
+      </INPUTDIV>
+
       <ButtonContainer>
         <Button type="button" onClick={handleCancel}>
           취소
@@ -84,7 +92,7 @@ const LoginModal = React.memo(props => {
         </Button>
       </ButtonContainer>
       <ErrModal message={modalMessage} />
-    </>
+    </MODAL>
   );
 });
 LoginModal.propTypes = {

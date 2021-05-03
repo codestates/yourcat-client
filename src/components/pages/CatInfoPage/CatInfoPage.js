@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import signUpRequest from '../../../_actions/users/signUpRequest';
 import ImageUploader from '../../../utils/ImageUploader';
 import ErrModal from '../../../utils/ErrModal/ErrModal';
+import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
+
+import { Button } from '../../../utils/button';
+
 // import useDelete from '../../../utils/useDelete';
 
 const Div = styled.div`
@@ -14,7 +18,9 @@ const Div = styled.div`
 `;
 const Section = styled.section`
   display: flex;
-  margin-top: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 20px;
 `;
 const Input = styled.input`
   all: unset;
@@ -25,11 +31,14 @@ const Input = styled.input`
 `;
 const ButtonWrap = styled.section`
   display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 10px;
 `;
-const Button = styled.button`
-  width: 50px;
-  margin: 5px;
-`;
+// const Button = styled.button`
+//   width: 50px;
+//   margin: 5px;
+// `;
 //------------------------
 // 버튼 비활성화 CSS 추가 가능
 //------------------------
@@ -113,13 +122,15 @@ const CatInfoPage = React.memo(props => {
     }
   };
   return (
-    <>
-      Cat Info
+    <MODAL>
+      <HeaderBox>
+        <HEADER>Cat Info</HEADER>
+      </HeaderBox>
       <Section>
         <form onSubmit={event => event.preventDefault()}>
           <ImageUploader
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             border="5px"
             callback={test}
           />
@@ -168,7 +179,7 @@ const CatInfoPage = React.memo(props => {
         </Button>
       </ButtonWrap>
       <ErrModal message={modalMessage} />
-    </>
+    </MODAL>
   );
 });
 CatInfoPage.propTypes = {
