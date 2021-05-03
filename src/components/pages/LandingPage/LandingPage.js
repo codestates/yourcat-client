@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import BlackCat from '../../../images/blackCat.png';
 import pageImage from '../../../images/mainCalculator.png';
 
@@ -38,11 +39,6 @@ const CatBox = styled('div')`
 const Box = styled('div')`
   border: 1px solid black;
   height: 500px;
-`;
-
-const MintBox = styled('div')`
-  background-color: #badfdb;
-  height: 300px;
 `;
 
 const YellowBox = styled('div')`
@@ -184,7 +180,7 @@ export default function LandingPage() {
         </LeftTextBox>
         <IMG />
       </Container>
-      <MintBox />
+      <OrangeBox />
       <Container>
         <IMG />
         <RightTextBox>
