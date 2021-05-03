@@ -112,8 +112,9 @@ const CatInfoPage = React.memo(props => {
       dispatch({ type: 'ERROR_MODAL_TRUE' });
     }
   };
-  const test = response => {
-    const truePath = response && response.data.filePath.split('/')[1];
+  const storeAndGetImageURL = response => {
+    const truePath = response && response.data.filePath;
+    console.log(truePath);
     if (truePath) {
       setData({ ...data, image: truePath });
     } else {
@@ -132,7 +133,7 @@ const CatInfoPage = React.memo(props => {
             width={150}
             height={150}
             border="5px"
-            callback={test}
+            callback={storeAndGetImageURL}
           />
           <Div>
             <span>

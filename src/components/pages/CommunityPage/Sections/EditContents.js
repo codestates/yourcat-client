@@ -45,6 +45,7 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
     }
   };
   const switchIsEdit = () => {
+    // TODO : 유효한 유저인지 확인 후 setEdit 실행
     setIsEdit(false);
   };
   const commentDeleteHandler = () => {
@@ -61,7 +62,7 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
           console.log(res);
           history.push('/community');
         })
-        .catch(() => alert('불가능'));
+        .catch(() => alert('권한이 없습니다.'));
     } else {
       alert('로그인이 필요합니다.');
     }
