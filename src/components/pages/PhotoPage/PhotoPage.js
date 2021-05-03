@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PhotoCard from './Sections/PhotoCard';
@@ -9,6 +11,14 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
 }));
+
+const HEADER = styled('div')`
+  margin: 10px 150px;
+  margin-top: 50px;
+  padding: 10px;
+  color: #f8a978;
+  font-size: 30px;
+`;
 
 export default function PhotoPage() {
   const [photoList, setPhotoList] = useState([]);
@@ -30,6 +40,7 @@ export default function PhotoPage() {
   const classes = useStyles();
   return (
     <>
+      <HEADER>Cat Photo</HEADER>
       <div
         className={classes.root}
         style={{
