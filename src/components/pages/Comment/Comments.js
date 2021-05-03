@@ -55,7 +55,13 @@ function Comments() {
       <br />
       <div>
         {commentList &&
-          commentList.map(ele => <SingleComment comment={ele.description} />)}
+          commentList.map(ele => (
+            <SingleComment
+              key={ele.commentId}
+              comment={ele.description}
+              commentUser={ele.commentUserName}
+            />
+          ))}
       </div>
 
       <br />

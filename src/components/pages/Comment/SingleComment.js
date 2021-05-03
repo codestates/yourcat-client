@@ -19,7 +19,7 @@ const Button = styled('button')`
 function SingleComment(props) {
   const [commentValue, setCommentValue] = useState('');
   const [editComment, setEditComment] = useState(false);
-  const { comment } = props;
+  const { comment, commentUser } = props;
 
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
@@ -68,7 +68,7 @@ function SingleComment(props) {
         <img alt="프사" style={{ margin: '10px' }} />
         <div>
           <div style={{ display: 'flex' }}>
-            <Writer>코이언니</Writer>
+            <Writer>{commentUser}</Writer>
             <Button onClick={handleEditComment}>수정</Button>
             <Button>삭제</Button>
           </div>
@@ -102,6 +102,7 @@ function SingleComment(props) {
 
 SingleComment.propTypes = {
   comment: propTypes.string.isRequired,
+  commentUser: propTypes.string.isRequired,
 };
 
 export default SingleComment;
