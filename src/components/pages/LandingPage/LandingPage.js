@@ -151,8 +151,10 @@ export default function LandingPage() {
           <RightDesc>
             사람들과 함께 고양이와의 일상을 공유해보세요! <br />
             <br />
-            좋은 일이나 나쁜 일 궁금한 점을 같이 고민하고 같이 기뻐해 줄
-            집사들이 기다리고 있습니다! <br />
+            좋은 일이나 나쁜 일 궁금한 점을
+            <br />
+            <br /> 같이 고민하고 같이 기뻐해 줄 집사들이 기다리고 있습니다!{' '}
+            <br />
             <br />
             마음에 드는 글을 저장해서 편하게 관리할 수 있습니다. <br />
             <br />
@@ -197,16 +199,14 @@ export default function LandingPage() {
         <LeftTextBox>
           <WelcomeTitle>Bookmark</WelcomeTitle>
           <LeftDesc>
-            고양이와 함께한 순간 순간을 기록하고 공유하세요! <br />
+            포토 페이지에서 마음에 드는 사진이 있다구요? <br />
             <br />
-            어떠한 글도 필요없습니다.
-            <br />
-            <br /> 오직 사진만으로 고양이를 사랑하는 많은 사람들과 소통하세요.{' '}
+            저장해두고 계속 보고싶은 글이 있나요?
             <br />
             <br />
-            당신의 고양이를 사랑해 줄 많은 집사들이 기다리고 있습니다.
+            북마크 기능을 이용해 보세요! <br />
             <br />
-            <br /> your cat? our cat!
+            마이 페이지에서 내가 저장한 사진과 글을 볼 수 있습니다.
           </LeftDesc>
         </LeftTextBox>
         <IMG />
