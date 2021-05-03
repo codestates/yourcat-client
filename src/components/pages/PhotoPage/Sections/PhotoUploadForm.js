@@ -1,211 +1,255 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import propTypes from 'prop-types';
+import React, { useState } from 'react';
+// import styled from 'styled-components';
+// import propTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import fileHandler from '../../../../_actions/fileHandler';
+import createPhoto from '../../../../_actions/contents/createPhoto';
+import ImageUploader from '../../../../utils/ImageUploader';
 
-const Button = styled.button`
-  /* Insert your favorite CSS code to style a button */
-  all: unset;
-  margin: 0;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: Pointer;
-  background: white;
-  border: 1px solid grey;
-  border-radius: 2px;
-  width: ${props => props.width - 2}px;
-  height: 20px;
-  top: ${props => props.height + 10}px;
-  position: absolute;
-  &:hover {
-    background-color: grey;
-    color: black;
-  }
-`;
-const Container = styled.section`
-  box-sizing: border-box;
-  border: 1px solid grey;
-  border-radius: ${props => props.border};
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-`;
-function imgTagGenerator(width, height, border, src) {
-  return (
-    <img
-      alt=""
-      width={`${width}px`}
-      height={`${height}px`}
-      style={{
-        borderRadius: `${border}`,
-        position: 'absolute',
-      }}
-      src={src}
-    />
-  );
-}
-
-const PhotoUploadForm = props => {
-  const { width, height, border } = props;
-  const [title, setTitle] = useState('');
-
-  const [file, setFile] = useState('');
-  const [previewURL, setPreviewURL] = useState('');
-  const [preview, setPreview] = useState(null);
-  const [image, setImage] = useState('');
+function PhotoUploadForm() {
   const dispatch = useDispatch();
-  const hiddenFileInput = React.useRef(null);
-
+  const [title, setTitle] = useState('');
+  const [photo, setPhoto] = useState('');
   const onTitleHandler = event => {
     setTitle(event.currentTarget.value);
   };
-
-  useEffect(() => {
-    if (file !== '') {
-      setPreview(imgTagGenerator(width, height, border, previewURL));
-    }
-  }, [previewURL]);
-
-  const handleChange = async event => {
-    const reader = new FileReader();
-    const formData = new FormData();
-    const fileData = event.target.files[0];
-    formData.append('image', fileData);
-
-    const response = await axios.post(
-      'http://localhost:4000/images/upload',
-      formData,
-    );
-    console.log('response: ', response);
-    console.log('파일경로: ', response.data.filePath);
-    const truePath = response.data.filePath.split('/')[1];
-
-    setImage(truePath);
-    console.log('fileData: ', fileData);
-
-    reader.onloadend = () => {
-      setFile(fileData);
-      dispatch(fileHandler(fileData));
-      setPreviewURL(reader.result);
-    };
-
-    if (fileData) {
-      reader.readAsDataURL(fileData);
+  const handleRequest = reqData => {
+    dispatch(createPhoto(reqData)).then(res => {
+      console.log(res);
+      if (
+        res.payload &&
+        res.payload.data.message === '회원가입이 완료되었습니다.'
+      ) {
+        alert('성공!');
+      } else {
+        console.log('something wrong');
+      }
+    });
+  };
+  const handleSubmit = () => {
+    if (title && photo) {
+      // 모든 파일이 존재하는 경우
+      handleRequest({
+        title,
+        category: 'photo',
+        img: photo,
+      });
+    } else {
+      console.log('');
     }
   };
-
-  const handleClick = () => {
-    hiddenFileInput.current.click();
+  const getPhotoPath = response => {
+    console.log(response);
+    const truePath = response && response.data.filePath;
+    console.log(truePath);
+    if (truePath) {
+      setPhoto(truePath);
+    } else {
+      console.log('');
+    }
   };
-
   return (
-    <Container width={width} height={height} border={border}>
-      {preview}
-      <Button onClick={handleClick} width={width} height={height}>
-        Upload Photo
-      </Button>
-      <label htmlFor="file">
-        <input
-          type="file"
-          accept=".gif, .jpg, .png"
-          ref={hiddenFileInput}
-          onChange={handleChange}
-          style={{ display: 'none' }}
-        />
-      </label>
+    <>
       <div>
-        <img
-          style={{
-            width: '300px',
-            height: '240px',
-            position: 'absolute',
-            right: '50px',
-          }}
-          alt="df"
-          src={`http://localhost:4000/${image}`}
+        <ImageUploader
+          width={300}
+          height={300}
+          border="10px"
+          callback={getPhotoPath}
         />
       </div>
-      <form>
-        <div>
-          <h4>Title</h4>
-          <input
-            type="text"
-            value={title}
-            placeholder="title"
-            onChange={onTitleHandler}
-          />
-        </div>
-        <br />
-        <br />
-        <button type="submit">POST</button>
-      </form>
-    </Container>
+      <br />
+      <br />
+      <br />
+      <div>
+        <h4>Title</h4>
+        <input
+          type="text"
+          value={title}
+          placeholder="title"
+          onChange={onTitleHandler}
+        />
+      </div>
+      <br />
+      <br />
+      <button type="button" onClick={handleSubmit}>
+        POST
+      </button>
+    </>
   );
-};
-
-PhotoUploadForm.propTypes = {
-  width: propTypes.number.isRequired,
-  height: propTypes.number.isRequired,
-  border: propTypes.string.isRequired,
-};
-
+}
 export default PhotoUploadForm;
-
-// // import FileUploader from '../../../../utils/ImageUploader';
-
-// function PhotoUploadForm() {
+// ------------------------------------------------
+// ----------------------
+// // post 요청 보내는 곳
+// const url = 'http://localhost:4000/images/upload';
+// // 렌더링 되는 엘리먼트 스타일링
+// const Button = styled.button`
+//   /* Insert your favorite CSS code to style a button */
+//   all: unset;
+//   margin: 0;
+//   box-sizing: border-box;
+//   text-align: center;
+//   cursor: Pointer;
+//   background: white;
+//   border: 1px solid grey;
+//   border-radius: 2px;
+//   width: ${props => props.width - 2}px;
+//   height: 20px;
+//   top: ${props => props.height + 10}px;
+//   position: absolute;
+//   &:hover {
+//     background-color: grey;
+//     color: black;
+//   }
+// `;
+// const Container = styled.section`
+//   box-sizing: border-box;
+//   border: 1px solid grey;
+//   border-radius: ${props => props.border};
+//   width: ${props => props.width}px;
+//   height: ${props => props.height}px;
+// `;
+// // --------------------------------------------------------------------------------------------------
+// // img 태그 조절용
+// //
+// // 매개변수 :
+// // --- width, height, border : ImageUploader 엘리먼트가 props로 받아온 스타일링 데이터
+// // --- src : 렌더링 되는 이미지 source
+// // --------------------------------------------------------------------------------------------------
+// function imgTagGenerator(width, height, border, src) {
+//   return (
+//     <img
+//       alt=""
+//       width={`${width}px`}
+//       height={`${height}px`}
+//       style={{
+//         borderRadius: `${border}`,
+//         position: 'absolute',
+//       }}
+//       src={src}
+//     />
+//   );
+// }
+// // --------------------------------------------------------------------------------------------------
+// // post 요청
+// //
+// // 매개변수 :
+// // --- formData : 요청보낼 formData
+// // --- cb : ImageUploader 엘리먼트가 props로 받아온 콜백함수
+// // --------------------------------------------------------------------------------------------------
+// // @ TODO : 전달해주는 콜백함수에 추가해야 될 부분.
+// //
+// // console.log('response: ', response);
+// // console.log('파일경로: ', response.data.filePath);
+// // const truePath = response.data.filePath.split('/')[1];
+// // ?? setImage(truePath) ??
+// // --------------------------------------------------------------------------------------------------
+// function postRequest(formData, cb) {
+//   // const config = {
+//   //   header: { 'content-type': 'multipart/form-data' },
+//   // };
+//   axios
+//     .post(url, formData)
+//     .then(res => {
+//       console.log('res:::', res);
+//       cb(res);
+//     })
+//     .catch(err => console.log('err::', err));
+// }
+// // --------------------------------------------------------------------------------------------------
+// // ImageUploader 엘리먼트
+// //
+// // 매개변수 총 4개.
+// // 1) ImageUploader 엘리먼트가 props로 받아온 스타일링 데이터
+// // --- width(number)
+// // --- height(number)
+// // --- border("5px", "50%", ... 등등 => borderRadius: `${border}`);
+// //
+// // 2) post 요청으로 응답받는 데이터를 상위로 전달하기 위한 역할
+// // --- callback : ImageUploader 엘리먼트가 props로 받아온 콜백함수
+// // --------------------------------------------------------------------------------------------------
+// const PhotoUploadForm = props => {
 //   const [title, setTitle] = useState('');
-
+//   const formData = new FormData();
 //   const onTitleHandler = event => {
 //     setTitle(event.currentTarget.value);
 //   };
-
-//   const dropHandler = photos => {
-//     const formData = new FormData();
-//     const config = {
-//       header: { 'content=type': 'multipart/form-data' },
+//   const { width, height, border, callback } = props;
+//   const [file, setFile] = useState('');
+//   const [previewURL, setPreviewURL] = useState('');
+//   const [preview, setPreview] = useState(null);
+//   const hiddenFileInput = React.useRef(null);
+//   useEffect(() => {
+//     if (file) {
+//       setPreview(imgTagGenerator(width, height, border, previewURL));
+//     }
+//   }, [previewURL]);
+//   const handleChange = event => {
+//     const reader = new FileReader();
+//     const fileData = event.target.files[0];
+//     reader.onloadend = () => {
+//       setFile(fileData);
+//       setPreviewURL(reader.result);
 //     };
-//     formData.append('photo', photos[0]);
-
-//     axios.post('/contents/create', formData, config).then(response => {
-//       if (response.data.success) {
-//         alert('성공');
-//       } else {
-//         alert('파일을 저장하는데 실패했습니다');
-//       }
-//     });
+//     if (fileData) {
+//       reader.readAsDataURL(fileData);
+//     }
 //   };
-
+//   const handleClick = () => {
+//     hiddenFileInput.current.click();
+//   };
+//   const postButtonHandler = () => {
+//     const newFormData = new FormData();
+//     newFormData.append('image', file);
+//     console.log('file::', file);
+//     formData.append('title', title);
+//     console.log('newFormData::', newFormData.has('file'));
+//     postRequest(formData, callback);
+//   };
 //   return (
 //     <>
+//       <Container width={width} height={height} border={border}>
+//         {preview}
+//         <Button onClick={handleClick} width={width} height={height}>
+//           Upload Photo
+//         </Button>
+//         <label htmlFor="file">
+//           <input
+//             type="file"
+//             accept=".gif, .jpg, .png"
+//             ref={hiddenFileInput}
+//             onChange={handleChange}
+//             style={{ display: 'none' }}
+//           />
+//         </label>
+//       </Container>
+//       <br />
+//       <br />
+//       <br />
+//       <br />
 //       <div>
-//         <FileUploader
-//           onDrop={dropHandler}
-//           width={300}
-//           height={300}
-//           border="10px"
+//         <h4>Title</h4>
+//         <input
+//           type="text"
+//           value={title}
+//           placeholder="title"
+//           onChange={onTitleHandler}
 //         />
 //       </div>
 //       <br />
 //       <br />
-//       <br />
-//       <form>
-//         <div>
-//           <h4>Title</h4>
-//           <input
-//             type="text"
-//             value={title}
-//             placeholder="title"
-//             onChange={onTitleHandler}
-//           />
-//         </div>
-//         <br />
-//         <br />
-//         <button type="submit">POST</button>
-//       </form>
+//       <button type="button" onClick={postButtonHandler}>
+//         POST
+//       </button>
 //     </>
 //   );
-// }
-
+// };
+// PhotoUploadForm.propTypes = {
+//   width: propTypes.number.isRequired,
+//   height: propTypes.number.isRequired,
+//   border: propTypes.string.isRequired,
+//   callback: propTypes.func.isRequired,
+// };
 // export default PhotoUploadForm;
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------

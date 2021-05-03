@@ -1,24 +1,22 @@
+// import { response } from 'express';
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-
-import { makeStyles } from '@material-ui/core/styles';
-import PhotoCard from './Sections/PhotoCard';
-// import PhotoUploadForm from './Sections/PhotoUploadForm';
-import NavBar from '../LandingPage/Sections/NavBar';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
-
+import PhotoUploadForm from './Sections/PhotoUploadForm';
+// import { makeStyles } from '@material-ui/core/styles';
+// import Grid from '@material-ui/core/Grid';
+// import PhotoCard from './Sections/PhotoCard';
+// import NavBar from '../LandingPage/Sections/NavBar';
+// const useStyles = makeStyles(() => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+// }));
 export default function PhotoPage() {
-  const classes = useStyles();
-
+  // const classes = useStyles();
   return (
     <>
-      <NavBar />
-      <div
+      {/* <NavBar /> */}
+      <PhotoUploadForm />
+      {/* <div
         className={classes.root}
         style={{
           paddingTop: '100px',
@@ -42,12 +40,12 @@ export default function PhotoPage() {
           <Grid item lg={3} md={4} xs={12}>
             <PhotoCard />
           </Grid>
-        </Grid>
+        </Grid> 
       </div>
+      */}
     </>
   );
 }
-
 // <PhotoUploadForm />
 //       <div style={{ margin: '100px' }}>
 //         <div
@@ -64,7 +62,6 @@ export default function PhotoPage() {
 //             style={{
 //               width: '45px',
 //               height: '45px',
-
 //               borderRadius: '50%',
 //             }}
 //           />
@@ -83,7 +80,6 @@ export default function PhotoPage() {
 //             style={{
 //               width: '290px',
 //               height: '290px',
-
 //               borderRadius: '5%',
 //             }}
 //           />
