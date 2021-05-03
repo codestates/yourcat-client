@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import dummy from './TutorialsDummy.json';
+import dummy from './Sections/TutorialsDummy.json';
 
 const StyledTitle = styled.div`
   padding: 20px;
@@ -46,19 +46,19 @@ function TutorialsPage() {
     <>
       {dummy.tutoList.map(el => (
         <>
-          <StyledTitle key={el.title}>
-            <Link to={`/tutorials/${el.id}`}>{el.title}</Link>
-          </StyledTitle>
-          <StyledDate key={el.date}>{el.date}</StyledDate>
-          <Div>
-            <StyledThumbnails
-              key={el.id}
-              src={`http://placekitten.com/300/30${el.id}`}
-            >
-              {}
-            </StyledThumbnails>
-            <StyledSummary key={el.summary}>{el.summary}</StyledSummary>
-          </Div>
+          <Link to={`/tutorials/${el.id}`}>
+            <StyledTitle key={el.title}>{el.title}</StyledTitle>
+            <StyledDate key={el.date}>{el.date}</StyledDate>
+            <Div>
+              <StyledThumbnails
+                key={el.id}
+                src={`http://placekitten.com/300/30${el.id}`}
+              >
+                {}
+              </StyledThumbnails>
+              <StyledSummary key={el.summary}>{el.summary}</StyledSummary>
+            </Div>
+          </Link>
         </>
       ))}
     </>

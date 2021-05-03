@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import dummy from '../TutorialsDummy.json';
+import dummy from './TutorialsDummy.json';
 
 const Title = styled.div`
   padding: 20px;
@@ -22,7 +22,7 @@ const Date = styled.div`
   font-size: 15px;
 `;
 const Description = styled.div`
-  margin: 100px 0px 50px 410px;
+  margin: 180px 0px 50px 410px;
   padding: 30px;
   border: 50px;
   width: 60%;
