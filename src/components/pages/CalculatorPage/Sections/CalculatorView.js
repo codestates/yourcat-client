@@ -20,22 +20,23 @@ const BIGBOX = styled('div')`
 const FORM = styled('form')`
   margin: 40px;
   padding: 50px 10px;
-  width: 40%;
+  width: 35%;
   height: 600px;
   background-color: #fcf9ea;
   border-radius: 10px;
 `;
 
 const DIV = styled('div')`
-  margin: 30px 10px;
+  margin: 20px 10px;
   background-color: white;
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 30px;
 `;
 
 const GUIDE = styled('div')`
   margin: 20px 10px;
   color: #badfdb;
+  margin-bottom: 30px;
 `;
 
 const INPUTDIV = styled('div')`
@@ -50,7 +51,7 @@ const OUTPUT = styled('div')`
 `;
 
 const OUTPUTDIV = styled('div')`
-  margin: 30px 0;
+  margin: 30px 10px;
   background-color: white;
   display: flex;
   align-items: center;
