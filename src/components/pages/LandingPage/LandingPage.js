@@ -86,7 +86,7 @@ const RightTitle = styled('h1')`
   margin-bottom: 30px;
 
   text-align: right;
-  width: 95%;
+  width: 92%;
 `;
 
 const WelcomeDesc = styled('p')`
