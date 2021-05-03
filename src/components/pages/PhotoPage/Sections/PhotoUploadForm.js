@@ -1,9 +1,55 @@
 import React, { useState } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 // import propTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import createPhoto from '../../../../_actions/contents/createPhoto';
 import ImageUploader from '../../../../utils/ImageUploader';
+import { Button } from '../../../../utils/button';
+import { MODAL } from '../../../../utils/ModalHeader';
+
+const INPUTDIV = styled('div')`
+  height: 50px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  all: unset;
+  width: 100%;
+  margin: 0 10px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.3);
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 200%;
+  background-color: rgb(0, 0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.2);
+  position: fixed;
+  margin: auto;
+  top: 0;
+  z-index: 1;
+`;
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 420px;
+  height: 500px;
+  border-radius: 5px;
+  background-color: #fcf9ea;
+  align-items: center;
+`;
+const TITLE = styled('div')`
+  margin: 10px;
+`;
 
 function PhotoUploadForm() {
   const dispatch = useDispatch();
@@ -48,33 +94,29 @@ function PhotoUploadForm() {
     }
   };
   return (
-    <>
-      <div>
-        <ImageUploader
-          width={300}
-          height={300}
-          border="10px"
-          callback={getPhotoPath}
-        />
-      </div>
-      <br />
-      <br />
-      <br />
-      <div>
-        <h4>Title</h4>
-        <input
-          type="text"
-          value={title}
-          placeholder="title"
-          onChange={onTitleHandler}
-        />
-      </div>
-      <br />
-      <br />
-      <button type="button" onClick={handleSubmit}>
-        POST
-      </button>
-    </>
+    <Wrapper>
+      <Main>
+        <MODAL>
+          <div>
+            <ImageUploader
+              width={250}
+              height={250}
+              border="10px"
+              callback={getPhotoPath}
+            />
+          </div>
+
+          <INPUTDIV>
+            <TITLE>TITLE</TITLE>
+            <Input type="text" value={title} onChange={onTitleHandler} />
+          </INPUTDIV>
+
+          <Button type="button" onClick={handleSubmit}>
+            POST
+          </Button>
+        </MODAL>
+      </Main>
+    </Wrapper>
   );
 }
 export default PhotoUploadForm;
