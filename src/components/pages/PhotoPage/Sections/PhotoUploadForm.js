@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   position: fixed;
   margin: auto;
   top: 0;
-  z-index: 1;
+  z-index: 10;
 `;
 
 const Main = styled.div`

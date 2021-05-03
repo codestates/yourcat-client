@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,6 +13,16 @@ import IconButton from '@material-ui/core/IconButton';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import catImage from '../../../../images/catProfile.png';
+
+const CAT = styled('img')`
+  width: 80%;
+  border-radius: 5%;
+`;
+
+CAT.defaultProps = {
+  src: catImage,
+};
 
 const heartIcon = <FontAwesomeIcon icon={faHeart} />;
 
@@ -33,7 +44,9 @@ export default function PhotoCard(props) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" src="http://placekitten.com/300/400" />
+          <Avatar>
+            <CAT />
+          </Avatar>
         }
         action={
           <IconButton aria-label="add to favorites">{heartIcon}</IconButton>
