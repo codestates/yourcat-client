@@ -23,7 +23,8 @@ const SubmitButton = styled('button')`
 const FORM = styled('div')`
   display: flex;
   justify-content: center;
-  align-items: center; ;
+  align-items: center;
+  margin: 50px 120px;
 `;
 
 function Comments() {
@@ -92,8 +93,6 @@ function Comments() {
           ))}
       </div>
 
-      <br />
-      <br />
       <FORM onSubmit={onSubmit}>
         <Textarea onChange={handleChange} value={comment} />
 
