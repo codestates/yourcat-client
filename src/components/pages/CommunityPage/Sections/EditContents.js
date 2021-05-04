@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
@@ -10,7 +10,15 @@ const INPUT = styled.input`
   height: 100%;
   padding: 50px;
 `;
-function EditContents({ title, description, setIsEdit, setContentData }) {
+function EditContents({
+  title,
+  description,
+  like,
+  user,
+  setIsEdit,
+  setContentData,
+}) {
+  console.log(user);
   const { contentId } = useParams();
   const history = useHistory();
   const [change, setChange] = useState({ title, description });
@@ -18,17 +26,16 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   const handleDetailChange = key => event => {
     const data = {
       ...change,
+      like,
+      user,
       [key]: event.target.value,
     };
     setChange(data);
     setContentData(data);
   };
-  useEffect(() => {
-    setResult();
-  }, []);
   const handleSubmit = () => {
     setResult();
-    console.log(result.accessToken);
+    console.log(result);
     console.log(contentId);
     if (result.isAuth) {
       axios
@@ -97,9 +104,18 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   );
 }
 EditContents.propTypes = {
+  like: propTypes.number.isRequired,
+
   title: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
   setIsEdit: propTypes.func.isRequired,
+  user: propTypes.shape({
+    userId: propTypes.string.isRequired,
+    userName: propTypes.string.isRequired,
+  }),
   setContentData: propTypes.func.isRequired,
+};
+EditContents.defaultProps = {
+  user: {},
 };
 export default EditContents;
