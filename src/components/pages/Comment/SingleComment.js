@@ -2,18 +2,75 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import propTypes from 'prop-types';
+import Textarea from '../../../utils/Textarea';
 
-const Writer = styled('h6')`
+const Writer = styled('div')`
   padding: 5px;
   color: grey;
+  width: 40%;
 `;
 
-const Content = styled('h4')`
+const CommentBOX = styled('div')`
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #badfdb;
+  padding: 8px;
+  margin: 10px 50px;
+`;
+
+const SubmitButton = styled('button')`
+  height: 52px;
+  width: 10%;
+  background-color: #badfdb;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  &:hover {
+    background-color: #94d4cd;
+  }
+`;
+
+const FORM = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center; ;
+`;
+
+const Content = styled('div')`
   padding: 5px;
 `;
 
-const Button = styled('button')`
-  margin: 0 10px;
+const TOP = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+`;
+
+const SmallButton = styled('button')`
+  height: 20px;
+  width: 70px;
+  background-color: #ffc5a1;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  &:hover {
+    background-color: #f8a978;
+  }
+`;
+
+const ButtonContainer = styled('div')`
+  height: 20px;
+  width: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 function SingleComment(props) {
@@ -90,42 +147,29 @@ function SingleComment(props) {
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          borderTop: '1px solid #badfdb',
-          padding: '8px',
-        }}
-      >
-        <img alt="프사" style={{ margin: '10px' }} />
+      <CommentBOX>
+        {/* <img alt="프사" style={{ margin: '10px' }} /> */}
+
+        <TOP>
+          <Writer>{commentUser}</Writer>
+          <ButtonContainer>
+            <SmallButton onClick={handleEditComment}>Edit</SmallButton>
+            <SmallButton>Delete</SmallButton>
+          </ButtonContainer>
+        </TOP>
         <div>
-          <div style={{ display: 'flex' }}>
-            <Writer>{commentUser}</Writer>
-            <Button onClick={handleEditComment}>수정</Button>
-            <Button>삭제</Button>
-          </div>
-          <div>
-            <Content>{comment}</Content>
-          </div>
+          <Content>{comment}</Content>
         </div>
-      </div>
+      </CommentBOX>
 
       {editComment && (
-        <form style={{ display: 'flex' }} onSubmit={onSubmit}>
-          <textarea
-            style={{ width: '100%', borderRadius: '5px' }}
-            onChange={handleChange}
-            placeholder={commentValue}
-          />
+        <FORM onSubmit={onSubmit}>
+          <Textarea onChange={handleChange} />
           <br />
-          <button
-            type="button"
-            style={{ width: '20%', height: '52px' }}
-            onClick={onEditSubmit}
-          >
+          <SubmitButton type="button" onClick={onEditSubmit}>
             Submit
-          </button>
-        </form>
+          </SubmitButton>
+        </FORM>
       )}
     </div>
   );

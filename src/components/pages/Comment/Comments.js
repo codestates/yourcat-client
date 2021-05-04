@@ -1,6 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import SingleComment from './SingleComment';
+import Textarea from '../../../utils/Textarea';
+
+const SubmitButton = styled('button')`
+  height: 52px;
+  width: 10%;
+  background-color: #badfdb;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  &:hover {
+    background-color: #94d4cd;
+  }
+`;
+
+const FORM = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center; ;
+`;
 
 function Comments() {
   const [comment, setComment] = useState('');
@@ -69,22 +91,13 @@ function Comments() {
 
       <br />
       <br />
-      <form style={{ display: 'flex' }} onSubmit={onSubmit}>
-        <textarea
-          style={{ width: '100%', borderRadius: '5px' }}
-          onChange={handleChange}
-          value={comment}
-          placeholder="write some comments"
-        />
-        <br />
-        <button
-          type="button"
-          style={{ width: '20%', height: '52px' }}
-          onClick={onSubmit}
-        >
+      <FORM onSubmit={onSubmit}>
+        <Textarea onChange={handleChange} value={comment} />
+
+        <SubmitButton type="button" onClick={onSubmit}>
           Submit
-        </button>
-      </form>
+        </SubmitButton>
+      </FORM>
     </div>
   );
 }
