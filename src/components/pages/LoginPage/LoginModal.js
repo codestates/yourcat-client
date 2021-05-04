@@ -5,7 +5,7 @@ import validation from '../../../utils/validator';
 import { loginUser, tokenHandler } from '../../../_actions/users/loginUser';
 import { Container, INPUTDIV, Input, ErrMsg } from '../../../utils/InputBox';
 import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
-
+import getUserInfo from '../../../_actions/users/getUserInfo';
 import { ButtonContainer, Button } from '../../../utils/button';
 import ErrModal from '../../../utils/ErrModal/ErrModal';
 
@@ -20,12 +20,14 @@ const LoginModal = React.memo(props => {
     email: ' ',
     password: ' ',
   });
+
   const handleChange = key => e => {
     setloginInfo({
       ...loginInfo,
       [key]: e.target.value,
     });
   };
+
   const handleBlur = key => e => {
     const isError = validation({ value: e.currentTarget.value, type: key });
     if (isError[key]) {
@@ -34,9 +36,11 @@ const LoginModal = React.memo(props => {
       setErrorMessage({ ...errMessage, [key]: '' });
     }
   };
+
   const handleFocus = key => () => {
     setErrorMessage({ ...errMessage, [key]: '' });
   };
+
   const handleLogin = () => {
     const { email, password } = loginInfo;
     if (errMessage.email || errMessage.password) {
@@ -47,15 +51,19 @@ const LoginModal = React.memo(props => {
         .then(({ payload: { data } }) => {
           dispatch(tokenHandler(data.accessToken));
           dispatch({ type: 'LOGIN_MODAL_FALSE' });
+          dispatch(getUserInfo(data.accessToken));
         });
     }
   };
+
   const handleSignUp = () => {
     props.setStep('signUp');
   };
+
   const handleCancel = () => {
     dispatch({ type: 'LOGIN_MODAL_FALSE' });
   };
+
   return (
     <MODAL>
       <HeaderBox>
