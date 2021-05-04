@@ -74,7 +74,7 @@ function PhotoUploadForm() {
       handleRequest({
         title,
         category: 'photo',
-        img: photo,
+        image: photo,
       });
     } else {
       console.log('');
