@@ -9,6 +9,7 @@ import login from './users/login_reducer';
 import userModal from './users/modal_reducer';
 import userInfo from './users/getuserinfo_reducer';
 import photo from './contents/createPhoto_reducer';
+import photoModal from './contents/photoModal_reducer';
 
 const rootReducer = combineReducers({
   login,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   userModal,
   userInfo,
   photo,
+  photoModal,
 });
 
 export default rootReducer;
