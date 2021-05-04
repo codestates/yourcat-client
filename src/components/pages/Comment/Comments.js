@@ -8,7 +8,7 @@ function Comments() {
 
   const handleChange = event => {
     setComment(event.currentTarget.value);
-    console.log(comment);
+    console.log(comment, typeof comment);
   };
 
   useEffect(() => {
@@ -31,20 +31,23 @@ function Comments() {
     const url =
       'http://localhost:4000/contents/addcomment/608e665af74f883c54bc72e2';
 
-    axios({
-      method: 'patch',
-      url,
-      header: {
-        'Content-Type': 'application/json',
+    const config = {
+      headers: {
+        authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
       },
-      variables,
-    }).then(response => {
-      if (response.data.success) {
-        console.log(response.data);
-      } else {
-        console.log('comment를 받아오는 데 실패');
-      }
-    });
+    };
+
+    axios
+      .patch(url, variables, config)
+      .then(response => {
+        if (response) {
+          console.log(response);
+        } else {
+          console.log('comment를 받아오는 데 실패');
+        }
+      })
+      .catch(err => console.log(err));
   };
 
   // TODO: 본인이 쓴 댓글이면 수정, 삭제 버튼 나타나도록
