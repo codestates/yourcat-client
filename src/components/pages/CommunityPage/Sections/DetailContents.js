@@ -73,7 +73,7 @@ function DetailContents() {
   const [isEdit, setIsEdit] = useState(false);
   const [likeSwitch, setLikeSwitch] = useState(false);
 
-  const myInfo = useSelector(data => data.userInfo);
+  const myInfo = useSelector(data => data.getUserInfo);
   const { contentId } = useParams();
   const [{ result }, setResult] = useCheckToken();
 
@@ -93,15 +93,17 @@ function DetailContents() {
       .then(response => {
         console.log('res.data ', response.data);
         setContentData(response.data.contentInfo);
+        console.log(response.data.contentInfo);
       })
       .catch(err => {
         console.log(err);
       });
-    setResult();
   }, []);
   const switchIsEdit = () => {
     setResult();
+    console.log(result);
     if (result.isAuth) {
+      console.log(user);
       if (user.userName === myInfo.nickname) {
         setIsEdit(true);
       } else {

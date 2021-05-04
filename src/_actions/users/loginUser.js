@@ -1,13 +1,15 @@
 import axios from 'axios';
 
 export function loginUser(data) {
-  const request = axios
+  return axios
     .post('http://localhost:4000/users/login', data)
+    .then(res => {
+      return {
+        type: 'USER_LOGIN',
+        payload: res,
+      };
+    })
     .catch(() => '');
-  return {
-    type: 'USER_LOGIN',
-    payload: request,
-  };
 }
 export function tokenHandler(token) {
   return {
