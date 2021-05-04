@@ -23,7 +23,6 @@ function SingleComment(props) {
 
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
-    console.log(commentValue);
   };
 
   const handleEditComment = () => {
@@ -40,20 +39,53 @@ function SingleComment(props) {
     const url =
       'http://localhost:4000/contents/addcomment/608e665af74f883c54bc72e2';
 
-    axios({
-      method: 'patch',
-      url,
-      header: {
-        'Content-Type': 'application/json',
+    const config = {
+      headers: {
+        authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
       },
-      variables,
-    }).then(response => {
-      if (response.data.success) {
-        console.log(response.data);
-      } else {
-        console.log('comment를 받아오는 데 실패');
-      }
-    });
+    };
+
+    axios
+      .patch(url, variables, config)
+      .then(response => {
+        if (response) {
+          console.log(response);
+        } else {
+          console.log('comment를 받아오는 데 실패');
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  const onEditSubmit = event => {
+    event.preventDefault();
+
+    const variables = {
+      commentId: '6090e2e6fd47759d7f351ec1',
+      description: commentValue,
+    };
+
+    const url =
+      'http://localhost:4000/contents/editcomment/608e665af74f883c54bc72e2';
+
+    const config = {
+      headers: {
+        authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+      },
+    };
+
+    axios
+      .patch(url, variables, config)
+      .then(response => {
+        if (response) {
+          console.log(response);
+        } else {
+          console.log('comment를 받아오는 데 실패');
+        }
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -83,14 +115,13 @@ function SingleComment(props) {
           <textarea
             style={{ width: '100%', borderRadius: '5px' }}
             onChange={handleChange}
-            value={comment}
             placeholder={commentValue}
           />
           <br />
           <button
             type="button"
             style={{ width: '20%', height: '52px' }}
-            onClick={onSubmit}
+            onClick={onEditSubmit}
           >
             Submit
           </button>
