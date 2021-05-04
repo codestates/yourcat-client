@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
@@ -23,17 +23,21 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
     setChange(data);
     setContentData(data);
   };
+  useEffect(() => {
+    setResult();
+  }, []);
   const handleSubmit = () => {
     setResult();
-    if (result) {
+    console.log(result.accessToken);
+    console.log(contentId);
+    if (result.isAuth) {
       axios
         .patch(
           `http://localhost:4000/contents/edit/${contentId}`,
           { title, description },
           {
             headers: {
-              authorization: `Bearer ${result}`,
-              'Content-Type': 'application/json',
+              authorization: `Bearer ${result.accessToken}`,
             },
           },
         )
@@ -50,11 +54,11 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   };
   const commentDeleteHandler = () => {
     setResult();
-    if (result) {
+    if (result.isAuth) {
       axios
         .delete(`http://localhost:4000/contents/delete/${contentId}`, {
           headers: {
-            authorization: `Bearer ${result}`,
+            authorization: `Bearer ${result.accessToken}`,
             'Content-Type': 'application/json',
           },
         })
