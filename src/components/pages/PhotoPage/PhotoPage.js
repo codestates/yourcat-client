@@ -95,6 +95,7 @@ export default function PhotoPage() {
                 image={photo.contentImage}
                 title={photo.title}
                 contentId={photo.contentId}
+                bookmark={photo.isBookmark}
               />
             </Grid>
           ))}

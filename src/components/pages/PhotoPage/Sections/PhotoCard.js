@@ -39,10 +39,10 @@ const useStyles = makeStyles(() => ({
 
 // FIXME: setState 비동기 해결
 export default function PhotoCard(props) {
-  const [likeSwitch, setLikeSwitch] = useState(false);
+  const { userAvatar, user, image, title, contentId, bookmark } = props;
+  const [likeSwitch, setLikeSwitch] = useState(bookmark);
 
   const classes = useStyles();
-  const { userAvatar, user, image, title, contentId } = props;
 
   const onLikeHandler = event => {
     setLikeSwitch(!likeSwitch);
@@ -118,4 +118,5 @@ PhotoCard.propTypes = {
   image: propTypes.string.isRequired,
   title: propTypes.string.isRequired,
   contentId: propTypes.string.isRequired,
+  bookmark: propTypes.bool.isRequired,
 };
