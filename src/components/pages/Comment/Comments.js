@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+
 import SingleComment from './SingleComment';
 import Textarea from '../../../utils/Textarea';
 
@@ -28,6 +30,8 @@ function Comments() {
   const [comment, setComment] = useState('');
   const [commentList, setCommentList] = useState([]);
 
+  const { contentId } = useParams();
+
   const handleChange = event => {
     setComment(event.currentTarget.value);
     console.log(comment, typeof comment);
@@ -35,7 +39,7 @@ function Comments() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/contents/detail/608e665af74f883c54bc72e2')
+      .get(`http://localhost:4000/contents/detail/${contentId}`)
       .then(response => {
         console.log('responseData는 ', response.data);
         console.log('comment ', response.data.contentInfo.comment);
@@ -50,8 +54,7 @@ function Comments() {
       description: comment,
     };
 
-    const url =
-      'http://localhost:4000/contents/addcomment/608e665af74f883c54bc72e2';
+    const url = `http://localhost:4000/contents/addcomment/${contentId}`;
 
     const config = {
       headers: {
