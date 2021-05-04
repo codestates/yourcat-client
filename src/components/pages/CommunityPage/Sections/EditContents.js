@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
@@ -23,6 +23,9 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
     setChange(data);
     setContentData(data);
   };
+  useEffect(() => {
+    setResult();
+  }, []);
   const handleSubmit = () => {
     setResult();
     if (result) {
@@ -32,7 +35,7 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
           { title, description },
           {
             headers: {
-              authorization: `Bearer ${result}`,
+              authorization: `Bearer ${result.accessToken}`,
               'Content-Type': 'application/json',
             },
           },
@@ -54,7 +57,7 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
       axios
         .delete(`http://localhost:4000/contents/delete/${contentId}`, {
           headers: {
-            authorization: `Bearer ${result}`,
+            authorization: `Bearer ${result.accessToken}`,
             'Content-Type': 'application/json',
           },
         })

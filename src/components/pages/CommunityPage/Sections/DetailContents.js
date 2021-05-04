@@ -95,11 +95,16 @@ function DetailContents() {
       .catch(err => {
         console.log(err);
       });
+    setResult();
   }, []);
   const switchIsEdit = () => {
     setResult();
     if (result) {
-      setIsEdit(true);
+      if (result.isAuth) {
+        setIsEdit(true);
+      } else {
+        alert('잘못된 접근입니다.');
+      }
     } else {
       alert('로그인이 필요합니다.');
     }
