@@ -90,10 +90,11 @@ export default function PhotoPage() {
           {photoList.map(photo => (
             <Grid item lg={3} md={4} xs={12}>
               <PhotoCard
-                userAvatar={photo.userImage}
+                userAvatar={photo.user.userImage}
                 user={photo.user.userName}
                 image={photo.contentImage}
                 title={photo.title}
+                contentId={photo.contentId}
               />
             </Grid>
           ))}
