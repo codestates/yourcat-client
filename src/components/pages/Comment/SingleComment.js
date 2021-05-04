@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 import propTypes from 'prop-types';
 import Textarea from '../../../utils/Textarea';
 
@@ -15,7 +17,7 @@ const CommentBOX = styled('div')`
   flex-direction: column;
   border-top: 1px solid #badfdb;
   padding: 8px;
-  margin: 10px 50px;
+  margin: 10px 200px;
 `;
 
 const SubmitButton = styled('button')`
@@ -35,7 +37,8 @@ const SubmitButton = styled('button')`
 const FORM = styled('div')`
   display: flex;
   justify-content: center;
-  align-items: center; ;
+  align-items: center;
+  margin: 30px 120px;
 `;
 
 const Content = styled('div')`
@@ -77,6 +80,7 @@ function SingleComment(props) {
   const [commentValue, setCommentValue] = useState('');
   const [editComment, setEditComment] = useState(false);
   const { comment, commentUser } = props;
+  const { contentId } = useParams();
 
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
@@ -93,8 +97,7 @@ function SingleComment(props) {
       description: commentValue,
     };
 
-    const url =
-      'http://localhost:4000/contents/addcomment/608e665af74f883c54bc72e2';
+    const url = `http://localhost:4000/contents/addcomment/${contentId}`;
 
     const config = {
       headers: {
@@ -123,8 +126,7 @@ function SingleComment(props) {
       description: commentValue,
     };
 
-    const url =
-      'http://localhost:4000/contents/editcomment/608e665af74f883c54bc72e2';
+    const url = `http://localhost:4000/contents/editcomment/${contentId}`;
 
     const config = {
       headers: {
