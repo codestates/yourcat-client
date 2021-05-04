@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import Header from './Sections/Header';
+import useCheckToken from '../../../utils/Hook/useCheckToken';
 
 const LIST = styled.div`
   display: flex;
@@ -53,6 +55,17 @@ const SELECT = styled.select`
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-weight: 300;
   font-size: 19px;
+`;
+
+const NEWPOSTBNT = styled.button`
+  display: flex;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: 370px;
+  border: 1px;
+  border: 1px solid #bdbdbd;
+  border-radius: 10px;
+  background-color: #f5f5f5;
 `;
 
 const LISTCATEGORY = styled.div`
@@ -114,6 +127,8 @@ function CommunityPage() {
   const [Limit, setLimit] = useState(10);
   const [size, setSize] = useState(0);
   const [categoryValue, setCategoryValue] = useState('general');
+  const [{ result }, setResult] = useCheckToken();
+  const history = useHistory();
 
   console.log(setLimit);
 
@@ -126,15 +141,26 @@ function CommunityPage() {
       .post(url)
       .then(response => {
         console.log('res.data는 ', response.data);
-        const result = response.data.contentsList;
-        console.log('result', result);
+        const resData = response.data.contentsList;
+        console.log('resData', resData);
 
-        setCategorys(result);
+        setCategorys(resData);
 
         setSize(response.data.contentsLength);
       })
       .catch(err => console.log(err));
   }, [categoryValue]);
+
+  const createPost = () => {
+    // 로그인 상태이면 /create로 이동
+    // 로그인 false면 금지금지
+    setResult();
+    if (!result) {
+      alert('로그인이 필요한 서비스 입니다.');
+    } else {
+      history.push('/community/create');
+    }
+  };
 
   const loadMoreHandler = () => {
     console.log('더보기');
@@ -149,12 +175,12 @@ function CommunityPage() {
       .post(url, body)
       .then(response => {
         console.log('res.data.contentList', response.data.contentsList);
-        const result = response.data.contentsList;
-        console.log('result', result);
+        const resData = response.data.contentsList;
+        console.log('resData', resData);
         if (body.loadMore) {
-          setCategorys([...categorys, ...result]);
+          setCategorys([...categorys, ...resData]);
         } else {
-          setCategorys(result);
+          setCategorys(resData);
         }
         setSize(response.data.contentsLength);
       })
@@ -164,6 +190,7 @@ function CommunityPage() {
 
   return (
     <>
+      <Header />
       <LIST>
         <TITLE>TITLE</TITLE>
         <WRITER>WRITER</WRITER>
@@ -174,6 +201,7 @@ function CommunityPage() {
           <option value="knowhow">Knowhow</option>
         </SELECT>
       </LIST>
+      <NEWPOSTBNT onClick={createPost}>New Post</NEWPOSTBNT>
       {categorys.map(({ title, contentId, user, createdAt }) => (
         <LISTCATEGORY key={contentId}>
           {title.length > 30 ? (

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 import EditContents from './EditContents';
+import Comments from '../../Comment/Comments';
 
 axios.defaults.withCredentials = true;
 
@@ -135,6 +136,7 @@ function DetailContents() {
         <LIKE>{like}</LIKE>
       </DIV>
       <DESCRIPTION>{description}</DESCRIPTION>
+      <Comments />
     </>
   );
 }

@@ -11,6 +11,8 @@ import GlobalStyles from './GlobalStyles';
 import MainModal from './pages/MultiStepForm/MainModal';
 import NavBar from './pages/LandingPage/Sections/NavBar';
 import Bookmark from './pages/BookmarkPage/BookmarkPage';
+import PhotoUploadForm from './pages/PhotoPage/Sections/PhotoUploadForm';
+import CommunityCreate from './pages/CommunityPage/Sections/CreateContent';
 
 function App() {
   return (
@@ -32,11 +34,17 @@ function App() {
             <Route exact path="/community">
               <Community />
             </Route>
+            <Route exact path="/community/create">
+              <CommunityCreate />
+            </Route>
             <Route exact path="/community/detail/:contentId">
               <DetailPage />
             </Route>
             <Route exact path="/photo">
               <PhotoPage />
+            </Route>
+            <Route exact path="/photoupload">
+              <PhotoUploadForm />
             </Route>
             <Route exact path="/calculator">
               <CalculatorPage />
