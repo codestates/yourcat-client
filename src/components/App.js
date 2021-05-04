@@ -10,6 +10,7 @@ import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
 import GlobalStyles from './GlobalStyles';
 import MainModal from './pages/MultiStepForm/MainModal';
 import NavBar from './pages/LandingPage/Sections/NavBar';
+import Bookmark from './pages/BookmarkPage/BookmarkPage';
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
             </Route>
             <Route exact path="/calculator">
               <CalculatorPage />
+            </Route>
+            <Route exact path="/bookmarks">
+              <Bookmark />
             </Route>
           </Switch>
         </div>

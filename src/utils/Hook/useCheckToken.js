@@ -20,6 +20,7 @@ import { tokenHandler } from '../../_actions/users/loginUser';
 // --------------------------
 
 function checkAuth(token) {
+  // 토큰 없을 때 리프레쉬토큰으로 요청보내서 새로 받을 수 있으면 새로고침 이슈도 해결 될 듯 하다.
   if (!token) return false;
   return axios
     .get('http://localhost:4000/users/authcheck', {
