@@ -28,7 +28,9 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   }, []);
   const handleSubmit = () => {
     setResult();
-    if (result) {
+    console.log(result.accessToken);
+    console.log(contentId);
+    if (result.isAuth) {
       axios
         .patch(
           `http://localhost:4000/contents/edit/${contentId}`,
@@ -36,7 +38,6 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
           {
             headers: {
               authorization: `Bearer ${result.accessToken}`,
-              'Content-Type': 'application/json',
             },
           },
         )
@@ -53,7 +54,7 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   };
   const commentDeleteHandler = () => {
     setResult();
-    if (result) {
+    if (result.isAuth) {
       axios
         .delete(`http://localhost:4000/contents/delete/${contentId}`, {
           headers: {
