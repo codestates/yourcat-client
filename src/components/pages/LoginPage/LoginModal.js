@@ -48,11 +48,15 @@ const LoginModal = React.memo(props => {
       dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
       dispatch(loginUser({ email, password })) // 서버오류처리
-        .then(({ payload: { data } }) => {
-          dispatch(tokenHandler(data.accessToken));
-          dispatch({ type: 'LOGIN_MODAL_FALSE' });
-          dispatch(getUserInfo(data.accessToken));
-        });
+        .then(payload => {
+          const { data } = payload;
+          if (data && data.accessToken) {
+            dispatch(tokenHandler(data && data.accessToken));
+            dispatch({ type: 'LOGIN_MODAL_FALSE' });
+            dispatch(getUserInfo(data.accessToken));
+          }
+        })
+        .catch(e => e);
     }
   };
 
