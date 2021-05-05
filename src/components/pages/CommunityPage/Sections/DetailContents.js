@@ -208,7 +208,7 @@ function DetailContents() {
             </Button>
             <LikeBOX>
               <LIKEBNT onClick={() => setLikeSwitch(!likeSwitch)}>
-                👍 {like} Likes
+                👍 {like < 0 ? 0 : { like }} Likes
               </LIKEBNT>
             </LikeBOX>
           </MidRight>
