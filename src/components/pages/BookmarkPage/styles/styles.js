@@ -1,7 +1,9 @@
 export const matchStyle = `
-border: 1px solid lightgrey;
-border-radius:2px;
+  
+  background-color: #f8a978;  
 `;
 export const noneMatchStyle = `
-color:lightgrey;
+   
+   background-color: #badfdb;
+  
 `;
