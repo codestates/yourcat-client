@@ -1,13 +1,12 @@
 import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
-export default function createPhoto(userData) {
+export default function createPhoto(userData, token) {
   // const history = useHistory();
   console.log('userData는 ', userData);
   const config = {
     headers: {
-      authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+      authorization: `Bearer ${token}`,
     },
   };
   const response = axios

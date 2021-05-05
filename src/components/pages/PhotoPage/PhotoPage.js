@@ -62,7 +62,7 @@ export default function PhotoPage() {
         setPhotoList(result);
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [photoList]);
 
   const classes = useStyles();
   return (
@@ -101,7 +101,7 @@ export default function PhotoPage() {
           ))}
         </Grid>
       </div>
-      <PhotoUploadForm />
+      <PhotoUploadForm setPhotoList={setPhotoList} />
     </>
   );
 }
