@@ -9,7 +9,9 @@ import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import ListItemText from '@material-ui/core/ListItemText';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Bars from '../LandingPage/Sections/Bars';
+
 // import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MailIcon from '@material-ui/icons/Mail';
 
@@ -29,10 +31,10 @@ function StyleSideBar() {
   const resData = useSelector(state => {
     return state.getUserInfo;
   });
-  console.log(resData);
+  console.log('resData ', resData);
   const [state, setState] = useState({ right: false });
   const [Info, setInfo] = useState('');
-  console.log(Info);
+  console.log('Info는', Info);
 
   useEffect(() => {
     if (!resData.catInfo) {
@@ -87,9 +89,9 @@ function StyleSideBar() {
       </List>
       <Divider />
       <List>
-        <ListItem button key="My Page">
-          <div> My Page </div>
-        </ListItem>
+        <div>
+          <Link to="/mypage">My Page </Link>
+        </div>
         <ListItem button key="Bookmark">
           <div> Bookmark </div>
         </ListItem>
