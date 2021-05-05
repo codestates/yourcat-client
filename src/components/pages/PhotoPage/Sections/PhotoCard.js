@@ -55,10 +55,8 @@ export default function PhotoCard(props) {
   const [likeSwitch, setLikeSwitch] = useState(bookmark);
   const [{ result }, setResult] = useCheckToken();
   const classes = useStyles();
-  console.log(result);
   const { nickname } = useSelector(dat => dat.getUserInfo);
   const [deleteContentId, setDeleteContentId] = useState('');
-  console.log(user, nickname);
   const deleteButtonHandler = event => {
     console.log('삭제contentId는', event.currentTarget.className.split(' ')[2]);
     setDeleteContentId(event.currentTarget.className.split(' ')[2]);

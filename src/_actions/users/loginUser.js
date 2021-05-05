@@ -9,7 +9,12 @@ export function loginUser(data) {
         payload: res,
       };
     })
-    .catch(() => '');
+    .catch(err => {
+      return {
+        type: 'LOGIN_ERROR',
+        payload: err,
+      };
+    });
 }
 export function tokenHandler(token) {
   return {

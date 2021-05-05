@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+// import StyleSideBar from '../../SideBar/StyleSideBar';
 
 const barsIcon = <FontAwesomeIcon icon={faBars} />;
 
@@ -16,6 +17,9 @@ const BARS = styled('div')`
 `;
 
 function Bars() {
+  // const handleClick = () => {
+  //   StyleSideBar();
+  // };
   return <BARS>{barsIcon}</BARS>;
 }
 
