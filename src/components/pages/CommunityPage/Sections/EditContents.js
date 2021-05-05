@@ -10,7 +10,15 @@ const INPUT = styled.input`
   height: 100%;
   padding: 50px;
 `;
-function EditContents({ title, description, setIsEdit, setContentData }) {
+function EditContents({
+  title,
+  description,
+  like,
+  user,
+  setIsEdit,
+  setContentData,
+}) {
+  console.log(user);
   const { contentId } = useParams();
   const history = useHistory();
   const [change, setChange] = useState({ title, description });
@@ -18,6 +26,8 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   const handleDetailChange = key => event => {
     const data = {
       ...change,
+      like,
+      user,
       [key]: event.target.value,
     };
     setChange(data);
@@ -25,15 +35,16 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   };
   const handleSubmit = () => {
     setResult();
-    if (result) {
+    console.log(result);
+    console.log(contentId);
+    if (result.isAuth) {
       axios
         .patch(
           `http://localhost:4000/contents/edit/${contentId}`,
           { title, description },
           {
             headers: {
-              authorization: `Bearer ${result}`,
-              'Content-Type': 'application/json',
+              authorization: `Bearer ${result.accessToken}`,
             },
           },
         )
@@ -50,11 +61,11 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   };
   const commentDeleteHandler = () => {
     setResult();
-    if (result) {
+    if (result.isAuth) {
       axios
         .delete(`http://localhost:4000/contents/delete/${contentId}`, {
           headers: {
-            authorization: `Bearer ${result}`,
+            authorization: `Bearer ${result.accessToken}`,
             'Content-Type': 'application/json',
           },
         })
@@ -93,9 +104,18 @@ function EditContents({ title, description, setIsEdit, setContentData }) {
   );
 }
 EditContents.propTypes = {
+  like: propTypes.number.isRequired,
+
   title: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
   setIsEdit: propTypes.func.isRequired,
+  user: propTypes.shape({
+    userId: propTypes.string.isRequired,
+    userName: propTypes.string.isRequired,
+  }),
   setContentData: propTypes.func.isRequired,
+};
+EditContents.defaultProps = {
+  user: {},
 };
 export default EditContents;

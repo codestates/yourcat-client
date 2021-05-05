@@ -1,100 +1,206 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import propTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
-const Writer = styled('h6')`
+import propTypes from 'prop-types';
+import Textarea from '../../../utils/Textarea';
+
+const Writer = styled('div')`
   padding: 5px;
   color: grey;
+  width: 40%;
 `;
 
-const Content = styled('h4')`
+const CommentBOX = styled('div')`
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  margin: 10px 200px;
+`;
+
+const SubmitButton = styled('button')`
+  height: 52px;
+  width: 10%;
+  background-color: #badfdb;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  &:hover {
+    background-color: #94d4cd;
+  }
+`;
+
+const FORM = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 120px;
+`;
+
+const Content = styled('div')`
   padding: 5px;
 `;
 
-const Button = styled('button')`
-  margin: 0 10px;
+const TOP = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+`;
+
+const SmallButton = styled('button')`
+  height: 20px;
+  width: 70px;
+  background-color: #ffc5a1;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  &:hover {
+    background-color: #f8a978;
+  }
+`;
+
+const ButtonContainer = styled('div')`
+  height: 20px;
+  width: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 function SingleComment(props) {
-  const [commentValue, setCommentValue] = useState('');
+  const { comment, commentUser, commentId, setReRender } = props;
+  const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState(false);
-  const { comment, commentUser } = props;
+  const [realCommentId, setRealCommentId] = useState('');
+  const [deleteCommentId, setDeleteCommentId] = useState('');
+
+  const { contentId } = useParams();
 
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
-    console.log(commentValue);
   };
 
-  const handleEditComment = () => {
+  const handleEditComment = event => {
+    console.log('comment id 는 ', event.currentTarget.className.split(' ')[2]);
+    setRealCommentId(event.currentTarget.className.split(' ')[2]);
     setEditComment(!editComment);
   };
 
-  const onSubmit = event => {
+  // 댓글 수정 기능
+  const onEditSubmit = event => {
     event.preventDefault();
 
     const variables = {
+      commentId: realCommentId,
       description: commentValue,
     };
 
-    const url =
-      'http://localhost:4000/contents/addcomment/608e665af74f883c54bc72e2';
+    const url = `http://localhost:4000/contents/editcomment/${contentId}`;
 
-    axios({
-      method: 'patch',
-      url,
-      header: {
-        'Content-Type': 'application/json',
+    const config = {
+      headers: {
+        authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
       },
-      variables,
-    }).then(response => {
-      if (response.data.success) {
-        console.log(response.data);
-      } else {
-        console.log('comment를 받아오는 데 실패');
-      }
-    });
+    };
+
+    axios
+      .patch(url, variables, config)
+      .then(response => {
+        if (response) {
+          console.log(response);
+          setReRender([]);
+        } else {
+          console.log('댓글 수정 실패');
+        }
+      })
+      .catch(err => console.log(err));
   };
+
+  // 댓글 삭제 기능
+  const handleDeleteButton = event => {
+    console.log(
+      '삭제 comment id 는 ',
+      event.currentTarget.className.split(' ')[2],
+    );
+    setDeleteCommentId(event.currentTarget.className.split(' ')[2]);
+  };
+
+  const onDeleteComment = () => {
+    if (deleteCommentId) {
+      console.log('deleteid', deleteCommentId);
+      console.log('axios');
+      const variables = {
+        commentId: deleteCommentId,
+      };
+
+      const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
+
+      const config = {
+        headers: {
+          authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+        },
+      };
+
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log(response);
+            setReRender([]);
+          } else {
+            console.log('댓글 삭제 실패');
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    console.log('useEffect');
+    onDeleteComment();
+  }, [deleteCommentId]);
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          borderTop: '1px solid #badfdb',
-          padding: '8px',
-        }}
-      >
-        <img alt="프사" style={{ margin: '10px' }} />
+      <CommentBOX>
+        {/* <img alt="프사" style={{ margin: '10px' }} /> */}
+
+        <TOP>
+          <Writer>{commentUser}</Writer>
+          <ButtonContainer>
+            <SmallButton onClick={handleEditComment} className={commentId}>
+              Edit
+            </SmallButton>
+            <SmallButton onClick={handleDeleteButton} className={commentId}>
+              Delete
+            </SmallButton>
+          </ButtonContainer>
+        </TOP>
         <div>
-          <div style={{ display: 'flex' }}>
-            <Writer>{commentUser}</Writer>
-            <Button onClick={handleEditComment}>수정</Button>
-            <Button>삭제</Button>
-          </div>
-          <div>
-            <Content>{comment}</Content>
-          </div>
+          <Content>{comment}</Content>
         </div>
-      </div>
+      </CommentBOX>
 
       {editComment && (
-        <form style={{ display: 'flex' }} onSubmit={onSubmit}>
-          <textarea
-            style={{ width: '100%', borderRadius: '5px' }}
-            onChange={handleChange}
-            value={comment}
-            placeholder={commentValue}
-          />
+        <FORM onSubmit={onEditSubmit}>
+          <Textarea onChange={handleChange} value={commentValue} />
           <br />
-          <button
-            type="button"
-            style={{ width: '20%', height: '52px' }}
-            onClick={onSubmit}
-          >
+          <SubmitButton type="button" onClick={onEditSubmit}>
             Submit
-          </button>
-        </form>
+          </SubmitButton>
+        </FORM>
       )}
     </div>
   );
@@ -103,6 +209,8 @@ function SingleComment(props) {
 SingleComment.propTypes = {
   comment: propTypes.string.isRequired,
   commentUser: propTypes.string.isRequired,
+  commentId: propTypes.string.isRequired,
+  setReRender: propTypes.func.isRequired,
 };
 
 export default SingleComment;
