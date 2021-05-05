@@ -20,18 +20,16 @@ const useStyles = makeStyles(() => ({
     paddingTop: '56.25%', // 16:9
   },
 }));
-
-function PhotoBookMarkCard({ image, title, nickname }) {
+function PhotoBookMarkCard({ contentImage, title, userName, userImage }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar src="https://testyourcat.s3.ap-northeast-2.amazonaws.com/images/1620206722377.jpg" />
-        }
-        title={nickname}
+      <CardHeader avatar={<Avatar src={userImage} />} title={userName} />
+      <CardMedia
+        className={classes.media}
+        image={contentImage}
+        title="Paella dish"
       />
-      <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {title}
@@ -41,12 +39,13 @@ function PhotoBookMarkCard({ image, title, nickname }) {
   );
 }
 PhotoBookMarkCard.propTypes = {
-  image: propTypes.string,
+  contentImage: propTypes.string.isRequired,
+  userImage: propTypes.string,
   title: propTypes.string.isRequired,
-  nickname: propTypes.string.isRequired,
+  userName: propTypes.string.isRequired,
 };
 PhotoBookMarkCard.defaultProps = {
-  image:
+  userImage:
     'https://testyourcat.s3.ap-northeast-2.amazonaws.com/images/1620206722377.jpg',
 };
 export default PhotoBookMarkCard;

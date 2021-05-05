@@ -65,14 +65,13 @@ function CommunityBookMark({ data, division }) {
       <CATEGORY>{division}</CATEGORY>
       <div>
         {data.map(bookmark => {
-          const { _id, title, userId } = bookmark;
-          const author = userId.nickname;
+          const { contentId, title, userName } = bookmark;
           return (
-            <Link to={`community/detail/${_id}`} key={_id}>
+            <Link to={`community/detail/${contentId}`} key={contentId}>
               <CONTENT>
-                <LIST key={_id}>
+                <LIST key={contentId}>
                   <TITLE>{title}</TITLE>
-                  <WRITER>{author}</WRITER>
+                  <WRITER>{userName}</WRITER>
                 </LIST>
               </CONTENT>
             </Link>
