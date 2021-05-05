@@ -103,7 +103,7 @@ export default function PhotoPage() {
           ))}
         </Grid>
       </div>
-      <PhotoUploadForm />
+      <PhotoUploadForm setReRender={setReRender} />
     </>
   );
 }

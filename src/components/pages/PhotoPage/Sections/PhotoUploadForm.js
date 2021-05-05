@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import propTypes from 'prop-types';
 import createPhoto from '../../../../_actions/contents/createPhoto';
 import ImageUploader from '../../../../utils/ImageUploader';
 import { Button } from '../../../../utils/button';
 import { MODAL } from '../../../../utils/ModalHeader';
+import useCheckToken from '../../../../utils/Hook/useCheckToken';
 
 const INPUTDIV = styled('div')`
   height: 50px;
@@ -51,11 +53,12 @@ const TITLE = styled('div')`
   margin: 10px;
 `;
 
-function PhotoUploadForm() {
+function PhotoUploadForm({ setRequest }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [photo, setPhoto] = useState('');
   const ref = useRef();
+  const [{ result }, setResult] = useCheckToken();
 
   const handleClickOutside = event => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -75,14 +78,18 @@ function PhotoUploadForm() {
     setTitle(event.currentTarget.value);
   };
   const handleRequest = reqData => {
-    dispatch(createPhoto(reqData)).then(res => {
-      console.log(res);
-      if (res.payload) {
-        dispatch({ type: 'PHOTO_MODAL_FALSE' });
-      } else {
-        console.log('사진 업로드에 실패했어요');
-      }
-    });
+    setResult();
+    if (result.isAuth) {
+      dispatch(createPhoto(reqData, result.accessToken)).then(res => {
+        console.log(res);
+        if (res.payload) {
+          dispatch({ type: 'PHOTO_MODAL_FALSE' });
+          setRequest([]);
+        } else {
+          console.log('사진 업로드에 실패했어요');
+        }
+      });
+    }
   };
   const handleSubmit = () => {
     if (title && photo) {
@@ -137,4 +144,7 @@ function PhotoUploadForm() {
     </Wrapper>
   );
 }
+PhotoUploadForm.propTypes = {
+  setRequest: propTypes.func.isRequired,
+};
 export default PhotoUploadForm;
