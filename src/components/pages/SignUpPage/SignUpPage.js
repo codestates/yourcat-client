@@ -8,7 +8,6 @@ import { Container, Input, ErrMsg } from '../../../utils/InputBox';
 import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
 import { ButtonContainer, Button } from '../../../utils/button';
 import signUpUser from '../../../_actions/users/signUpUser';
-import ErrModal from '../../../utils/ErrModal/ErrModal';
 
 const INPUTDIV = styled('div')`
   height: 50px;
@@ -27,7 +26,6 @@ const SignUpModal = React.memo(props => {
     signupPassword: '',
     confirmsignupPassword: '',
   });
-  const [modalMessage, setModalMessage] = useState('');
   const [errMessage, setErrMessage] = useState({
     nickname: '',
     email: '',
@@ -65,8 +63,11 @@ const SignUpModal = React.memo(props => {
       !Object.values(formData).join('') ||
       Object.values(errMessage).join('')
     ) {
-      setModalMessage('회원가입 정보를 입력해주세요');
       dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '회원가입 정보를 입력해주세요',
+      });
     } else {
       const { nickname, email, signupPassword } = formData;
       dispatch(
@@ -114,7 +115,6 @@ const SignUpModal = React.memo(props => {
           다음
         </Button>
       </ButtonContainer>
-      <ErrModal message={modalMessage} />
     </MODAL>
   );
 });

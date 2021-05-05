@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
 
 import Textarea from '../../../utils/Textarea';
@@ -87,6 +87,7 @@ function SingleComment(props) {
     setReRender,
     commentUserName,
   } = props;
+  const dispatch = useDispatch();
   const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState(false);
   const [realCommentId, setRealCommentId] = useState(commentId);
@@ -132,10 +133,20 @@ function SingleComment(props) {
             console.log(response);
             setReRender([]);
           } else {
-            console.log('댓글 수정 실패');
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              payload: '댓글 수정 실패',
+            });
           }
         })
-        .catch(err => console.log(err));
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '서버 요청에 실패했습니다.',
+          });
+        });
     }
   };
 
@@ -174,10 +185,20 @@ function SingleComment(props) {
               console.log(response);
               setReRender([]);
             } else {
-              console.log('댓글 삭제 실패');
+              dispatch({ type: 'ERROR_MODAL_TRUE' });
+              dispatch({
+                type: 'SET_ERROR_MESSAGE',
+                payload: '댓글 삭제 실패',
+              });
             }
           })
-          .catch(err => console.log(err));
+          .catch(() => {
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              payload: '서버 요청에 실패했습니다.',
+            });
+          });
       }
     }
   };

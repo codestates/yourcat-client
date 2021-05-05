@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
+import { useDispatch } from 'react-redux';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 
 const INPUT = styled.input`
@@ -21,6 +22,7 @@ function EditContents({
   console.log(user);
   const { contentId } = useParams();
   const history = useHistory();
+  const dispatch = useDispatch();
   const [change, setChange] = useState({ title, description });
   const [{ result }, setResult] = useCheckToken();
   const handleDetailChange = key => event => {
@@ -56,7 +58,6 @@ function EditContents({
     }
   };
   const switchIsEdit = () => {
-    // TODO : 유효한 유저인지 확인 후 setEdit 실행
     setIsEdit(false);
   };
   const commentDeleteHandler = () => {
@@ -73,9 +74,19 @@ function EditContents({
           console.log(res);
           history.push('/community');
         })
-        .catch(() => alert('권한이 없습니다.'));
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '권한이 없습니다.',
+          });
+        });
     } else {
-      alert('로그인이 필요합니다.');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요합니다.',
+      });
     }
   };
   return (

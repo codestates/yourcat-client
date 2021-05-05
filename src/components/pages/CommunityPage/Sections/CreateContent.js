@@ -88,7 +88,12 @@ const CreateContent = () => {
       const { title, description } = createContent.isFinish;
 
       if (!title || !description) {
-        console.log('모두 작성해주세요');
+        console.log();
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '모두 작성해주세요',
+        });
       } else {
         const resData = dispatch(
           createContentData({ title, category, description }),
@@ -105,11 +110,14 @@ const CreateContent = () => {
         axios
           .post(url, resData.payload, config)
           .then(() => {
-            console.log('성공?');
             history.push('/community');
           })
-          .catch(err => {
-            console.log(err);
+          .catch(() => {
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              payload: '서버에 요청에 실패했습니다.',
+            });
           });
       }
     }
@@ -141,7 +149,11 @@ const CreateContent = () => {
                 handleCreate();
               }
             : () => {
-                alert('모두 작성해주세요');
+                dispatch({ type: 'ERROR_MODAL_TRUE' });
+                dispatch({
+                  type: 'SET_ERROR_MESSAGE',
+                  payload: '모두 작성해주세요',
+                });
               }
         }
       >
