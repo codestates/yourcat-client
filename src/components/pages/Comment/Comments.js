@@ -87,7 +87,7 @@ function Comments() {
 
   // TODO: 본인이 쓴 댓글만 수정, 삭제 가능하도록
   return (
-    <div style={{ margin: '50px 20px' }}>
+    <div style={{ margin: '50px 50px' }}>
       <div style={{ fontSize: '20px', color: '#badfdb', margin: '0 200px' }}>
         Comments
       </div>
