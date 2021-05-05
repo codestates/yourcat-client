@@ -62,7 +62,7 @@ const LoginModal = React.memo(props => {
             dispatch({ type: 'ERROR_MODAL_TRUE' });
             dispatch({
               type: 'SET_ERROR_MESSAGE',
-              action: '이메일과 비밀번호를 다시 확인해주세요',
+              payload: '이메일과 비밀번호를 다시 확인해주세요',
             });
           }
         })
