@@ -2,6 +2,16 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ErrContent from './ErrContent';
+import catImage from '../../images/errorCat.png';
+
+const CAT = styled('img')`
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
+CAT.defaultProps = {
+  src: catImage,
+};
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,16 +32,17 @@ const Main = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  width: 200px;
+  width: 350px;
   height: auto;
   border-radius: 5px;
-  background-color: #f8a978;
+  background-color: #badfdb;
   align-items: center;
   color: white;
 `;
 const MainChild = styled(ErrContent)`
   padding-top: 100px;
 `;
+
 export default function ErrModal() {
   const {
     userModal: { errorModal },
@@ -40,6 +51,7 @@ export default function ErrModal() {
   return (
     <Wrapper view={errorModal}>
       <Main>
+        <CAT />
         {message}
         <MainChild />
       </Main>

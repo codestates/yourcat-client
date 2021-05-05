@@ -6,10 +6,12 @@ const Button = styled('button')`
   background-color: white;
   color: grey;
   border-radius: 5px;
-  font-size: 17px;
-  font-weight: 500;
-  border: none;
+  font-size: 14px;
+  width: 50px;
+  font-weight: 400;
+  border: 1px solid;
   margin-top: 20px;
+  padding: 3px;
   &:hover {
     color: black;
   }

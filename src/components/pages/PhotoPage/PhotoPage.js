@@ -69,7 +69,7 @@ export default function PhotoPage() {
   const classes = useStyles();
   return (
     <>
-      <HEADER>Cat Photo</HEADER>
+      <HEADER>고양이 사진</HEADER>
 
       <div
         className={classes.root}
