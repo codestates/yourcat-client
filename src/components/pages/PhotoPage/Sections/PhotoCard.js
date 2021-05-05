@@ -41,10 +41,52 @@ const useStyles = makeStyles(() => ({
 
 // FIXME: setState 비동기 해결
 export default function PhotoCard(props) {
-  const { userAvatar, user, image, title, contentId, bookmark } = props;
+  const {
+    userAvatar,
+    user,
+    image,
+    title,
+    contentId,
+    bookmark,
+    setReRender,
+  } = props;
   const [likeSwitch, setLikeSwitch] = useState(bookmark);
+  const [deleteContentId, setDeleteContentId] = useState('');
 
   const classes = useStyles();
+
+  const deleteButtonHandler = event => {
+    console.log('삭제contentId는', event.currentTarget.className.split(' ')[2]);
+    setDeleteContentId(event.currentTarget.className.split(' ')[2]);
+  };
+
+  useEffect(() => {
+    if (deleteContentId) {
+      console.log('deleteid', deleteContentId);
+      console.log('axios');
+
+      const url = `http://localhost:4000/contents/delete/${deleteContentId}`;
+
+      const config = {
+        headers: {
+          authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+        },
+      };
+
+      axios
+        .delete(url, config)
+        .then(response => {
+          if (response) {
+            console.log('포토 삭제 성공', response);
+            setReRender([]);
+          } else {
+            console.log('포토 삭제 실패');
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }, [deleteContentId]);
 
   const onLikeHandler = event => {
     setLikeSwitch(!likeSwitch);
@@ -94,7 +136,11 @@ export default function PhotoCard(props) {
         avatar={<Avatar src={userAvatar} />}
         action={
           <>
-            <IconButton className={contentId} style={{ color: '#d1d1cf' }}>
+            <IconButton
+              onClick={deleteButtonHandler}
+              className={contentId}
+              style={{ color: '#d1d1cf' }}
+            >
               {trashIcon}
             </IconButton>
 
@@ -127,4 +173,5 @@ PhotoCard.propTypes = {
   title: propTypes.string.isRequired,
   contentId: propTypes.string.isRequired,
   bookmark: propTypes.bool.isRequired,
+  setReRender: propTypes.func.isRequired,
 };
