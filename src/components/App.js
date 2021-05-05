@@ -13,6 +13,7 @@ import NavBar from './pages/LandingPage/Sections/NavBar';
 import Bookmark from './pages/BookmarkPage/BookmarkPage';
 import PhotoUploadForm from './pages/PhotoPage/Sections/PhotoUploadForm';
 import CommunityCreate from './pages/CommunityPage/Sections/CreateContent';
+import MyPage from './pages/Mypage/MyPage';
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
             </Route>
             <Route exact path="/calculator">
               <CalculatorPage />
+            </Route>
+            <Route exact path="/mypage">
+              <MyPage />
             </Route>
             <Route exact path="/bookmarks">
               <Bookmark />
