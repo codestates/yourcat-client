@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { /* useDispatch */ useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
 import BookMarkContents from './Sections/BookMarkContents';
@@ -26,26 +26,16 @@ const MainSection = styled.div`
   overflow-hidden;
 `;
 function Bookmark() {
-  // const dispatch = useDispatch();
   const [category, setCategory] = useState('Photo');
   const [bookmark, setBookmark] = useState([]);
-  const token = useSelector(data => data.login);
+  const token = useSelector(data => data.token);
   useEffect(() => {
     axios
       .get('http://localhost:4000/bookmarks/list', {
         headers: { authorization: `Bearer ${token}` },
       })
       .then(({ data }) => {
-        console.log(data);
         setBookmark(data.bookmark);
-        // data.bookmark.forEach(({ contentId }) => {
-        //   console.log(contentId);
-        //   if (contentId.category === 'photo') {
-        //     dispatch({ type: 'PHOTO_BOOKMARK', payload: contentId });
-        //   } else {
-        //     dispatch({ type: 'COMMUNITY_BOOKMARK', payload: contentId });
-        //   }
-        // });
       });
   }, [token]);
   const handleClick = ({ target }) => {
