@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import EditCatInfo from './Sections/EditCatInfo';
-import EditUserInfo from './Sections/EditUserInfo';
-import UserWithDrawal from './Sections/UserWithDrawal';
+import EditInfo from './Sections/EditInfo';
+import useCheckToken from '../../../utils/Hook/useCheckToken';
 
 const CATBTN = styled.button`
   display: flex;
@@ -55,36 +54,36 @@ const AGE = styled.div`
   flex-direction: column;
 `;
 
-const BTN = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+// const BTN = styled.div`
+//   display: flex;
+//   flex-direction: row;
+// `;
 
-const USERBTN = styled.button`
-  display: flex;
-  padding: 10px;
-  margin-left: auto;
-  margin-right: 10px;
-  margin-top: 20px;
-  margin-buttom: 110px;
-  border: 1px;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-`;
+// const USERBTN = styled.button`
+//   display: flex;
+//   padding: 10px;
+//   margin-left: auto;
+//   margin-right: 10px;
+//   margin-top: 20px;
+//   margin-buttom: 110px;
+//   border: 1px;
+//   border: 1px solid #bdbdbd;
+//   border-radius: 10px;
+//   background-color: #f5f5f5;
+// `;
 
-const WITHDRAWALBTN = styled.button`
-  display: flex;
-  padding: 10px;
-  margin-left: 0px;
-  margin-right: 300px;
-  margin-top: 20px;
-  margin-buttom: 110px;
-  border: 1px;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-`;
+// const WITHDRAWALBTN = styled.button`
+//   display: flex;
+//   padding: 10px;
+//   margin-left: 0px;
+//   margin-right: 300px;
+//   margin-top: 20px;
+//   margin-buttom: 110px;
+//   border: 1px;
+//   border: 1px solid #bdbdbd;
+//   border-radius: 10px;
+//   background-color: #f5f5f5;
+// `;
 
 const USERDIV = styled.div`
   display: flex;
@@ -107,15 +106,17 @@ const EMAIL = styled.div`
 `;
 
 function MyPage() {
+  const resData = useSelector(state => state.getUserInfo);
   const [{ image, name, gender, age }, setCatInfo] = useState('');
-  const [{ nickname, email }, setInfo] = useState('');
-  //   const [isCatEdit, setIsCatEdit] = useState(false);
-  //   const [isUserEdit, setIsUserEdit] = useState(false);
-  //   const [userDelete, setUserDelete] = useState(false);
-  const result = useSelector(state => state.getUserInfo);
+  const [{ nickname, email }, setUserInfo] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
+  const [{ result }, setResult] = useCheckToken();
+
+  console.log('resData는', resData);
+  console.log(resData.email);
 
   useEffect(() => {
-    if (!result.name) {
+    if (!resData.catInfo) {
       setCatInfo({
         image: 'test.catInfo.image',
         name: 'Your Cat',
@@ -125,12 +126,50 @@ function MyPage() {
     } else {
       setCatInfo({ image, name, gender, age });
     }
-    setInfo({ nickname, email });
+    setUserInfo({ nickname: resData.nickname, email: resData.email });
   }, []);
 
-  return (
+  const switchIsEdit = () => {
+    setResult();
+    if (result) {
+      setIsEdit(true);
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+    }
+  };
+
+  //   const switchIsUserEdit = () => {
+  //     setResult();
+  //     if (result) {
+  //       setIsUserEdit(true);
+  //     } else {
+  //       alert('로그인이 필요한 서비스입니다.');
+  //     }
+  //   };
+
+  //   const switchIsUserWithDrawl = () => {
+  //     setResult();
+  //     if (result) {
+  //       setUserDelete(true);
+  //     } else {
+  //       alert('로그인이 필요한 서비스 입니다.');
+  //     }
+  //   };
+
+  return isEdit ? (
+    <EditInfo
+      name={name}
+      gender={gender}
+      age={age}
+      nickname={nickname}
+      email={email}
+      setIsEdit={setIsEdit}
+      setCatInfo={setCatInfo}
+      setUserInfo={setUserInfo}
+    />
+  ) : (
     <>
-      <CATBTN onClick={EditCatInfo}> EDIT </CATBTN>
+      <CATBTN onClick={switchIsEdit}> EDIT </CATBTN>
       <CATDIV>
         <IMAGE src={image} />
         <TEXT>
@@ -139,13 +178,16 @@ function MyPage() {
           <AGE>Age : {age} Month</AGE>
         </TEXT>
       </CATDIV>
-      <BTN>
-        <USERBTN onClick={EditUserInfo}> EDIT </USERBTN>
-        <WITHDRAWALBTN onClick={UserWithDrawal}> WITHDRAWAL </WITHDRAWALBTN>
-      </BTN>
+      {/* <BTN>
+          <USERBTN onClick={switchIsUserEdit}> EDIT </USERBTN>
+          <WITHDRAWALBTN onClick={switchIsUserWithDrawl}>
+            {' '}
+            WITHDRAWAL{' '}
+          </WITHDRAWALBTN>
+        </BTN> */}
       <USERDIV>
-        <NICKNAME>Nickname: {result.nickname}</NICKNAME>
-        <EMAIL>E-Mail : {result.email}</EMAIL>
+        <NICKNAME>Nickname: {nickname}</NICKNAME>
+        <EMAIL>E-Mail : {email}</EMAIL>
       </USERDIV>
     </>
   );
