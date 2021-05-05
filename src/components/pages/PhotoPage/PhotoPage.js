@@ -70,7 +70,7 @@ export default React.memo(() => {
   console.log(photoList);
   return (
     <>
-      <HEADER>Cat Photo</HEADER>
+      <HEADER>고양이 사진</HEADER>
 
       <div
         className={classes.root}

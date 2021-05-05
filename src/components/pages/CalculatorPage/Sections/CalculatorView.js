@@ -89,6 +89,32 @@ const BUTTON = styled('button')`
   border: none;
 `;
 
+const INPUT = styled.input`
+  all: unset;
+  padding: 3px;
+
+  background: rgba(0, 0, 0, 0.003);
+
+  font-weight: 300;
+  font-size: 15px;
+  &:hover {
+    border: 1.5px solid #badfdb;
+  }
+`;
+
+const SELECT = styled.select`
+  
+  padding: 3px;
+
+  border: 1px solid;  
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  font-weight: 200;
+  font-size: 15px;
+  &:hover {
+    border: 1.5px solid #badfdb;
+`;
+
 export default function InputSection() {
   const [weight, setWeight] = useState('');
   const [calorie, setCalorie] = useState('');
@@ -180,7 +206,7 @@ export default function InputSection() {
         <DIV>
           <GUIDE>Please enter your cats information.</GUIDE>
           <INPUTDIV>
-            <input
+            <INPUT
               type="text"
               value={weight}
               placeholder="weight"
@@ -189,7 +215,7 @@ export default function InputSection() {
             kg
           </INPUTDIV>
           <INPUTDIV>
-            <select onChange={optionHandler} value={criteria} ref={catCriteria}>
+            <SELECT onChange={optionHandler} value={criteria} ref={catCriteria}>
               <option value="default">--choose option--</option>
               <option value="babycat">0 to 3 months </option>
               <option value="4kitten">4 months to 6 months</option>
@@ -198,14 +224,14 @@ export default function InputSection() {
               <option value="neuteredAdult">Neutered adult</option>
               <option value="activeAdult">Active adult</option>
               <option value="inactiveAdult">Inactive adult</option>
-            </select>
+            </SELECT>
           </INPUTDIV>
         </DIV>
 
         <DIV>
           <GUIDE>Please enter cat feed information.</GUIDE>
           <INPUTDIV>
-            <input
+            <INPUT
               type="text"
               value={calorie}
               placeholder="calorie"

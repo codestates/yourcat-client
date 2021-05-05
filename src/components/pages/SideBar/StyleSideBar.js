@@ -1,5 +1,6 @@
 import React, { useEffect, useState, memo } from 'react';
 import clsx from 'clsx';
+import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -12,6 +13,9 @@ import { useSelector } from 'react-redux';
 import Bars from '../LandingPage/Sections/Bars';
 // import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MailIcon from '@material-ui/icons/Mail';
+const TEXT = styled.div`
+  margin: 7px 10px;
+`;
 
 const useStyles = makeStyles({
   list: {
@@ -70,31 +74,31 @@ function StyleSideBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <img
-        style={{ border: '1px solid', height: '250px' }}
+        style={{ border: '1px solid', height: '250px', width: '250px' }}
         src={Info && Info.catInfo.image}
         alt=""
       />
       <List>
         <ListItem key="Cat Name">
-          <div> Cat Name : {Info && Info.catInfo.name} </div>
+          <TEXT> Cat Name : {Info && Info.catInfo.name} </TEXT>
         </ListItem>
         <ListItem key="Cat Age">
-          <div> Cat Age : {Info && Info.catInfo.age} Months</div>
+          <TEXT> Cat Age : {Info && Info.catInfo.age} Months</TEXT>
         </ListItem>
         <ListItem key="Cat Gender">
-          <div> Cat Gender : {Info && Info.catInfo.gender}</div>
+          <TEXT> Cat Gender : {Info && Info.catInfo.gender}</TEXT>
         </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem button key="My Page">
-          <div> My Page </div>
+          <TEXT> My Page </TEXT>
         </ListItem>
         <ListItem button key="Bookmark">
-          <div> Bookmark </div>
+          <TEXT> Bookmark </TEXT>
         </ListItem>
         <ListItem button key="Logout">
-          <div> Logout </div>
+          <TEXT> Logout </TEXT>
         </ListItem>
       </List>
     </div>

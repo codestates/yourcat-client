@@ -136,18 +136,19 @@ const CATEGORYDATE = styled.div`
   text-align: center;
 `;
 
-const BUTTON = styled.button`
-  display: flex;
+const MOREBUTTON = styled.button`
   padding: 10px;
-  margin: 50px auto;
-  border: 1px;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  width: 2.7%;
-  font-weight: 300;
-  font-size: 10px;
-  align-item: center;
-  background-color: #f5f5f5;
+
+  background-color: #ffc5a1;
+  color: white;
+  border-radius: 7px;
+  font-size: 17px;
+  margin: 30px 0;
+
+  border: none;
+  &:hover {
+    background-color: #f8a978;
+  }
 `;
 
 function CommunityPage() {
@@ -259,7 +260,9 @@ function CommunityPage() {
             </CATEGORYDATE>
           </LISTCATEGORY>
         ))}
-        {size >= Limit && <BUTTON onClick={loadMoreHandler}>MORE</BUTTON>}
+        {size >= Limit && (
+          <MOREBUTTON onClick={loadMoreHandler}>MORE</MOREBUTTON>
+        )}
       </CONTENT>
     </>
   );
