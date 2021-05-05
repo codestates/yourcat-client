@@ -11,6 +11,7 @@ import photo from './contents/createPhoto_reducer';
 import photoModal from './contents/photoModal_reducer';
 import getUserInfo from './users/getuserinfo_reducer';
 import token from './users/token_reducer';
+import errorModalMessage from './users/ErrorModalMessage_reducer';
 
 const rootReducer = combineReducers({
   login,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   photoModal,
   getUserInfo,
   token,
+  errorModalMessage,
 });
 
 export default rootReducer;

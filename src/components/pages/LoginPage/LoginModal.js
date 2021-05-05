@@ -7,11 +7,9 @@ import { Container, INPUTDIV, Input, ErrMsg } from '../../../utils/InputBox';
 import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
 import getUserInfo from '../../../_actions/users/getUserInfo';
 import { ButtonContainer, Button } from '../../../utils/button';
-import ErrModal from '../../../utils/ErrModal/ErrModal';
 
 const LoginModal = React.memo(props => {
   const dispatch = useDispatch();
-  const [modalMessage, setModalMessage] = useState('');
   const [loginInfo, setloginInfo] = useState({
     email: '',
     password: '',
@@ -44,7 +42,10 @@ const LoginModal = React.memo(props => {
   const handleLogin = () => {
     const { email, password } = loginInfo;
     if (errMessage.email || errMessage.password) {
-      setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '이메일과 비밀번호를 다시 확인해주세요',
+      });
       dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
       dispatch(loginUser({ email, password })) // 서버오류처리
@@ -58,14 +59,19 @@ const LoginModal = React.memo(props => {
               dispatch(getUserInfo(data.accessToken));
             }
           } else {
-            console.log(1);
             dispatch({ type: 'ERROR_MODAL_TRUE' });
-            setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              action: '이메일과 비밀번호를 다시 확인해주세요',
+            });
           }
         })
         .catch(e => {
           dispatch({ type: 'ERROR_MODAL_TRUE' });
-          setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '이메일과 비밀번호를 다시 확인해주세요',
+          });
           return e;
         });
     }
@@ -114,7 +120,6 @@ const LoginModal = React.memo(props => {
           로그인
         </Button>
       </ButtonContainer>
-      <ErrModal message={modalMessage} />
     </MODAL>
   );
 });

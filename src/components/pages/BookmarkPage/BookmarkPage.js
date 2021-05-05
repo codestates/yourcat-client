@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
 import BookMarkContents from './Sections/BookMarkContents';
@@ -36,6 +36,7 @@ const MainSection = styled.div`
 function Bookmark() {
   const [category, setCategory] = useState('Photo');
   const [bookmark, setBookmark] = useState([]);
+  const dispatch = useDispatch();
   const token = useSelector(data => data.token);
   useEffect(() => {
     axios
@@ -44,6 +45,13 @@ function Bookmark() {
       })
       .then(({ data }) => {
         setBookmark(data.bookmark);
+      })
+      .catch(() => {
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '서버요청에 실패했습니다.',
+        });
       });
   }, [token]);
   const handleClick = ({ target }) => {

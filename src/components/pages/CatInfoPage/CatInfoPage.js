@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import signUpRequest from '../../../_actions/users/signUpRequest';
 import ImageUploader from '../../../utils/ImageUploader';
-import ErrModal from '../../../utils/ErrModal/ErrModal';
 import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
 
 import { Button } from '../../../utils/button';
@@ -45,7 +44,6 @@ const ButtonWrap = styled.section`
 
 const CatInfoPage = React.memo(props => {
   const dispatch = useDispatch();
-  const [modalMessage, setModalMessage] = useState('');
   const { userData } = useSelector(state => {
     return state.signUpData || {};
   });
@@ -85,15 +83,16 @@ const CatInfoPage = React.memo(props => {
         res.payload &&
         res.payload.data.message === '회원가입이 완료되었습니다.'
       ) {
-        // TODO :  -- import 해와서 모달창 팝업, 모달창 버튼에 props.setStep('login') 연결
-
         alert('성공!');
         dispatch({ type: 'DELETE_USER_DATA' });
         dispatch({ type: 'DELETE_USER_SIGNUP_RESPONSE' });
         props.setStep('login');
       } else {
-        setModalMessage('회원가입 정보를 다시 확인해주세요');
         dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '회원가입 정보를 다시 확인해주세요',
+        });
       }
     });
   };
@@ -108,8 +107,11 @@ const CatInfoPage = React.memo(props => {
         catInfo: { ...data, gender: checkGender.male ? 'male' : 'female' },
       });
     } else {
-      setModalMessage('고양이 정보를 모두 작성해주세요');
       dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '고양이 정보를 모두 작성해주세요',
+      });
     }
   };
   const storeAndGetImageURL = response => {
@@ -118,8 +120,11 @@ const CatInfoPage = React.memo(props => {
     if (truePath) {
       setData({ ...data, image: truePath });
     } else {
-      setModalMessage('응답에 실패했습니다.');
       dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '응답에 실패했습니다.',
+      });
     }
   };
   return (
@@ -179,7 +184,6 @@ const CatInfoPage = React.memo(props => {
           확인
         </Button>
       </ButtonWrap>
-      <ErrModal message={modalMessage} />
     </MODAL>
   );
 });

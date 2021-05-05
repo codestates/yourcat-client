@@ -19,6 +19,7 @@ export default function ErrContent() {
   const dispatch = useDispatch();
   const handleModal = () => {
     dispatch({ type: 'ERROR_MODAL_FALSE' });
+    dispatch({ type: 'DELETE_ERROR_MESSAGE' });
   };
   return (
     <>
