@@ -35,7 +35,7 @@ function Comments() {
 
   const handleChange = event => {
     setComment(event.currentTarget.value);
-    console.log(comment, typeof comment);
+    console.log('comment :', comment);
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function Comments() {
       .catch(err => console.log(err));
   };
 
-  // TODO: 본인이 쓴 댓글이면 수정, 삭제 버튼 나타나도록
+  // TODO: 본인이 쓴 댓글만 수정, 삭제 가능하도록
   return (
     <div style={{ margin: '50px 20px' }}>
       <div style={{ fontSize: '20px', color: '#f8a978' }}>Comments</div>

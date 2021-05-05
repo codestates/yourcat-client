@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -80,6 +80,7 @@ function SingleComment(props) {
   const [commentValue, setCommentValue] = useState('');
   const [editComment, setEditComment] = useState(false);
   const [realCommentId, setRealCommentId] = useState('');
+  const [deleteCommentId, setDeleteCommentId] = useState('');
   const { comment, commentUser, commentId } = props;
   const { contentId } = useParams();
 
@@ -90,7 +91,6 @@ function SingleComment(props) {
   const handleEditComment = event => {
     console.log('comment id 는 ', event.currentTarget.className.split(' ')[2]);
     setRealCommentId(event.currentTarget.className.split(' ')[2]);
-
     setEditComment(!editComment);
   };
 
@@ -116,12 +116,13 @@ function SingleComment(props) {
         if (response) {
           console.log(response);
         } else {
-          console.log('comment를 받아오는 데 실패');
+          console.log('댓글 추가 실패');
         }
       })
       .catch(err => console.log(err));
   };
 
+  // 댓글 수정 기능
   const onEditSubmit = event => {
     event.preventDefault();
 
@@ -145,11 +146,55 @@ function SingleComment(props) {
         if (response) {
           console.log(response);
         } else {
-          console.log('comment를 받아오는 데 실패');
+          console.log('댓글 수정 실패');
         }
       })
       .catch(err => console.log(err));
   };
+
+  // 댓글 삭제 기능
+  const handleDeleteButton = event => {
+    console.log(
+      '삭제 comment id 는 ',
+      event.currentTarget.className.split(' ')[2],
+    );
+    setDeleteCommentId(event.currentTarget.className.split(' ')[2]);
+  };
+
+  const onDeleteComment = () => {
+    if (deleteCommentId) {
+      console.log('deleteid', deleteCommentId);
+      console.log('axios');
+      const variables = {
+        commentId: deleteCommentId,
+      };
+
+      const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
+
+      const config = {
+        headers: {
+          authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+        },
+      };
+
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log(response);
+          } else {
+            console.log('댓글 삭제 실패');
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    console.log('useEffect');
+    onDeleteComment();
+  }, [deleteCommentId]);
 
   return (
     <div>
@@ -162,7 +207,9 @@ function SingleComment(props) {
             <SmallButton onClick={handleEditComment} className={commentId}>
               Edit
             </SmallButton>
-            <SmallButton className={commentId}>Delete</SmallButton>
+            <SmallButton onClick={handleDeleteButton} className={commentId}>
+              Delete
+            </SmallButton>
           </ButtonContainer>
         </TOP>
         <div>
