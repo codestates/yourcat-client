@@ -79,15 +79,17 @@ function PhotoUploadForm({ setRequest }) {
   };
   const handleRequest = reqData => {
     setResult();
-    dispatch(createPhoto(reqData, result.accessToken)).then(res => {
-      console.log(res);
-      if (res.payload) {
-        dispatch({ type: 'PHOTO_MODAL_FALSE' });
-        setRequest([]);
-      } else {
-        console.log('사진 업로드에 실패했어요');
-      }
-    });
+    if (result.isAuth) {
+      dispatch(createPhoto(reqData, result.accessToken)).then(res => {
+        console.log(res);
+        if (res.payload) {
+          dispatch({ type: 'PHOTO_MODAL_FALSE' });
+          setRequest([]);
+        } else {
+          console.log('사진 업로드에 실패했어요');
+        }
+      });
+    }
   };
   const handleSubmit = () => {
     if (title && photo) {

@@ -102,6 +102,7 @@ function Comments() {
               commentUser={ele.commentUserName}
               commentId={ele.commentId}
               setReRender={setReRender}
+              commentUserName={ele.commentUserName}
             />
           ))}
       </div>

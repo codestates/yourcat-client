@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import useCheckToken from '../../../../utils/Hook/useCheckToken';
 
 // import catImage from '../../../../images/catProfile.png';
 
@@ -43,45 +44,46 @@ const useStyles = makeStyles(() => ({
 export default function PhotoCard(props) {
   const { userAvatar, user, image, title, contentId, bookmark } = props;
   const [likeSwitch, setLikeSwitch] = useState(bookmark);
-
+  const [{ result }, setResult] = useCheckToken();
   const classes = useStyles();
-
+  console.log(result);
   const onLikeHandler = event => {
-    setLikeSwitch(!likeSwitch);
-    console.log('contentId는', event.currentTarget.className.split(' ')[2]);
-    const realContentId = event.currentTarget.className.split(' ')[2];
+    setResult();
+    if (result.isAuth) {
+      setLikeSwitch(!likeSwitch);
+      console.log('contentId는', event.currentTarget.className.split(' ')[2]);
+      const realContentId = event.currentTarget.className.split(' ')[2];
 
-    const variables = {
-      isBookmark: false,
-    };
+      const variables = {
+        isBookmark: false,
+      };
 
-    if (!likeSwitch) {
-      console.log('북마크에 추가');
-      variables.isBookmark = false;
-    } else {
-      console.log('북마크에서 삭제');
-      variables.isBookmark = true;
+      if (!likeSwitch) {
+        console.log('북마크에 추가');
+        variables.isBookmark = false;
+      } else {
+        console.log('북마크에서 삭제');
+        variables.isBookmark = true;
+      }
+      const url = `http://localhost:4000/bookmarks/edit/${realContentId}`;
+
+      const config = {
+        headers: {
+          authorization: `Bearer ${result.accessToken}`,
+        },
+      };
+
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log('북마크 성공');
+          } else {
+            console.log('북마크 실패');
+          }
+        })
+        .catch(err => console.log(err));
     }
-
-    const url = `http://localhost:4000/bookmarks/edit/${realContentId}`;
-
-    const config = {
-      headers: {
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-      },
-    };
-
-    axios
-      .patch(url, variables, config)
-      .then(response => {
-        if (response) {
-          console.log('북마크 성공');
-        } else {
-          console.log('북마크 실패');
-        }
-      })
-      .catch(err => console.log(err));
   };
 
   useEffect(() => {

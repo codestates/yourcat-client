@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import propTypes from 'prop-types';
+
 import Textarea from '../../../utils/Textarea';
+import useCheckToken from '../../../utils/Hook/useCheckToken';
 
 const Writer = styled('div')`
   padding: 5px;
@@ -78,14 +80,20 @@ const ButtonContainer = styled('div')`
 `;
 
 function SingleComment(props) {
-  const { comment, commentUser, commentId, setReRender } = props;
+  const {
+    comment,
+    commentUser,
+    commentId,
+    setReRender,
+    commentUserName,
+  } = props;
   const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState(false);
-  const [realCommentId, setRealCommentId] = useState('');
+  const [realCommentId, setRealCommentId] = useState(commentId);
   const [deleteCommentId, setDeleteCommentId] = useState('');
-
+  const [{ result }, setResult] = useCheckToken();
   const { contentId } = useParams();
-
+  const { nickname } = useSelector(dat => dat.getUserInfo);
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
   };
@@ -99,32 +107,36 @@ function SingleComment(props) {
   // 댓글 수정 기능
   const onEditSubmit = event => {
     event.preventDefault();
+    setResult();
+    console.log(result);
+    if (result && nickname === commentUserName && result.isAuth) {
+      console.log(result.accessToken);
+      const variables = {
+        commentId: realCommentId,
+        description: commentValue,
+      };
+      console.log(`realCommentId::: ${realCommentId}`);
+      console.log(`contentId::: ${contentId}`);
+      const url = `http://localhost:4000/contents/editcomment/${contentId}`;
 
-    const variables = {
-      commentId: realCommentId,
-      description: commentValue,
-    };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${result.accessToken}`,
+        },
+      };
 
-    const url = `http://localhost:4000/contents/editcomment/${contentId}`;
-
-    const config = {
-      headers: {
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-      },
-    };
-
-    axios
-      .patch(url, variables, config)
-      .then(response => {
-        if (response) {
-          console.log(response);
-          setReRender([]);
-        } else {
-          console.log('댓글 수정 실패');
-        }
-      })
-      .catch(err => console.log(err));
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log(response);
+            setReRender([]);
+          } else {
+            console.log('댓글 수정 실패');
+          }
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   // 댓글 삭제 기능
@@ -138,32 +150,35 @@ function SingleComment(props) {
 
   const onDeleteComment = () => {
     if (deleteCommentId) {
-      console.log('deleteid', deleteCommentId);
-      console.log('axios');
-      const variables = {
-        commentId: deleteCommentId,
-      };
+      setResult();
+      console.log(result);
+      if (result && nickname === commentUserName && result.isAuth) {
+        console.log('deleteid', deleteCommentId);
+        console.log('axios');
+        const variables = {
+          commentId: deleteCommentId,
+        };
 
-      const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
+        const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
 
-      const config = {
-        headers: {
-          authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-        },
-      };
+        const config = {
+          headers: {
+            authorization: `Bearer ${result.accessToken}`,
+          },
+        };
 
-      axios
-        .patch(url, variables, config)
-        .then(response => {
-          if (response) {
-            console.log(response);
-            setReRender([]);
-          } else {
-            console.log('댓글 삭제 실패');
-          }
-        })
-        .catch(err => console.log(err));
+        axios
+          .patch(url, variables, config)
+          .then(response => {
+            if (response) {
+              console.log(response);
+              setReRender([]);
+            } else {
+              console.log('댓글 삭제 실패');
+            }
+          })
+          .catch(err => console.log(err));
+      }
     }
   };
 
@@ -211,6 +226,7 @@ SingleComment.propTypes = {
   commentUser: propTypes.string.isRequired,
   commentId: propTypes.string.isRequired,
   setReRender: propTypes.func.isRequired,
+  commentUserName: propTypes.string.isRequired,
 };
 
 export default SingleComment;
