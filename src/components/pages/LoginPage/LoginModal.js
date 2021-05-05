@@ -48,15 +48,26 @@ const LoginModal = React.memo(props => {
       dispatch({ type: 'ERROR_MODAL_TRUE' });
     } else {
       dispatch(loginUser({ email, password })) // 서버오류처리
-        .then(payload => {
-          const { data } = payload;
-          if (data && data.accessToken) {
-            dispatch(tokenHandler(data && data.accessToken));
-            dispatch({ type: 'LOGIN_MODAL_FALSE' });
-            dispatch(getUserInfo(data.accessToken));
+        .then(res => {
+          const { payload } = res;
+          if (payload.data) {
+            const { data } = payload;
+            if (data && data.accessToken) {
+              dispatch(tokenHandler(data && data.accessToken));
+              dispatch({ type: 'LOGIN_MODAL_FALSE' });
+              dispatch(getUserInfo(data.accessToken));
+            }
+          } else {
+            console.log(1);
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
           }
         })
-        .catch(e => e);
+        .catch(e => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          setModalMessage('이메일과 비밀번호를 다시 확인해주세요');
+          return e;
+        });
     }
   };
 
