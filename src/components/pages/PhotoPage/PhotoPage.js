@@ -45,7 +45,8 @@ const Button = styled('button')`
 export default function PhotoPage() {
   const dispatch = useDispatch();
   const [photoList, setPhotoList] = useState([]);
-  const [request, setRequest] = useState([]);
+  const [reRender, setReRender] = useState([]);
+
   const url = `http://localhost:4000/contents/photo`;
 
   const modalHandler = () => {
@@ -62,7 +63,7 @@ export default function PhotoPage() {
         setPhotoList(result);
       })
       .catch(err => console.log(err));
-  }, [request]);
+  }, [reRender]);
 
   const classes = useStyles();
   return (
@@ -96,12 +97,13 @@ export default function PhotoPage() {
                 title={photo.title}
                 contentId={photo.contentId}
                 bookmark={photo.isBookmark}
+                setReRender={setReRender}
               />
             </Grid>
           ))}
         </Grid>
       </div>
-      <PhotoUploadForm setRequest={setRequest} />
+      <PhotoUploadForm setReRender={setReRender} />
     </>
   );
 }
