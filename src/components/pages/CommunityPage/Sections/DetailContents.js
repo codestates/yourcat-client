@@ -77,6 +77,40 @@ function DetailContents() {
   const { contentId } = useParams();
   const [{ result }, setResult] = useCheckToken();
 
+  const onBookmarkHandler = () => {
+    const variables = {
+      isBookmark: false,
+    };
+
+    if (likeSwitch) {
+      console.log('북마크에 추가');
+      variables.isBookmark = false;
+    } else {
+      console.log('북마크에서 삭제');
+      variables.isBookmark = true;
+    }
+
+    const url = `http://localhost:4000/bookmarks/edit/${contentId}`;
+
+    const config = {
+      headers: {
+        authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+      },
+    };
+
+    axios
+      .patch(url, variables, config)
+      .then(response => {
+        if (response) {
+          console.log('북마크 성공');
+        } else {
+          console.log('북마크 실패');
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
     console.log('likeSwitch', likeSwitch);
     if (likeSwitch) {
@@ -84,6 +118,7 @@ function DetailContents() {
     } else {
       setContentData({ title, description, user, like: like - 1 });
     }
+    onBookmarkHandler();
   }, [likeSwitch]);
 
   useEffect(() => {
@@ -99,6 +134,7 @@ function DetailContents() {
         console.log(err);
       });
   }, []);
+
   const switchIsEdit = () => {
     setResult();
     console.log(result);
