@@ -52,7 +52,7 @@ const StyledSummary = styled.div`
 function TutorialsPage() {
   return (
     <>
-      <HEADER>Tutorials</HEADER>
+      <HEADER>알쓸냥잡</HEADER>
       {dummy.tutoList.map(el => (
         <>
           <Link to={`/tutorials/${el.id}`}>
