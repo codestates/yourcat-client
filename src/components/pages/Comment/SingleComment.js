@@ -19,7 +19,7 @@ const CommentBOX = styled('div')`
   flex-direction: column;
 
   box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.05);
-  padding: 8px;
+  padding: 8px 20px;
   margin: 10px 200px;
 `;
 

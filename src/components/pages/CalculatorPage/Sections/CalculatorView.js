@@ -18,7 +18,7 @@ const BIGBOX = styled('div')`
 `;
 
 const FORM = styled('form')`
-  margin: 40px;
+  margin: 10px 40px;
   padding: 50px 10px;
   width: 35%;
   height: 600px;

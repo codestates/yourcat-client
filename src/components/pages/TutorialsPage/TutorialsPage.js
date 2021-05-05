@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import HEADER from '../../../utils/Header';
 import dummy from './Sections/TutorialsDummy.json';
 
 const StyledTitle = styled.div`
@@ -44,6 +45,7 @@ const StyledSummary = styled.div`
 function TutorialsPage() {
   return (
     <>
+      <HEADER>Tutorials</HEADER>
       {dummy.tutoList.map(el => (
         <>
           <Link to={`/tutorials/${el.id}`}>
