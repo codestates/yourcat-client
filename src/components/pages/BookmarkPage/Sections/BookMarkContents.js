@@ -1,11 +1,20 @@
 import React from 'react';
 // import { useSelector } from 'react-redux';
 import propTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Grid from '@material-ui/core/Grid';
 import PhotoBookMarkCard from './PhotoBookMarkCard';
 import CommunityBookMark from './CommunityBookMark';
 
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
+
 function BookMarkContents({ category, bookmarks = [] }) {
+  const classes = useStyles();
   const data = bookmarks.reduce(
     (result, bookmark) => {
       return bookmark.contentId
@@ -21,8 +30,20 @@ function BookMarkContents({ category, bookmarks = [] }) {
     { general: [], photo: [], knowhow: [], question: [] },
   );
   return category === 'Photo' ? (
-    <>
-      <Grid container spacing={3}>
+    <div
+      className={classes.root}
+      style={{
+        padding: '20px 30px',
+        backgroundColor: '#fcf9ea',
+      }}
+    >
+      <Grid
+        container
+        spacing={3}
+        style={{
+          paddingTop: '10px',
+        }}
+      >
         {data.photo.map(({ _id, image, title, userId: { nickname } }) => {
           return (
             <Grid key={_id} item lg={3} md={4} xs={12}>
@@ -35,7 +56,7 @@ function BookMarkContents({ category, bookmarks = [] }) {
           );
         })}
       </Grid>
-    </>
+    </div>
   ) : (
     <>
       {['general', 'knowhow', 'question'].map(type => (
