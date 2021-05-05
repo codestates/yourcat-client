@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const HEADER = styled('div')`
-  margin: 10px 150px;
+  margin-left: 250px;
+  margin-right: auto;
   margin-top: 80px;
   margin-bottom: 30px;
   color: #f8a978;
