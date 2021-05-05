@@ -79,14 +79,18 @@ const ButtonContainer = styled('div')`
 function SingleComment(props) {
   const [commentValue, setCommentValue] = useState('');
   const [editComment, setEditComment] = useState(false);
-  const { comment, commentUser } = props;
+  const [realCommentId, setRealCommentId] = useState('');
+  const { comment, commentUser, commentId } = props;
   const { contentId } = useParams();
 
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
   };
 
-  const handleEditComment = () => {
+  const handleEditComment = event => {
+    console.log('comment id 는 ', event.currentTarget.className.split(' ')[2]);
+    setRealCommentId(event.currentTarget.className.split(' ')[2]);
+
     setEditComment(!editComment);
   };
 
@@ -122,7 +126,7 @@ function SingleComment(props) {
     event.preventDefault();
 
     const variables = {
-      commentId: '6090e2e6fd47759d7f351ec1',
+      commentId: realCommentId,
       description: commentValue,
     };
 
@@ -155,8 +159,10 @@ function SingleComment(props) {
         <TOP>
           <Writer>{commentUser}</Writer>
           <ButtonContainer>
-            <SmallButton onClick={handleEditComment}>Edit</SmallButton>
-            <SmallButton>Delete</SmallButton>
+            <SmallButton onClick={handleEditComment} className={commentId}>
+              Edit
+            </SmallButton>
+            <SmallButton className={commentId}>Delete</SmallButton>
           </ButtonContainer>
         </TOP>
         <div>
@@ -180,6 +186,7 @@ function SingleComment(props) {
 SingleComment.propTypes = {
   comment: propTypes.string.isRequired,
   commentUser: propTypes.string.isRequired,
+  commentId: propTypes.string.isRequired,
 };
 
 export default SingleComment;

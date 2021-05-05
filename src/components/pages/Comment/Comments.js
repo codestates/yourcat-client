@@ -89,6 +89,7 @@ function Comments() {
               key={ele.commentId}
               comment={ele.description}
               commentUser={ele.commentUserName}
+              commentId={ele.commentId}
             />
           ))}
       </div>
