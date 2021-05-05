@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -15,7 +15,8 @@ const Writer = styled('div')`
 const CommentBOX = styled('div')`
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #badfdb;
+
+  box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.05);
   padding: 8px;
   margin: 10px 200px;
 `;
@@ -77,52 +78,30 @@ const ButtonContainer = styled('div')`
 `;
 
 function SingleComment(props) {
-  const [commentValue, setCommentValue] = useState('');
+  const { comment, commentUser, commentId, setReRender } = props;
+  const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState(false);
-  const { comment, commentUser } = props;
+  const [realCommentId, setRealCommentId] = useState('');
+  const [deleteCommentId, setDeleteCommentId] = useState('');
+
   const { contentId } = useParams();
 
   const handleChange = event => {
     setCommentValue(event.currentTarget.value);
   };
 
-  const handleEditComment = () => {
+  const handleEditComment = event => {
+    console.log('comment id 는 ', event.currentTarget.className.split(' ')[2]);
+    setRealCommentId(event.currentTarget.className.split(' ')[2]);
     setEditComment(!editComment);
   };
 
-  const onSubmit = event => {
-    event.preventDefault();
-
-    const variables = {
-      description: commentValue,
-    };
-
-    const url = `http://localhost:4000/contents/addcomment/${contentId}`;
-
-    const config = {
-      headers: {
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-      },
-    };
-
-    axios
-      .patch(url, variables, config)
-      .then(response => {
-        if (response) {
-          console.log(response);
-        } else {
-          console.log('comment를 받아오는 데 실패');
-        }
-      })
-      .catch(err => console.log(err));
-  };
-
+  // 댓글 수정 기능
   const onEditSubmit = event => {
     event.preventDefault();
 
     const variables = {
-      commentId: '6090e2e6fd47759d7f351ec1',
+      commentId: realCommentId,
       description: commentValue,
     };
 
@@ -140,12 +119,58 @@ function SingleComment(props) {
       .then(response => {
         if (response) {
           console.log(response);
+          setReRender([]);
         } else {
-          console.log('comment를 받아오는 데 실패');
+          console.log('댓글 수정 실패');
         }
       })
       .catch(err => console.log(err));
   };
+
+  // 댓글 삭제 기능
+  const handleDeleteButton = event => {
+    console.log(
+      '삭제 comment id 는 ',
+      event.currentTarget.className.split(' ')[2],
+    );
+    setDeleteCommentId(event.currentTarget.className.split(' ')[2]);
+  };
+
+  const onDeleteComment = () => {
+    if (deleteCommentId) {
+      console.log('deleteid', deleteCommentId);
+      console.log('axios');
+      const variables = {
+        commentId: deleteCommentId,
+      };
+
+      const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
+
+      const config = {
+        headers: {
+          authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
+        },
+      };
+
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log(response);
+            setReRender([]);
+          } else {
+            console.log('댓글 삭제 실패');
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    console.log('useEffect');
+    onDeleteComment();
+  }, [deleteCommentId]);
 
   return (
     <div>
@@ -155,8 +180,12 @@ function SingleComment(props) {
         <TOP>
           <Writer>{commentUser}</Writer>
           <ButtonContainer>
-            <SmallButton onClick={handleEditComment}>Edit</SmallButton>
-            <SmallButton>Delete</SmallButton>
+            <SmallButton onClick={handleEditComment} className={commentId}>
+              Edit
+            </SmallButton>
+            <SmallButton onClick={handleDeleteButton} className={commentId}>
+              Delete
+            </SmallButton>
           </ButtonContainer>
         </TOP>
         <div>
@@ -165,8 +194,8 @@ function SingleComment(props) {
       </CommentBOX>
 
       {editComment && (
-        <FORM onSubmit={onSubmit}>
-          <Textarea onChange={handleChange} />
+        <FORM onSubmit={onEditSubmit}>
+          <Textarea onChange={handleChange} value={commentValue} />
           <br />
           <SubmitButton type="button" onClick={onEditSubmit}>
             Submit
@@ -180,6 +209,8 @@ function SingleComment(props) {
 SingleComment.propTypes = {
   comment: propTypes.string.isRequired,
   commentUser: propTypes.string.isRequired,
+  commentId: propTypes.string.isRequired,
+  setReRender: propTypes.func.isRequired,
 };
 
 export default SingleComment;
