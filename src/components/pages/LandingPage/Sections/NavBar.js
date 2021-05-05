@@ -64,6 +64,9 @@ export default function NavBar() {
           <Link to="/calculator">
             <Category>Calculator</Category>
           </Link>
+          <Link to="/bookmarks">
+            <Category>bookmarks</Category>
+          </Link>
         </Div>
 
         <Column>
