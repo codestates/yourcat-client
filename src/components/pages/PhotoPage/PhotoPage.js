@@ -36,7 +36,7 @@ const Button = styled('button')`
   }
 `;
 
-export default function PhotoPage() {
+export default React.memo(() => {
   const dispatch = useDispatch();
   const [photoList, setPhotoList] = useState([]);
   const [reRender, setReRender] = useState([]);
@@ -67,6 +67,7 @@ export default function PhotoPage() {
   }, [reRender]);
 
   const classes = useStyles();
+  console.log(photoList);
   return (
     <>
       <HEADER>Cat Photo</HEADER>
@@ -90,7 +91,7 @@ export default function PhotoPage() {
           }}
         >
           {photoList.map(photo => (
-            <Grid item lg={3} md={4} xs={12}>
+            <Grid key={photo.contentId} item lg={3} md={4} xs={12}>
               <PhotoCard
                 userAvatar={photo.user.userImage}
                 user={photo.user.userName}
@@ -107,4 +108,4 @@ export default function PhotoPage() {
       <PhotoUploadForm setReRender={setReRender} />
     </>
   );
-}
+});
