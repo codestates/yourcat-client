@@ -45,7 +45,7 @@ const Button = styled('button')`
 export default function PhotoPage() {
   const dispatch = useDispatch();
   const [photoList, setPhotoList] = useState([]);
-
+  const [request, setRequest] = useState([]);
   const url = `http://localhost:4000/contents/photo`;
 
   const modalHandler = () => {
@@ -62,7 +62,7 @@ export default function PhotoPage() {
         setPhotoList(result);
       })
       .catch(err => console.log(err));
-  }, [photoList]);
+  }, [request]);
 
   const classes = useStyles();
   return (
@@ -101,7 +101,7 @@ export default function PhotoPage() {
           ))}
         </Grid>
       </div>
-      <PhotoUploadForm setPhotoList={setPhotoList} />
+      <PhotoUploadForm setRequest={setRequest} />
     </>
   );
 }
