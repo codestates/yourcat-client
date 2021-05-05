@@ -6,5 +6,6 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-alert': 'off',
     'no-console': 'off',
+    'no-underscore-dangle': 0, // _id 쓰게함
   },
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 import EditContents from './EditContents';
 import Comments from '../../Comment/Comments';
@@ -73,6 +73,7 @@ function DetailContents() {
   const [isEdit, setIsEdit] = useState(false);
   const [likeSwitch, setLikeSwitch] = useState(false);
 
+  const myInfo = useSelector(data => data.getUserInfo);
   const { contentId } = useParams();
   const [{ result }, setResult] = useCheckToken();
 
@@ -127,6 +128,7 @@ function DetailContents() {
       .then(response => {
         console.log('res.data ', response.data);
         setContentData(response.data.contentInfo);
+        console.log(response.data.contentInfo);
       })
       .catch(err => {
         console.log(err);
@@ -135,8 +137,14 @@ function DetailContents() {
 
   const switchIsEdit = () => {
     setResult();
-    if (result) {
-      setIsEdit(true);
+    console.log(result);
+    if (result.isAuth) {
+      console.log(user);
+      if (user.userName === myInfo.nickname) {
+        setIsEdit(true);
+      } else {
+        alert('잘못된 접근입니다.');
+      }
     } else {
       alert('로그인이 필요합니다.');
     }
