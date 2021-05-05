@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 import HEADER from '../../../../utils/Header';
 
@@ -28,7 +27,6 @@ const DESCRIPTION = styled.textarea`
   all: unset;
   display: flex;
   padding: 16px;
-
   width: 70%;
   height: 40vh;
   margin: 20px auto;
@@ -52,8 +50,6 @@ function EditContents({
 }) {
   console.log(user);
   const { contentId } = useParams();
-  const history = useHistory();
-  const dispatch = useDispatch();
   const [change, setChange] = useState({ title, description });
   const [{ result }, setResult] = useCheckToken();
   const handleDetailChange = key => event => {
@@ -91,35 +87,7 @@ function EditContents({
   const switchIsEdit = () => {
     setIsEdit(false);
   };
-  const commentDeleteHandler = () => {
-    setResult();
-    if (result.isAuth) {
-      axios
-        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
-          headers: {
-            authorization: `Bearer ${result.accessToken}`,
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(res => {
-          console.log(res);
-          history.push('/community');
-        })
-        .catch(() => {
-          dispatch({ type: 'ERROR_MODAL_TRUE' });
-          dispatch({
-            type: 'SET_ERROR_MESSAGE',
-            payload: '권한이 없습니다.',
-          });
-        });
-    } else {
-      dispatch({ type: 'ERROR_MODAL_TRUE' });
-      dispatch({
-        type: 'SET_ERROR_MESSAGE',
-        payload: '로그인이 필요합니다.',
-      });
-    }
-  };
+
   return (
     <>
       <HEADER>Edit post</HEADER>
@@ -139,9 +107,6 @@ function EditContents({
         </button>
         <button type="button" onClick={handleSubmit}>
           수정
-        </button>
-        <button type="button" onClick={commentDeleteHandler}>
-          삭제
         </button>
       </form>
     </>

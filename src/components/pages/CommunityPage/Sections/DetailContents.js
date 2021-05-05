@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
@@ -104,6 +104,8 @@ function DetailContents() {
   const [isEdit, setIsEdit] = useState(false);
   const [likeSwitch, setLikeSwitch] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const myInfo = useSelector(data => data.getUserInfo);
   const { contentId } = useParams();
   const [{ result }, setResult] = useCheckToken();
@@ -169,6 +171,36 @@ function DetailContents() {
       });
   }, []);
 
+  const commentDeleteHandler = () => {
+    setResult();
+    if (result.isAuth) {
+      axios
+        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
+          headers: {
+            authorization: `Bearer ${result.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(res => {
+          console.log(res);
+          history.push('/community');
+        })
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '권한이 없습니다.',
+          });
+        });
+    } else {
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요합니다.',
+      });
+    }
+  };
+
   const switchIsEdit = () => {
     setResult();
     console.log(result);
@@ -216,6 +248,9 @@ function DetailContents() {
           <MidRight>
             <Button type="button" onClick={switchIsEdit}>
               Edit
+            </Button>
+            <Button type="button" onClick={commentDeleteHandler}>
+              Delete
             </Button>
             <LikeBOX>
               <LIKEBNT onClick={() => setLikeSwitch(!likeSwitch)}>
