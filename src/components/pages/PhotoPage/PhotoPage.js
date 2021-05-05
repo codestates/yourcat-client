@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import axios from 'axios';
 import styled from 'styled-components';
@@ -46,17 +46,24 @@ export default function PhotoPage() {
   const dispatch = useDispatch();
   const [photoList, setPhotoList] = useState([]);
   const [reRender, setReRender] = useState([]);
-
+  const token = useSelector(dat => dat.token);
   const url = `http://localhost:4000/contents/photo`;
 
   const modalHandler = () => {
     dispatch({ type: 'PHOTO_MODAL_TRUE' });
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     console.log('렌더렌더---------------------------');
+    console.log(token);
+    const config = token
+      ? {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      : undefined;
+    console.log(config);
     axios
-      .post(url)
+      .post(url, undefined, config)
       .then(response => {
         const result = response.data.contentsList;
         console.log('result', result);
