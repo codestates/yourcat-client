@@ -13,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 // import catImage from '../../../../images/catProfile.png';
 
 // const CAT = styled('img')`
@@ -26,6 +27,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 // };
 
 const heartIcon = <FontAwesomeIcon icon={faHeart} />;
+const trashIcon = <FontAwesomeIcon icon={faTrashAlt} />;
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -91,14 +93,20 @@ export default function PhotoCard(props) {
       <CardHeader
         avatar={<Avatar src={userAvatar} />}
         action={
-          <IconButton
-            className={contentId}
-            aria-label="add to favorites"
-            onClick={onLikeHandler}
-            style={likeSwitch ? { color: '#f8a978' } : { color: '#badfdb' }}
-          >
-            {heartIcon}
-          </IconButton>
+          <>
+            <IconButton className={contentId} style={{ color: '#d1d1cf' }}>
+              {trashIcon}
+            </IconButton>
+
+            <IconButton
+              className={contentId}
+              aria-label="add to favorites"
+              onClick={onLikeHandler}
+              style={likeSwitch ? { color: '#f8a978' } : { color: '#badfdb' }}
+            >
+              {heartIcon}
+            </IconButton>
+          </>
         }
         title={user}
       />
