@@ -5,106 +5,135 @@ import styled from 'styled-components';
 import Header from './Sections/Header';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
 
+const CONTENT = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 30px;
+`;
+
 const LIST = styled.div`
   display: flex;
-  felx-direction: row;
-  margin: 120px;
   justify-content: center;
+  padding: 10px 0;
+
+  width: 70%;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.09);
+`;
+
+const TopBar = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 30px;
+  margin-bottom: 60px;
 `;
 
 const TITLE = styled.div`
-  display: flex;
   padding: 10px;
-  border: none;
-  width: 35%;
+
+  width: 60%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
-  font-size: 35px;
+  font-size: 21px;
+  text-align: center;
 `;
 
 const WRITER = styled.div`
-  display: flex;
   padding: 10px;
-  border: none;
-  width: 15%;
+
+  width: 20%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
-  font-size: 35px;
+  font-size: 21px;
+  text-align: center;
 `;
 
 const DATE = styled.div`
-  display: flex;
   padding: 10px;
-  border: none;
-  width: 10%;
+
+  width: 20%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
-  font-size: 35px;
+  font-size: 21px;
+  text-align: center;
 `;
 
 const SELECT = styled.select`
-  display: flex;
-  padding: 16px;
-  border: none;
-  width: 10%;
-  height: 20%;
-  background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  padding: 8px;
+
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+
   font-weight: 300;
-  font-size: 19px;
+  font-size: 17px;
+  margin: 0 20px;
+  &:hover {
+    border: 1.5px solid #badfdb;
+  }
 `;
 
 const NEWPOSTBNT = styled.button`
-  display: flex;
   padding: 10px;
-  margin-left: auto;
-  margin-right: 370px;
-  border: 1px;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  background-color: #f5f5f5;
+
+  background-color: #badfdb;
+  color: white;
+  border-radius: 7px;
+  font-size: 17px;
+
+  border: none;
+  &:hover {
+    background-color: #f8a978;
+  }
 `;
 
 const LISTCATEGORY = styled.div`
   display: flex;
-  felx-direction: row;
-  padding: 0 0 0 370px;
+  flex-direction: row;
+  width: 70%;
+  justify-content: center;
+  padding: 5px 0;
+
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 `;
 
 const CATEGORYTITLE = styled.div`
-  display: flex;
-  padding: 10px;
-  border: none;
-  width: 39%;
+  padding: 10px 20px;
+
+  width: 60%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
-  font-size: 17px;
+  font-size: 20px;
 `;
 
 const CATEGORYWRITER = styled.div`
-  display: flex;
   padding: 10px;
-  border: none;
-  width: 15%;
+
+  width: 20%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
-  font-size: 17px;
+  font-size: 20px;
+  text-align: center;
 `;
 
 const CATEGORYDATE = styled.div`
-  display: flex;
   padding: 10px;
-  border: none;
-  width: 23%;
+
+  width: 20%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
-  font-size: 17px;
+  font-size: 20px;
+  text-align: center;
 `;
 
 const BUTTON = styled.button`
@@ -191,39 +220,47 @@ function CommunityPage() {
   return (
     <>
       <Header />
-      <LIST>
-        <TITLE>TITLE</TITLE>
-        <WRITER>WRITER</WRITER>
-        <DATE>DATE</DATE>
-        <SELECT onChange={event => setCategoryValue(event.target.value)}>
-          <option value="general">General</option>
-          <option value="question">Question</option>
-          <option value="knowhow">Knowhow</option>
-        </SELECT>
-      </LIST>
-      <NEWPOSTBNT onClick={createPost}>New Post</NEWPOSTBNT>
-      {categorys.map(({ title, contentId, user, createdAt }) => (
-        <LISTCATEGORY key={contentId}>
-          {title.length > 30 ? (
-            <CATEGORYTITLE key={title}>
-              <Link to={`/community/detail/${contentId}`}>
-                {title.slice(0, 30)}...
-              </Link>
-            </CATEGORYTITLE>
-          ) : (
-            <CATEGORYTITLE key={title}>
-              <Link to={`/community/detail/${contentId}`}>{title}</Link>
-            </CATEGORYTITLE>
-          )}
-          {user !== undefined ? (
-            <CATEGORYWRITER key={user}>{user.userName}</CATEGORYWRITER>
-          ) : (
-            <div> </div>
-          )}
-          <CATEGORYDATE key={createdAt}>{createdAt.slice(0, 10)}</CATEGORYDATE>
-        </LISTCATEGORY>
-      ))}
-      {size >= Limit && <BUTTON onClick={loadMoreHandler}>MORE</BUTTON>}
+      <CONTENT>
+        <TopBar>
+          <SELECT onChange={event => setCategoryValue(event.target.value)}>
+            <option value="general">General</option>
+            <option value="question">Question</option>
+            <option value="knowhow">Knowhow</option>
+          </SELECT>
+          <NEWPOSTBNT onClick={createPost}>New Post</NEWPOSTBNT>
+        </TopBar>
+
+        <LIST>
+          <TITLE>TITLE</TITLE>
+          <WRITER>WRITER</WRITER>
+          <DATE>DATE</DATE>
+        </LIST>
+
+        {categorys.map(({ title, contentId, user, createdAt }) => (
+          <LISTCATEGORY key={contentId}>
+            {title.length > 30 ? (
+              <CATEGORYTITLE key={title}>
+                <Link to={`/community/detail/${contentId}`}>
+                  {title.slice(0, 30)}...
+                </Link>
+              </CATEGORYTITLE>
+            ) : (
+              <CATEGORYTITLE key={title}>
+                <Link to={`/community/detail/${contentId}`}>{title}</Link>
+              </CATEGORYTITLE>
+            )}
+            {user !== undefined ? (
+              <CATEGORYWRITER key={user}>{user.userName}</CATEGORYWRITER>
+            ) : (
+              <div> </div>
+            )}
+            <CATEGORYDATE key={createdAt}>
+              {createdAt.slice(0, 10)}
+            </CATEGORYDATE>
+          </LISTCATEGORY>
+        ))}
+        {size >= Limit && <BUTTON onClick={loadMoreHandler}>MORE</BUTTON>}
+      </CONTENT>
     </>
   );
 }
