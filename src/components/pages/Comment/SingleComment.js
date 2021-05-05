@@ -15,7 +15,8 @@ const Writer = styled('div')`
 const CommentBOX = styled('div')`
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #badfdb;
+
+  box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.05);
   padding: 8px;
   margin: 10px 200px;
 `;
@@ -77,11 +78,12 @@ const ButtonContainer = styled('div')`
 `;
 
 function SingleComment(props) {
-  const [commentValue, setCommentValue] = useState('');
+  const { comment, commentUser, commentId, setReRender } = props;
+  const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState(false);
   const [realCommentId, setRealCommentId] = useState('');
   const [deleteCommentId, setDeleteCommentId] = useState('');
-  const { comment, commentUser, commentId } = props;
+
   const { contentId } = useParams();
 
   const handleChange = event => {
@@ -92,34 +94,6 @@ function SingleComment(props) {
     console.log('comment id 는 ', event.currentTarget.className.split(' ')[2]);
     setRealCommentId(event.currentTarget.className.split(' ')[2]);
     setEditComment(!editComment);
-  };
-
-  const onSubmit = event => {
-    event.preventDefault();
-
-    const variables = {
-      description: commentValue,
-    };
-
-    const url = `http://localhost:4000/contents/addcomment/${contentId}`;
-
-    const config = {
-      headers: {
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-      },
-    };
-
-    axios
-      .patch(url, variables, config)
-      .then(response => {
-        if (response) {
-          console.log(response);
-        } else {
-          console.log('댓글 추가 실패');
-        }
-      })
-      .catch(err => console.log(err));
   };
 
   // 댓글 수정 기능
@@ -145,6 +119,7 @@ function SingleComment(props) {
       .then(response => {
         if (response) {
           console.log(response);
+          setReRender([]);
         } else {
           console.log('댓글 수정 실패');
         }
@@ -183,6 +158,7 @@ function SingleComment(props) {
         .then(response => {
           if (response) {
             console.log(response);
+            setReRender([]);
           } else {
             console.log('댓글 삭제 실패');
           }
@@ -218,8 +194,8 @@ function SingleComment(props) {
       </CommentBOX>
 
       {editComment && (
-        <FORM onSubmit={onSubmit}>
-          <Textarea onChange={handleChange} />
+        <FORM onSubmit={onEditSubmit}>
+          <Textarea onChange={handleChange} value={commentValue} />
           <br />
           <SubmitButton type="button" onClick={onEditSubmit}>
             Submit
@@ -234,6 +210,7 @@ SingleComment.propTypes = {
   comment: propTypes.string.isRequired,
   commentUser: propTypes.string.isRequired,
   commentId: propTypes.string.isRequired,
+  setReRender: propTypes.func.isRequired,
 };
 
 export default SingleComment;

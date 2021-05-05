@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import useCheckToken from '../../../utils/Hook/useCheckToken';
 
 import SingleComment from './SingleComment';
 import Textarea from '../../../utils/Textarea';
@@ -30,14 +31,16 @@ const FORM = styled('div')`
 function Comments() {
   const [comment, setComment] = useState('');
   const [commentList, setCommentList] = useState([]);
+  const [reRender, setReRender] = useState([]);
+  const [{ result }, setResult] = useCheckToken();
 
   const { contentId } = useParams();
 
   const handleChange = event => {
     setComment(event.currentTarget.value);
-    console.log('comment :', comment);
   };
 
+  // 댓글 목록 불러와서 렌더
   useEffect(() => {
     axios
       .get(`http://localhost:4000/contents/detail/${contentId}`)
@@ -46,40 +49,48 @@ function Comments() {
         console.log('comment ', response.data.contentInfo.comment);
         setCommentList(response.data.contentInfo.comment);
       });
-  }, []);
+  }, [reRender]);
 
+  // 댓글 등록 기능
   const onSubmit = event => {
     event.preventDefault();
+    setResult();
+    console.log('result', result);
+    if (result.isAuth) {
+      const variables = {
+        description: comment,
+      };
 
-    const variables = {
-      description: comment,
-    };
+      const url = `http://localhost:4000/contents/addcomment/${contentId}`;
 
-    const url = `http://localhost:4000/contents/addcomment/${contentId}`;
+      const config = {
+        headers: {
+          authorization: `Bearer ${result.accessToken}`,
+        },
+      };
 
-    const config = {
-      headers: {
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-      },
-    };
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log(response);
+            setReRender([]);
+            setComment('');
+          } else {
+            console.log('댓글 등록 실패');
+          }
+        })
 
-    axios
-      .patch(url, variables, config)
-      .then(response => {
-        if (response) {
-          console.log(response);
-        } else {
-          console.log('comment를 받아오는 데 실패');
-        }
-      })
-      .catch(err => console.log(err));
+        .catch(err => console.log(err));
+    }
   };
 
   // TODO: 본인이 쓴 댓글만 수정, 삭제 가능하도록
   return (
     <div style={{ margin: '50px 20px' }}>
-      <div style={{ fontSize: '20px', color: '#f8a978' }}>Comments</div>
+      <div style={{ fontSize: '20px', color: '#badfdb', margin: '0 200px' }}>
+        Comments
+      </div>
       <br />
       <br />
       <div>
@@ -90,6 +101,7 @@ function Comments() {
               comment={ele.description}
               commentUser={ele.commentUserName}
               commentId={ele.commentId}
+              setReRender={setReRender}
             />
           ))}
       </div>
