@@ -17,13 +17,10 @@ function BookMarkContents({ category, bookmarks = [] }) {
   const classes = useStyles();
   const data = bookmarks.reduce(
     (result, bookmark) => {
-      return bookmark.contentId
+      return bookmark
         ? {
             ...result,
-            [bookmark.contentId.category]: [
-              ...result[bookmark.contentId.category],
-              bookmark.contentId,
-            ],
+            [bookmark.category]: [...result[bookmark.category], bookmark],
           }
         : result;
     },
@@ -44,13 +41,14 @@ function BookMarkContents({ category, bookmarks = [] }) {
           paddingTop: '10px',
         }}
       >
-        {data.photo.map(({ _id, image, title, userId: { nickname } }) => {
+        {data.photo.map(({ _id, contentImage, title, userName, userImage }) => {
           return (
             <Grid key={_id} item lg={3} md={4} xs={12}>
               <PhotoBookMarkCard
-                image={image}
+                contentImage={contentImage}
+                userImage={userImage}
                 title={title}
-                nickname={nickname}
+                userName={userName}
               />
             </Grid>
           );
