@@ -90,7 +90,7 @@ const NEWPOSTBNT = styled.button`
 
   border: none;
   &:hover {
-    background-color: #f8a978;
+    background-color: #94d4cd;
   }
 `;
 
