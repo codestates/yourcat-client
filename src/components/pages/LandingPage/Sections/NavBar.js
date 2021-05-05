@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SideTab from './SideTab';
+// import Bars from './Bars';
+import StyleSideBar from '../../SideBar/StyleSideBar';
 
 const FixedNav = styled('div')`
   position: fixed;
@@ -42,6 +45,7 @@ const Category = styled('div')`
 `;
 
 export default function NavBar() {
+  const resData = useSelector(state => state.token);
   return (
     <FixedNav>
       <Nav>
@@ -66,9 +70,15 @@ export default function NavBar() {
           </Link>
         </Div>
 
-        <Column>
-          <SideTab />
-        </Column>
+        {resData ? (
+          <Column>
+            <StyleSideBar />
+          </Column>
+        ) : (
+          <Column>
+            <SideTab />
+          </Column>
+        )}
       </Nav>
     </FixedNav>
   );

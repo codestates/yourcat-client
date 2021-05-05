@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -7,7 +7,9 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
+import { useSelector } from 'react-redux';
+import Bars from '../LandingPage/Sections/Bars';
 // import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MailIcon from '@material-ui/icons/Mail';
 
@@ -22,14 +24,30 @@ const useStyles = makeStyles({
 
 // TODO: 햄버거 눌렀을 때 right state를 true로
 // 그러면 모든 페이지에서 state 변경이 되어야하는데 리덕스로 해야하나? 아니면 App.js에서??
-export default function StyleSideBar() {
+function StyleSideBar() {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: true,
+  const resData = useSelector(state => {
+    return state.getUserInfo;
   });
+  console.log(resData);
+  const [state, setState] = useState({ right: false });
+  const [Info, setInfo] = useState('');
+  console.log(Info);
+
+  useEffect(() => {
+    if (!resData.catInfo) {
+      setInfo({
+        catInfo: {
+          name: 'Your Cat',
+          age: '12',
+          gender: 'Male',
+          image: 'resData.catInfo.image',
+        },
+      });
+    } else {
+      setInfo(resData);
+    }
+  }, [state]);
 
   const toggleDrawer = (anchor, open) => event => {
     if (
@@ -51,48 +69,57 @@ export default function StyleSideBar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div style={{ border: '1px solid', height: '250px' }}>Cat Image</div>
-
+      <img
+        style={{ border: '1px solid', height: '250px' }}
+        src={Info && Info.catInfo.image}
+        alt=""
+      />
       <List>
         <ListItem key="Cat Name">
-          <ListItemText primary="Cat Name : " />
+          <div> Cat Name : {Info && Info.catInfo.name} </div>
         </ListItem>
         <ListItem key="Cat Age">
-          <ListItemText primary="Cat Age : " />
+          <div> Cat Age : {Info && Info.catInfo.age} Months</div>
         </ListItem>
         <ListItem key="Cat Gender">
-          <ListItemText primary="Cat Gender : " />
+          <div> Cat Gender : {Info && Info.catInfo.gender}</div>
         </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem button key="My Page">
-          <ListItemText primary="My Page" />
+          <div> My Page </div>
         </ListItem>
         <ListItem button key="Bookmark">
-          <ListItemText primary="Bookmark" />
+          <div> Bookmark </div>
         </ListItem>
         <ListItem button key="Logout">
-          <ListItemText primary="Logout" />
+          <div> Logout </div>
         </ListItem>
       </List>
     </div>
   );
 
   return (
-    <div>
-      {['left', 'right', 'top', 'bottom'].map(anchor => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+    <div style={{ width: '100px' }}>
+      <div>
+        {['right'].map(anchor => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>
+              <Bars />
+            </Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 }
+
+export default memo(StyleSideBar);
