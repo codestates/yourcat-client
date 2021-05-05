@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 import EditContents from './EditContents';
 import Comments from '../../Comment/Comments';
@@ -103,7 +103,7 @@ function DetailContents() {
   const [{ title, description, like, user }, setContentData] = useState('');
   const [isEdit, setIsEdit] = useState(false);
   const [likeSwitch, setLikeSwitch] = useState(false);
-
+  const dispatch = useDispatch();
   const myInfo = useSelector(data => data.getUserInfo);
   const { contentId } = useParams();
   const [{ result }, setResult] = useCheckToken();
@@ -114,32 +114,35 @@ function DetailContents() {
     };
 
     if (likeSwitch) {
-      console.log('북마크에 추가');
       variables.isBookmark = false;
     } else {
-      console.log('북마크에서 삭제');
       variables.isBookmark = true;
     }
 
-    const url = `http://localhost:4000/bookmarks/edit/${contentId}`;
+    if (result.isAuth) {
+      const url = `http://localhost:4000/bookmarks/edit/${contentId}`;
 
-    const config = {
-      headers: {
-        authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDhlNjU3ZmY3NGY4ODNjNTRiYzcyZTEiLCJpYXQiOjE2MTk5NDQ5MTEsImV4cCI6MTYxOTk1NTcxMX0.EXPkFMz1iyY2xp86d_EGKRLWrgSKpLFLv49k3TMjtFY',
-      },
-    };
+      const config = {
+        headers: {
+          authorization: `Bearer ${result.accessToken}`,
+        },
+      };
 
-    axios
-      .patch(url, variables, config)
-      .then(response => {
-        if (response) {
-          console.log('북마크 성공');
-        } else {
-          console.log('북마크 실패');
-        }
-      })
-      .catch(err => console.log(err));
+      axios
+        .patch(url, variables, config)
+        .then(response => {
+          if (response) {
+            console.log('북마크 성공');
+          } else {
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              payload: '북마크 실패',
+            });
+          }
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   useEffect(() => {
@@ -174,10 +177,18 @@ function DetailContents() {
       if (user.userName === myInfo.nickname) {
         setIsEdit(true);
       } else {
-        alert('잘못된 접근입니다.');
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '잘못된 접근입니다.',
+        });
       }
     } else {
-      alert('로그인이 필요합니다.');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요합니다.',
+      });
     }
   };
 

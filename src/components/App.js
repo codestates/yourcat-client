@@ -14,6 +14,7 @@ import Bookmark from './pages/BookmarkPage/BookmarkPage';
 import PhotoUploadForm from './pages/PhotoPage/Sections/PhotoUploadForm';
 import CommunityCreate from './pages/CommunityPage/Sections/CreateContent';
 import MyPage from './pages/Mypage/MyPage';
+import ErrModal from '../utils/ErrModal/ErrModal';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
         </div>
       </BrowserRouter>
       <MainModal />
+      <ErrModal />
     </>
   );
 }

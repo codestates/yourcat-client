@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import useCheckToken from '../../../utils/Hook/useCheckToken';
+import { useDispatch } from 'react-redux';
 
+import useCheckToken from '../../../utils/Hook/useCheckToken';
 import SingleComment from './SingleComment';
 import Textarea from '../../../utils/Textarea';
 
@@ -33,7 +34,7 @@ function Comments() {
   const [commentList, setCommentList] = useState([]);
   const [reRender, setReRender] = useState([]);
   const [{ result }, setResult] = useCheckToken();
-
+  const dispatch = useDispatch();
   const { contentId } = useParams();
 
   const handleChange = event => {
@@ -55,7 +56,6 @@ function Comments() {
   const onSubmit = event => {
     event.preventDefault();
     setResult();
-    console.log('result', result);
     if (result.isAuth) {
       const variables = {
         description: comment,
@@ -77,11 +77,22 @@ function Comments() {
             setReRender([]);
             setComment('');
           } else {
-            console.log('댓글 등록 실패');
+            console.log(1);
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              payload: '댓글 등록에 실패했습니다.',
+            });
           }
         })
 
-        .catch(err => console.log(err));
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '서버 요청에 실패했습니다.',
+          });
+        });
     }
   };
 
