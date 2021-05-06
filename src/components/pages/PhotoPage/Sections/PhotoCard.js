@@ -80,13 +80,10 @@ export default function PhotoCard(props) {
           .delete(url, config)
           .then(response => {
             if (response) {
-              console.log('포토 삭제 성공', response);
               setReRender([]);
-            } else {
-              console.log('포토 삭제 실패');
             }
           })
-          .catch(err => console.log(err));
+          .catch(() => {});
       }
     }
   }, [deleteContentId]);
@@ -119,13 +116,7 @@ export default function PhotoCard(props) {
 
       axios
         .patch(url, variables, config)
-        .then(response => {
-          if (response) {
-            console.log('북마크 성공');
-          } else {
-            console.log('북마크 실패');
-          }
-        })
+        .then(() => {})
         .catch(err => console.log(err));
     }
   };
