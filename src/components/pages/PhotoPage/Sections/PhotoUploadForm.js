@@ -100,8 +100,6 @@ function PhotoUploadForm({ setReRender }) {
         category: 'photo',
         image: photo,
       });
-    } else {
-      console.log('');
     }
   };
   const getPhotoPath = response => {

@@ -39,7 +39,7 @@ function Bookmark() {
   const token = useSelector(data => data.token);
   useEffect(() => {
     axios
-      .get('http://localhost:4000/bookmarks/list', {
+      .get(`${process.env.REACT_APP_SERVER_URL}/bookmarks/list`, {
         headers: { authorization: `Bearer ${token}` },
       })
       .then(({ data }) => {

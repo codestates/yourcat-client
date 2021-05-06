@@ -46,7 +46,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const editSubmit = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/useredit';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/useredit`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
@@ -54,8 +54,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       };
       axios
         .patch(url, { catInfo: cat, nickname: edit.nickname }, config)
-        .then(response => {
-          console.log(response);
+        .then(() => {
           setIsEdit(false);
           dispatch(getUserInfo(result.accessToken)).then(() => {
             dispatch({ type: 'ERROR_MODAL_TRUE' });
@@ -77,7 +76,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const nickNameCheck = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/nicknamecheck';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/nicknamecheck`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
@@ -85,8 +84,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       };
       axios
         .post(url, { nickname: edit.nickname }, config)
-        .then(res => {
-          console.log(res);
+        .then(() => {
           dispatch({ type: 'ERROR_MODAL_TRUE' });
           dispatch({
             type: 'SET_ERROR_MESSAGE',

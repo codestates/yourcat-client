@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import axios from 'axios';
 
 // post 요청 보내는 곳
-const url = 'http://localhost:4000/images/upload';
+const url = `${process.env.REACT_APP_SERVER_URL}/images/upload`;
 
 // 렌더링 되는 엘리먼트 스타일링
 const Button = styled.button`
@@ -79,10 +79,9 @@ function postRequest(formData, cb) {
   axios
     .post(url, formData)
     .then(res => {
-      console.log(res);
       cb(res);
     })
-    .catch(err => console.log(err));
+    .catch(() => {});
 }
 // --------------------------------------------------------------------------------------------------
 // ImageUploader 엘리먼트
@@ -114,11 +113,9 @@ const ImageUploader = props => {
   }, [previewURL]);
 
   const handleChange = event => {
-    console.log(1);
     const reader = new FileReader();
     const fileData = event.target.files[0];
     reader.onloadend = () => {
-      console.log(2);
       setFile({ file: fileData });
       setPreviewURL(reader.result);
     };
@@ -127,8 +124,6 @@ const ImageUploader = props => {
     }
   };
   const handleClick = () => {
-    console.log(0);
-
     hiddenFileInput.current.click();
   };
   return (

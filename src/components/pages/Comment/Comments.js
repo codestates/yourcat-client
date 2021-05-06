@@ -44,7 +44,7 @@ function Comments() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/contents/detail/${contentId}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/contents/detail/${contentId}`)
       .then(response => {
         setCommentList(response.data.contentInfo.comment);
       });
@@ -58,7 +58,7 @@ function Comments() {
         description: comment,
       };
 
-      const url = `http://localhost:4000/contents/addcomment/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/contents/addcomment/${contentId}`;
 
       const config = {
         headers: {
