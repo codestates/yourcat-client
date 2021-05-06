@@ -9,7 +9,7 @@ const barsIcon = <FontAwesomeIcon icon={faBars} />;
 
 const BARS = styled('div')`
   margin: 7.5px 20px;
-  font-size: 0.875rem;
+  font-size: 1.25rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;

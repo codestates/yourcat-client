@@ -32,7 +32,7 @@ const NickBOX = styled('div')`
   align-items: center;
   justify-content: center;
   width: 90%;
-  margin-top: 40px;
+  margin-bottom: 40px;
 `;
 
 const NickInput = styled.input`
@@ -207,7 +207,19 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
           <HeaderBox>
             <HEADER>Edit Info</HEADER>
           </HeaderBox>
+
           <INPUTDIV>
+            <NickBOX>
+              <TITLE>Nickname: </TITLE>
+              <NickInput
+                onChange={handleChange('nickname')}
+                type="text"
+                value={edit.nickname}
+              />
+              <BUTTON type="button" onClick={nickNameCheck}>
+                중복 체크
+              </BUTTON>
+            </NickBOX>
             <INPUTBOX>
               <TITLE>Cat Name: </TITLE>
               <Input
@@ -233,17 +245,6 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
                 value={cat.age}
               />
             </INPUTBOX>
-            <NickBOX>
-              <TITLE>Nickname: </TITLE>
-              <NickInput
-                onChange={handleChange('nickname')}
-                type="text"
-                value={edit.nickname}
-              />
-              <BUTTON type="button" onClick={nickNameCheck}>
-                중복 체크
-              </BUTTON>
-            </NickBOX>
           </INPUTDIV>
           <ButtonContainer>
             <Button type="button" onClick={switchIsEdit}>

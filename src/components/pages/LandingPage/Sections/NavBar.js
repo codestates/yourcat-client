@@ -17,9 +17,11 @@ const Nav = styled('div')`
   background-color: #badfdb;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: white;
   padding: 5px 100px;
   width: 100%;
+  height: 55px;
 `;
 
 const Column = styled('div')`
@@ -28,7 +30,7 @@ const Column = styled('div')`
 
 const Logo = styled('div')`
   margin: 7px 20px;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
 `;
 
@@ -41,7 +43,7 @@ const Div = styled('div')`
 `;
 
 const Category = styled('div')`
-  font-size: 1rem;
+  font-size: 1.1rem;
 `;
 
 const HamburgerColumn = styled('div')`
