@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default function getUserInfo(accessToken) {
-  console.log('accessToken 은 ', accessToken);
   const url = `${process.env.REACT_APP_SERVER_URL}/users/userinfo`;
   const config = {
     headers: {

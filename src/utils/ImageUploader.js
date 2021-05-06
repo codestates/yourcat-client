@@ -79,10 +79,9 @@ function postRequest(formData, cb) {
   axios
     .post(url, formData)
     .then(res => {
-      console.log(res);
       cb(res);
     })
-    .catch(err => console.log(err));
+    .catch(() => {});
 }
 // --------------------------------------------------------------------------------------------------
 // ImageUploader 엘리먼트

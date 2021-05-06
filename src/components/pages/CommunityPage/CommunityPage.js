@@ -139,9 +139,7 @@ function CommunityPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log(setLimit);
-
-  const url = `http://localhost:4000/contents/${categoryValue}`;
+  const url = `${process.env.REACT_APP_SERVER_URL}/contents/${categoryValue}`;
 
   useEffect(() => {
     axios
@@ -168,6 +166,8 @@ function CommunityPage() {
   };
 
   const loadMoreHandler = () => {
+    setLimit(10);
+
     const skip = Skip + Limit;
     const body = {
       skip: Skip,

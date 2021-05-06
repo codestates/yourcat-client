@@ -186,8 +186,7 @@ function MyPage() {
       };
       axios
         .delete(url, config)
-        .then(response => {
-          console.log('삭제?', response);
+        .then(() => {
           history.push('/');
           dispatch({ type: 'DELETE_TOKEN' });
           dispatch({ type: 'DELETE_USERINFO' });

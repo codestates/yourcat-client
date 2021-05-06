@@ -54,8 +54,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       };
       axios
         .patch(url, { catInfo: cat, nickname: edit.nickname }, config)
-        .then(response => {
-          console.log(response);
+        .then(() => {
           setIsEdit(false);
           dispatch(getUserInfo(result.accessToken)).then(() => {
             dispatch({ type: 'ERROR_MODAL_TRUE' });
@@ -85,8 +84,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       };
       axios
         .post(url, { nickname: edit.nickname }, config)
-        .then(res => {
-          console.log(res);
+        .then(() => {
           dispatch({ type: 'ERROR_MODAL_TRUE' });
           dispatch({
             type: 'SET_ERROR_MESSAGE',
