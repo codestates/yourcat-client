@@ -9,7 +9,7 @@ const initState = {
   ],
 };
 
-export default function (state = initState, action) {
+export default function editContentsReducer(state = initState, action) {
   const { type, payload } = action;
   switch (type) {
     case 'EDIT_CONTENT':

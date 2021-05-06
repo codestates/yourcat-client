@@ -64,7 +64,7 @@ function TutorialsPage() {
       <HEADER>알쓸냥잡</HEADER>
       {dummy.tutoList.map(el => (
         <>
-          <Link to={`/tutorials/${el.id}`}>
+          <Link to={`/tutorials/${el.id}`} key={el.id}>
             <CONTENT>
               <StyledTitle key={el.title}>{el.title}</StyledTitle>
               <StyledDate key={el.date}>{el.date}</StyledDate>
