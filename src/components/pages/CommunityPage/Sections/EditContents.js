@@ -6,6 +6,14 @@ import { useParams } from 'react-router';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 import HEADER from '../../../../utils/Header';
 
+const CONTENT = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 30px;
+`;
+
 const TITLE = styled.input`
   all: unset;
   display: flex;
@@ -15,7 +23,7 @@ const TITLE = styled.input`
   margin: 50px auto;
   width: 70%;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   font-weight: 300;
   font-size: 25px;
   &:hover {
@@ -38,6 +46,30 @@ const DESCRIPTION = styled.textarea`
 
   font-weight: 300;
   font-size: 25px;
+`;
+
+const BUTTON = styled.button`
+  padding: 10px;
+  width: 96px;
+  height: 40px;
+  background-color: #badfdb;
+  color: white;
+  border-radius: 7px;
+  font-size: 17px;
+  border: none;
+  &:hover {
+    background-color: #94d4cd;
+  }
+`;
+
+const ButtonBOX = styled.div`
+  margin-left: auto;
+  margin-right: 180px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 240px;
+  height: 40px;
 `;
 
 function EditContents({
@@ -91,7 +123,7 @@ function EditContents({
   return (
     <>
       <HEADER>Edit post</HEADER>
-      <form onSubmit={event => event.preventDefault}>
+      <CONTENT onSubmit={event => event.preventDefault}>
         <TITLE
           onChange={handleDetailChange('title')}
           type="text"
@@ -102,13 +134,15 @@ function EditContents({
           type="text"
           value={change.description}
         />
-        <button type="button" onClick={switchIsEdit}>
-          취소
-        </button>
-        <button type="button" onClick={handleSubmit}>
-          수정
-        </button>
-      </form>
+        <ButtonBOX>
+          <BUTTON type="button" onClick={switchIsEdit}>
+            Back
+          </BUTTON>
+          <BUTTON type="button" onClick={handleSubmit}>
+            Create
+          </BUTTON>
+        </ButtonBOX>
+      </CONTENT>
     </>
   );
 }

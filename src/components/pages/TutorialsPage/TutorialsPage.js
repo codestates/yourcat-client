@@ -20,6 +20,9 @@ const StyledTitle = styled.div`
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-size: 28px;
   font-weight: bold;
+  &:hover {
+    color: #badfdb;
+  }
 `;
 const StyledDate = styled.div`
   margin-left: auto;
@@ -37,16 +40,22 @@ const Div = styled.div`
 `;
 const StyledThumbnails = styled.img`
   flex: none;
-
   width: 300px;
   height: 300px;
 `;
 const StyledSummary = styled.div`
-  flex: none;
-  padding: 110px 25px 100px 25px;
+  display: flex;
+  padding: 0 30px;
   width: 70%;
-  font-size: 20px;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
   background-color: #fcf9ea;
+`;
+
+const Summary = styled.div`
+  font-size: 20px;
+  line-height: 180%;
 `;
 
 function TutorialsPage() {
@@ -66,7 +75,9 @@ function TutorialsPage() {
                 >
                   {}
                 </StyledThumbnails>
-                <StyledSummary key={el.summary}>{el.summary}</StyledSummary>
+                <StyledSummary key={el.summary}>
+                  <Summary>{el.summary}</Summary>
+                </StyledSummary>
               </Div>
             </CONTENT>
           </Link>

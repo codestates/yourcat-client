@@ -248,7 +248,7 @@ export default function LandingPage() {
             <br />
             북마크 기능을 이용해 보세요! <br />
             <br />
-            마이 페이지에서 내가 저장한 사진과 글을 볼 수 있습니다.
+            북마크 페이지에서 내가 저장한 사진과 글을 볼 수 있습니다.
           </LeftDesc>
         </LeftTextBox>
         <IMG />

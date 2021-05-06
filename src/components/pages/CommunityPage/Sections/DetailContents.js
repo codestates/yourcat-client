@@ -42,11 +42,14 @@ const MidBar = styled.div`
   font-size: 15px;
 `;
 
-const MidRight = styled.div`
+const ButtonBOX = styled.div`
+  margin-left: auto;
+  margin-right: 10px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 30%;
+  width: 240px;
+  height: 40px;
 `;
 
 const NICKNAME = styled.div`
@@ -55,10 +58,12 @@ const NICKNAME = styled.div`
 `;
 
 const LIKEBNT = styled.button`
-  border-radius: 10px;
-  font-size: 17px;
+  width: 120px;
+  height: 45px;
   background-color: #badfdb;
   color: white;
+  border-radius: 20px;
+  font-size: 17px;
   border: none;
   &:hover {
     background-color: #94d4cd;
@@ -82,17 +87,31 @@ const DESCRIPTION = styled.div`
   background: rgba(0, 0, 0, 0.003);
   font-weight: 400;
   font-size: 20px;
+  line-height: 180%;
 `;
 
-const Button = styled('button')`
-  width: 100px;
-  height: 30px;
+// const Button = styled('button')`
+//   width: 100px;
+//   height: 30px;
+//   background-color: #ffc5a1;
+//   color: white;
+//   border-radius: 10px;
+//   font-size: 17px;
+//   margin: 0 10px;
+
+//   border: none;
+//   &:hover {
+//     background-color: #f8a978;
+//   }
+// `;
+
+const Button = styled.button`
+  width: 84px;
+  height: 35px;
   background-color: #ffc5a1;
   color: white;
-  border-radius: 10px;
+  border-radius: 7px;
   font-size: 17px;
-  margin: 0 10px;
-
   border: none;
   &:hover {
     background-color: #f8a978;
@@ -234,32 +253,32 @@ function DetailContents() {
     />
   ) : (
     <>
-      <HEADER>Community</HEADER>
+      <HEADER>커뮤니티</HEADER>
 
       <CONTENT>
         <TITLE>{title}</TITLE>
 
         <MidBar>
           {user !== undefined ? (
-            <NICKNAME>Writer : {user.userName}</NICKNAME>
+            <NICKNAME>글쓴이 : {user.userName}</NICKNAME>
           ) : (
             <> </>
           )}
-          <MidRight>
+          <ButtonBOX>
             <Button type="button" onClick={switchIsEdit}>
               Edit
             </Button>
             <Button type="button" onClick={commentDeleteHandler}>
               Delete
             </Button>
-            <LikeBOX>
-              <LIKEBNT onClick={() => setLikeSwitch(!likeSwitch)}>
-                👍 {like < 0 ? 0 : like} Likes
-              </LIKEBNT>
-            </LikeBOX>
-          </MidRight>
+          </ButtonBOX>
         </MidBar>
         <DESCRIPTION>{description}</DESCRIPTION>
+        <LikeBOX>
+          <LIKEBNT onClick={() => setLikeSwitch(!likeSwitch)}>
+            👍 {like < 0 ? 0 : like} Likes
+          </LIKEBNT>
+        </LikeBOX>
       </CONTENT>
 
       <Comments />

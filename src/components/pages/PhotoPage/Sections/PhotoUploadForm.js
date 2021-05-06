@@ -134,7 +134,12 @@ function PhotoUploadForm({ setReRender }) {
 
           <INPUTDIV>
             <TITLE>TITLE</TITLE>
-            <Input type="text" value={title} onChange={onTitleHandler} />
+            <Input
+              type="text"
+              maxLength="21"
+              value={title}
+              onChange={onTitleHandler}
+            />
           </INPUTDIV>
 
           <Button type="button" onClick={handleSubmit}>

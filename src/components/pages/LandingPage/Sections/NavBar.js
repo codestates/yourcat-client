@@ -74,7 +74,7 @@ export default function NavBar() {
         </Div>
 
         {resData ? (
-          <Column>
+          <Column style={{ color: 'white', border: '1px solid' }}>
             <StyleSideBar />
           </Column>
         ) : (
