@@ -46,7 +46,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const editSubmit = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/useredit';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/useredit`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
@@ -78,7 +78,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const nickNameCheck = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/nicknamecheck';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/nicknamecheck`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,

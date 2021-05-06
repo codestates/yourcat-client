@@ -219,7 +219,7 @@ function MyPage() {
   const deleteSubmit = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/withdrawal';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/withdrawal`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,

@@ -85,7 +85,7 @@ function StyleSideBar() {
     if (result.isAuth) {
       axios
         .post(
-          'http://localhost:4000/users/logout',
+          `${process.env.REACT_APP_SERVER_URL}/users/logout`,
           { email },
           { headers: { authorization: `Bearer ${result.accessToken}` } },
         )

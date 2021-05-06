@@ -103,7 +103,7 @@ function EditContents({
     if (result.isAuth) {
       axios
         .patch(
-          `http://localhost:4000/contents/edit/${contentId}`,
+          `${process.env.REACT_APP_SERVER_URL}/contents/edit/${contentId}`,
           { title, description },
           {
             headers: {

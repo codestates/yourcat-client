@@ -6,7 +6,7 @@ import CatInfoPage from '../CatInfoPage/CatInfoPage';
 function MultiStepForm() {
   const [step, setStep] = useState('login');
   // eslint-disable-next-line prefer-const
-  let id = step;
+  const id = step;
   // TODO : state가 변경됨에 따라 style 변경.
   switch (id) {
     case 'login':

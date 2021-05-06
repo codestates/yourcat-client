@@ -41,7 +41,7 @@ export default React.memo(() => {
   const [photoList, setPhotoList] = useState([]);
   const [reRender, setReRender] = useState([]);
   const token = useSelector(dat => dat.token);
-  const url = `http://localhost:4000/contents/photo`;
+  const url = `${process.env.REACT_APP_SERVER_URL}/contents/photo`;
 
   const modalHandler = () => {
     dispatch({ type: 'PHOTO_MODAL_TRUE' });

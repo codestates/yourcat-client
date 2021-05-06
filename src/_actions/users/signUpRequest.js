@@ -3,7 +3,7 @@ import axios from 'axios';
 export default function signUpRequest(userData) {
   console.log(userData);
   const response = axios
-    .post('http://localhost:4000/users/signup', userData)
+    .post(`${process.env.REACT_APP_SERVER_URL}/users/signup`, userData)
     .catch(() => '');
   return {
     type: 'USER_SIGNUP',

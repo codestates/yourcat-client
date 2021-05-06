@@ -138,7 +138,7 @@ function DetailContents() {
     }
 
     if (result.isAuth) {
-      const url = `http://localhost:4000/bookmarks/edit/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/bookmarks/edit/${contentId}`;
 
       const config = {
         headers: {
@@ -174,7 +174,7 @@ function DetailContents() {
   }, [likeSwitch]);
 
   useEffect(() => {
-    const url = `http://localhost:4000/contents/detail/${contentId}`;
+    const url = `${process.env.REACT_APP_SERVER_URL}/contents/detail/${contentId}`;
     axios
       .get(url)
       .then(response => {
@@ -191,12 +191,15 @@ function DetailContents() {
     setResult();
     if (result.isAuth) {
       axios
-        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
-          headers: {
-            authorization: `Bearer ${result.accessToken}`,
-            'Content-Type': 'application/json',
+        .delete(
+          `${process.env.REACT_APP_SERVER_URL}/contents/delete/${contentId}`,
+          {
+            headers: {
+              authorization: `Bearer ${result.accessToken}`,
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
         .then(res => {
           console.log(res);
           history.push('/community');

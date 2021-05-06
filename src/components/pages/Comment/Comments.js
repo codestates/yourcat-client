@@ -47,7 +47,7 @@ function Comments() {
   // 댓글 목록 불러와서 렌더
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/contents/detail/${contentId}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/contents/detail/${contentId}`)
       .then(response => {
         console.log('responseData는 ', response.data);
         console.log('comment ', response.data.contentInfo.comment);
@@ -64,7 +64,7 @@ function Comments() {
         description: comment,
       };
 
-      const url = `http://localhost:4000/contents/addcomment/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/contents/addcomment/${contentId}`;
 
       const config = {
         headers: {

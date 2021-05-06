@@ -128,7 +128,7 @@ const CreateContent = () => {
         console.log('새로 게시글을 작성할 때  ', resData);
         console.log('payload는?', resData.payload);
 
-        const url = 'http://localhost:4000/contents/create';
+        const url = `${process.env.REACT_APP_SERVER_URL}/contents/create`;
         const config = {
           headers: {
             authorization: `Bearer ${result.accessToken}`,

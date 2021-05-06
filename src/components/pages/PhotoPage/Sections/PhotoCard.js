@@ -68,7 +68,7 @@ export default function PhotoCard(props) {
         console.log('deleteid', deleteContentId);
         console.log('axios');
 
-        const url = `http://localhost:4000/contents/delete/${deleteContentId}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/contents/delete/${deleteContentId}`;
 
         const config = {
           headers: {
@@ -106,7 +106,7 @@ export default function PhotoCard(props) {
         console.log('북마크에서 삭제');
         variables.isBookmark = true;
       }
-      const url = `http://localhost:4000/bookmarks/edit/${realContentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/bookmarks/edit/${realContentId}`;
 
       const config = {
         headers: {
