@@ -35,3 +35,8 @@ CodeStates IM 27기 4명이 모인 Jaws(죠스)🦈 입니다.<br />
 | 👨‍💻 신영호  |  Front-end  |    [ShinYoungHO](https://github.com/ShinYoungHO)    |
 |👩‍💻 안유원  |  Front-end  |     [Yu-Won](https://github.com/Yu-Won)     |
 |👩‍💻 지주현  |  Front-end  |     [Jebbit-koi](https://github.com/Jebbit-koi)     |
+
+<br>
+
+## More Information
+[Your Cat Wiki](https://github.com/codestates/yourcat-client/wiki)
