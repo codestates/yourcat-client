@@ -1,4 +1,4 @@
-export default function (state = [], action) {
+export default function detailContentsReducer(state = [], action) {
   const { type, payload } = action;
   switch (type) {
     case 'DETAIL_CONTENT':

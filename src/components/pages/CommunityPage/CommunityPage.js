@@ -12,6 +12,7 @@ const CONTENT = styled('div')`
   align-items: center;
   flex-direction: column;
   margin: 0 30px;
+  padding-bottom: 60px;
 `;
 
 const LIST = styled.div`
@@ -118,11 +119,12 @@ const CATEGORYDATE = styled.div`
 
 const MOREBUTTON = styled.button`
   padding: 10px;
+  margin-top: 30px;
+
   background-color: #ffc5a1;
   color: white;
   border-radius: 7px;
   font-size: 17px;
-  margin: 30px 0;
   border: none;
   &:hover {
     background-color: #94d4cd;
@@ -139,9 +141,7 @@ function CommunityPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log(setLimit);
-
-  const url = `http://localhost:4000/contents/${categoryValue}`;
+  const url = `${process.env.REACT_APP_SERVER_URL}/contents/${categoryValue}`;
 
   useEffect(() => {
     axios
@@ -168,6 +168,8 @@ function CommunityPage() {
   };
 
   const loadMoreHandler = () => {
+    setLimit(10);
+
     const skip = Skip + Limit;
     const body = {
       skip: Skip,

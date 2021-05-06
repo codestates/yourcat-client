@@ -122,7 +122,7 @@ function DetailContents() {
     }
 
     if (result.isAuth) {
-      const url = `http://localhost:4000/bookmarks/edit/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/bookmarks/edit/${contentId}`;
 
       const config = {
         headers: {
@@ -132,23 +132,18 @@ function DetailContents() {
 
       axios
         .patch(url, variables, config)
-        .then(response => {
-          if (response) {
-            console.log('북마크 성공');
-          } else {
-            dispatch({ type: 'ERROR_MODAL_TRUE' });
-            dispatch({
-              type: 'SET_ERROR_MESSAGE',
-              payload: '북마크 실패',
-            });
-          }
+        .then(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '북마크 실패',
+          });
         })
         .catch(() => '');
     }
   };
 
   useEffect(() => {
-    console.log('likeSwitch', likeSwitch);
     if (likeSwitch) {
       setContentData({ title, description, user, like: like + 1 });
     } else {
@@ -158,7 +153,7 @@ function DetailContents() {
   }, [likeSwitch]);
 
   useEffect(() => {
-    const url = `http://localhost:4000/contents/detail/${contentId}`;
+    const url = `${process.env.REACT_APP_SERVER_URL}/contents/detail/${contentId}`;
     axios
       .get(url)
       .then(response => {
@@ -171,14 +166,16 @@ function DetailContents() {
     setResult();
     if (result.isAuth) {
       axios
-        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
-          headers: {
-            authorization: `Bearer ${result.accessToken}`,
-            'Content-Type': 'application/json',
+        .delete(
+          `${process.env.REACT_APP_SERVER_URL}/contents/delete/${contentId}`,
+          {
+            headers: {
+              authorization: `Bearer ${result.accessToken}`,
+              'Content-Type': 'application/json',
+            },
           },
-        })
-        .then(res => {
-          console.log(res);
+        )
+        .then(() => {
           history.push('/community');
         })
         .catch(() => {

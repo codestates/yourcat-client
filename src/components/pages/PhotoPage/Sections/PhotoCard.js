@@ -49,7 +49,7 @@ export default function PhotoCard(props) {
   useEffect(() => {
     if (user === nickname) {
       if (deleteContentId && result && result.isAuth) {
-        const url = `http://localhost:4000/contents/delete/${deleteContentId}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/contents/delete/${deleteContentId}`;
 
         const config = {
           headers: {
@@ -84,7 +84,7 @@ export default function PhotoCard(props) {
       } else {
         variables.isBookmark = true;
       }
-      const url = `http://localhost:4000/bookmarks/edit/${realContentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/bookmarks/edit/${realContentId}`;
 
       const config = {
         headers: {

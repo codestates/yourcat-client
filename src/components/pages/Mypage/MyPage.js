@@ -178,7 +178,7 @@ function MyPage() {
   const deleteSubmit = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/withdrawal';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/withdrawal`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
@@ -186,8 +186,7 @@ function MyPage() {
       };
       axios
         .delete(url, config)
-        .then(response => {
-          console.log('삭제?', response);
+        .then(() => {
           history.push('/');
           dispatch({ type: 'DELETE_TOKEN' });
           dispatch({ type: 'DELETE_USERINFO' });
@@ -206,16 +205,17 @@ function MyPage() {
         });
     }
   };
-  return isEdit ? (
-    <EditInfo
-      catInfo={catInfo}
-      nickname={nickname}
-      setIsEdit={setIsEdit}
-      setInfo={setInfo}
-      email={email}
-    />
-  ) : (
+  return (
     <>
+      {isEdit ? (
+        <EditInfo
+          catInfo={catInfo}
+          nickname={nickname}
+          setIsEdit={setIsEdit}
+          setInfo={setInfo}
+          email={email}
+        />
+      ) : null}
       <HEADER>마이 페이지</HEADER>
       <CONTENT>
         <CatinfoBOX>

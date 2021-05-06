@@ -109,7 +109,7 @@ function SingleComment(props) {
         commentId: realCommentId,
         description: commentValue,
       };
-      const url = `http://localhost:4000/contents/editcomment/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/contents/editcomment/${contentId}`;
 
       const config = {
         headers: {
@@ -165,7 +165,7 @@ function SingleComment(props) {
           commentId: deleteCommentId,
         };
 
-        const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/contents/deletecomment/${contentId}`;
 
         const config = {
           headers: {

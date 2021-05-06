@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default function getUserInfo(accessToken) {
-  const url = 'http://localhost:4000/users/userinfo';
+  const url = `${process.env.REACT_APP_SERVER_URL}/users/userinfo`;
   const config = {
     headers: {
       authorization: `Bearer ${accessToken}`,

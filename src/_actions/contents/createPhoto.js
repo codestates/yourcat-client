@@ -7,7 +7,11 @@ export default function createPhoto(userData, token) {
     },
   };
   const response = axios
-    .post('http://localhost:4000/contents/create', userData, config)
+    .post(
+      `${process.env.REACT_APP_SERVER_URL}/contents/create`,
+      userData,
+      config,
+    )
 
     .catch(() => '');
 

@@ -119,7 +119,7 @@ const CreateContent = () => {
           createContentData({ title, category, description }),
         );
 
-        const url = 'http://localhost:4000/contents/create';
+        const url = `${process.env.REACT_APP_SERVER_URL}/contents/create`;
         const config = {
           headers: {
             authorization: `Bearer ${result.accessToken}`,
