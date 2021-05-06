@@ -10,7 +10,6 @@ const DIV = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
 const INPUT = styled.input`
   display: flex;
   flex-direction: column;
@@ -20,16 +19,14 @@ const INPUT = styled.input`
   margin-top: 200px;
   margin-left: auto;
 `;
-
-function EditInfo({ catInfo, nickname, setIsEdit, email }) {
-  const [cat, setCat] = useState({ catInfo });
-  const [edit, setEdit] = useState({ nickname, setIsEdit });
+const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
+  const [cat, setCat] = useState(catInfo);
+  const [edit, setEdit] = useState({ nickname, email });
   const [{ result }, setResult] = useCheckToken();
   const dispatch = useDispatch();
-
   const handleChange = key => event => {
     const data =
-      key === catInfo
+      key !== 'nickname'
         ? {
             ...edit,
             catInfo: {
@@ -39,16 +36,17 @@ function EditInfo({ catInfo, nickname, setIsEdit, email }) {
           }
         : {
             ...edit,
+            catInfo: cat,
             [key]: event.target.value,
           };
-    setEdit(data);
-    setCat(data);
+    // console.log(data);
+    setEdit({ nickname: data.nickname, email: data.email });
+    setCat({ catInfo: data.catInfo });
   };
-  console.log(handleChange);
-  console.log('edit', edit);
-  console.log('catInfo', catInfo);
-  console.log('nickname', nickname);
-
+  // console.log(handleChange);
+  // console.log('edit', edit);
+  // console.log('catInfo', catInfo);
+  // console.log('nickname', nickname);
   const editSubmit = () => {
     setResult();
     if (result.isAuth) {
@@ -58,39 +56,40 @@ function EditInfo({ catInfo, nickname, setIsEdit, email }) {
           authorization: `Bearer ${result.accessToken}`,
         },
       };
+      console.log('_-------------------------------------------');
+      console.log(cat);
+      console.log(edit.nickname);
       axios
-        .patch(url, { catInfo: cat, nickname: edit[nickname] }, config)
+        .patch(url, { catInfo: cat.catInfo, nickname: edit.nickname }, config)
         .then(response => {
           console.log(response);
           setIsEdit(false);
           console.log(email);
-          getUserInfo(result.accessToken)
-            .then(res => res)
-            .catch(e => e);
+          dispatch(getUserInfo(result.accessToken));
           // dispatch({
           //   type: "CHANGE_USERINFO",
           //   payload: { catInfo, nickname, email },
           // });
-          dispatch();
         })
         .catch(err => console.log(err));
     }
   };
-
   const nickNameCheck = () => {
     setResult();
     if (result.isAuth) {
+      console.log(result.accessToken);
       const url = 'http://localhost:4000/users/nicknamecheck';
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
         },
       };
+      console.log(edit.nickname);
       axios
-        .post(url, { nickname }, config)
+        .post(url, { nickname: edit.nickname }, config)
         .then(response => {
           console.log('닉네임 변경 요청에 대한 응답', response);
-          alert('닉네임 변경에 성공하셨습니다.');
+          alert('변경 가능한 닉네임입니다.');
         })
         .catch(err => {
           console.log('에러?', err);
@@ -98,13 +97,10 @@ function EditInfo({ catInfo, nickname, setIsEdit, email }) {
         });
     }
   };
-
   const switchIsEdit = () => {
     setIsEdit(false);
   };
-
   //   console.log(history);
-
   return (
     <form onSubmit={event => event.preventDefault}>
       <DIV>Cat Name: </DIV>
@@ -130,8 +126,7 @@ function EditInfo({ catInfo, nickname, setIsEdit, email }) {
       </button>
     </form>
   );
-}
-
+});
 EditInfo.propTypes = {
   catInfo: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
@@ -142,7 +137,6 @@ EditInfo.propTypes = {
 //   setInfo: () => {},
 // };
 export default EditInfo;
-
 // 요청을 보낼 때 꼭 데이터를 담아서 요청을 보내기
 // 다른 부분 말고 닉네임은 중복을 확인해야 한다.
 // 닉네임 옆에 버튼을 추가해서 버튼을 누르면 닉네임 체크 요청을 보내고

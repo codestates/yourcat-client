@@ -1,33 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
 import BookMarkContents from './Sections/BookMarkContents';
 import { matchStyle, noneMatchStyle } from './styles/styles';
+import HEADER from '../../../utils/Header';
 
-const TopPadding = styled.div`
-  padding-top: 15vh;
+const ButtonDIV = styled.div`
+  margin-left: auto;
+  margin-right: 50px;
+
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 const Button = styled.button`
-  all: unset;
-  padding: 5px;
+  border: none;
+  padding: 10px;
+  width: 40%;
+  background-color: #badfdb;
+  color: white;
+  border-radius: 7px;
+  font-size: 17px;
+  font-weight: 500;
   &:hover {
-    background-color: #ffc5a1;
-    color: black;
+    background-color: #a79c8e;
   }
   ${props => (props.name === props.category ? matchStyle : noneMatchStyle)};
 `;
-const ButtonWrap = styled.div`
-  position: fixed;
-  height: 10vh;
-`;
+
 const MainSection = styled.div`
-  top: 30vh;
-  overflow-hidden;
+  margin: 10px 0;
 `;
 function Bookmark() {
   const [category, setCategory] = useState('Photo');
   const [bookmark, setBookmark] = useState([]);
+  const dispatch = useDispatch();
   const token = useSelector(data => data.token);
   useEffect(() => {
     axios
@@ -36,6 +45,13 @@ function Bookmark() {
       })
       .then(({ data }) => {
         setBookmark(data.bookmark);
+      })
+      .catch(() => {
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '서버요청에 실패했습니다.',
+        });
       });
   }, [token]);
   const handleClick = ({ target }) => {
@@ -48,8 +64,8 @@ function Bookmark() {
 
   return (
     <>
-      <TopPadding />
-      <ButtonWrap>
+      <HEADER>Bookmark</HEADER>
+      <ButtonDIV>
         <Button
           type="button"
           name="Photo"
@@ -66,7 +82,7 @@ function Bookmark() {
         >
           Community
         </Button>
-      </ButtonWrap>
+      </ButtonDIV>
       <MainSection>
         <BookMarkContents bookmarks={bookmark} category={category} />
       </MainSection>

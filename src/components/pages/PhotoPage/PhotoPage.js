@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PhotoCard from './Sections/PhotoCard';
 import PhotoUploadForm from './Sections/PhotoUploadForm';
+import HEADER from '../../../utils/Header';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,13 +16,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HEADER = styled('div')`
-  margin: 10px 100px;
-  margin-top: 50px;
-  padding: 10px;
-  color: #f8a978;
-  font-size: 30px;
-`;
 const DIV = styled('div')`
   width: 100px;
   position: absolute;
@@ -75,7 +69,7 @@ export default function PhotoPage() {
   const classes = useStyles();
   return (
     <>
-      <HEADER>Cat Photo</HEADER>
+      <HEADER>고양이 사진</HEADER>
 
       <div
         className={classes.root}

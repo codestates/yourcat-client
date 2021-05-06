@@ -53,7 +53,8 @@ const TITLE = styled('div')`
   margin: 10px;
 `;
 
-function PhotoUploadForm({ setRequest }) {
+function PhotoUploadForm({ setReRender }) {
+  console.log(setReRender);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [photo, setPhoto] = useState('');
@@ -84,7 +85,7 @@ function PhotoUploadForm({ setRequest }) {
         console.log(res);
         if (res.payload) {
           dispatch({ type: 'PHOTO_MODAL_FALSE' });
-          setRequest([]);
+          setReRender([]);
         } else {
           console.log('사진 업로드에 실패했어요');
         }
@@ -145,6 +146,9 @@ function PhotoUploadForm({ setRequest }) {
   );
 }
 PhotoUploadForm.propTypes = {
-  setRequest: propTypes.func.isRequired,
+  setReRender: propTypes.func,
+};
+PhotoUploadForm.defaultProps = {
+  setReRender: () => {},
 };
 export default PhotoUploadForm;

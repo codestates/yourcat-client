@@ -14,7 +14,6 @@ const BTNDIV = styled.div`
   margin-right: 300px;
   margin-buttom: 10px;
 `;
-
 const EDITBTN = styled.button`
   display: flex;
   padding: 10px;
@@ -24,7 +23,6 @@ const EDITBTN = styled.button`
   border-radius: 10px;
   background-color: #f5f5f5;
 `;
-
 const WITHDRAWBTN = styled.button`
   display: flex;
   padding: 10px;
@@ -33,7 +31,6 @@ const WITHDRAWBTN = styled.button`
   border-radius: 10px;
   background-color: #f5f5f5;
 `;
-
 const CATDIV = styled.div`
   display: flex;
   margin: 10px 50px 50px 400px;
@@ -41,36 +38,30 @@ const CATDIV = styled.div`
   width: 60%;
   border: 1px solid;
 `;
-
 const IMAGE = styled.img`
   display: flex;
   width: 200px;
   height: 200px;
 `;
-
 const TEXT = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 45px;
 `;
-
 const NAME = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0px 55px 0px;
 `;
-
 const GENDER = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0px 0px 55px 0px;
 `;
-
 const AGE = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
 const USERDIV = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,50 +71,44 @@ const USERDIV = styled.div`
   height: 270px;
   border: 1px solid;
 `;
-
 const NICKNAME = styled.div`
   display: flex;
   margin: 40px 0px 55px 0px;
 `;
-
 const EMAIL = styled.div`
   display: flex;
   margin: 0px 0px 55px 0px;
 `;
-
 function MyPage() {
   const resData = useSelector(state => {
     return state.getUserInfo;
   });
-  const [{ catInfo, nickname, email }, setInfo] = useState('');
+  const [{ catInfo, nickname, email }, setInfo] = useState(resData);
   const [isEdit, setIsEdit] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const [{ result }, setResult] = useCheckToken();
-
+  console.log(nickname);
   console.log('resData는', resData);
-
   useEffect(() => {
     if (!resData.catInfo.name) {
       setInfo({
+        ...resData,
         catInfo: {
           name: 'Your Cat',
           age: 12,
           gender: 'Male',
-          image: 'resData.catInfo.image',
+          image:
+            'https://testyourcat.s3.ap-northeast-2.amazonaws.com/images/1620144235807.png ',
         },
-        nickname,
-        email,
       });
     } else {
       setInfo(resData);
     }
-  }, [isEdit]);
-
+  }, [resData]);
   const switchIsEdit = () => {
     setIsEdit(true);
   };
-
   const deleteSubmit = () => {
     setResult();
     if (result.isAuth) {
@@ -145,7 +130,6 @@ function MyPage() {
         .catch(err => console.log(err));
     }
   };
-
   return isEdit ? (
     <EditInfo
       catInfo={catInfo}
@@ -175,5 +159,4 @@ function MyPage() {
     </>
   );
 }
-
 export default MyPage;

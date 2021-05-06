@@ -2,14 +2,44 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
+import HEADER from '../../../../utils/Header';
 
-const INPUT = styled.input`
-  width: 100%;
-  height: 100%;
-  padding: 50px;
+const TITLE = styled.input`
+  all: unset;
+  display: flex;
+  padding: 16px;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  margin: 50px auto;
+  width: 70%;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  font-weight: 300;
+  font-size: 25px;
+  &:hover {
+    border: 1.5px solid #badfdb;
+  }
 `;
+
+const DESCRIPTION = styled.textarea`
+  all: unset;
+  display: flex;
+  padding: 16px;
+  width: 70%;
+  height: 40vh;
+  margin: 20px auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  &:hover {
+    border: 1.5px solid #badfdb;
+  }
+
+  font-weight: 300;
+  font-size: 25px;
+`;
+
 function EditContents({
   title,
   description,
@@ -20,7 +50,6 @@ function EditContents({
 }) {
   console.log(user);
   const { contentId } = useParams();
-  const history = useHistory();
   const [change, setChange] = useState({ title, description });
   const [{ result }, setResult] = useCheckToken();
   const handleDetailChange = key => event => {
@@ -56,51 +85,31 @@ function EditContents({
     }
   };
   const switchIsEdit = () => {
-    // TODO : 유효한 유저인지 확인 후 setEdit 실행
     setIsEdit(false);
   };
-  const commentDeleteHandler = () => {
-    setResult();
-    if (result.isAuth) {
-      axios
-        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
-          headers: {
-            authorization: `Bearer ${result.accessToken}`,
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(res => {
-          console.log(res);
-          history.push('/community');
-        })
-        .catch(() => alert('권한이 없습니다.'));
-    } else {
-      alert('로그인이 필요합니다.');
-    }
-  };
-  return (
-    <form onSubmit={event => event.preventDefault}>
-      <INPUT
-        onChange={handleDetailChange('title')}
-        type="text"
-        value={change.title}
-      />
 
-      <INPUT
-        onChange={handleDetailChange('description')}
-        type="text"
-        value={change.description}
-      />
-      <button type="button" onClick={switchIsEdit}>
-        취소
-      </button>
-      <button type="button" onClick={handleSubmit}>
-        수정
-      </button>
-      <button type="button" onClick={commentDeleteHandler}>
-        삭제
-      </button>
-    </form>
+  return (
+    <>
+      <HEADER>Edit post</HEADER>
+      <form onSubmit={event => event.preventDefault}>
+        <TITLE
+          onChange={handleDetailChange('title')}
+          type="text"
+          value={change.title}
+        />
+        <DESCRIPTION
+          onChange={handleDetailChange('description')}
+          type="text"
+          value={change.description}
+        />
+        <button type="button" onClick={switchIsEdit}>
+          취소
+        </button>
+        <button type="button" onClick={handleSubmit}>
+          수정
+        </button>
+      </form>
+    </>
   );
 }
 EditContents.propTypes = {
