@@ -109,10 +109,10 @@ const SignUpModal = React.memo(props => {
       </INPUTDIV>
       <ButtonContainer>
         <Button type="button" onClick={handleCalcelClick}>
-          취소
+          Back
         </Button>
         <Button type="button" onClick={handleCatInfoClick}>
-          다음
+          Next
         </Button>
       </ButtonContainer>
     </MODAL>

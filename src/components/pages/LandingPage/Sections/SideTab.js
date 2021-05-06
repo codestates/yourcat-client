@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Login = styled('div')`
   margin: 7.5px 20px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
