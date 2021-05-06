@@ -7,38 +7,6 @@ import EditInfo from './Sections/EditInfo';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
 import HEADER from '../../../utils/Header';
 
-// const BTNDIV = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   margin-top: 130px;
-//   margin-left: auto;
-//   margin-right: 300px;
-//   margin-buttom: 10px;
-// `;
-// const EDITBTN = styled.button`
-//   display: flex;
-//   padding: 10px;
-//   margin-left: auto;
-//   border: 1px;
-//   border: 1px solid #bdbdbd;
-//   border-radius: 10px;
-//   background-color: #f5f5f5;
-// `;
-// const WITHDRAWBTN = styled.button`
-//   display: flex;
-//   padding: 10px;
-//   border: 1px;
-//   border: 1px solid #bdbdbd;
-//   border-radius: 10px;
-//   background-color: #f5f5f5;
-// `;
-// const CATDIV = styled.div`
-//   display: flex;
-//   margin: 10px 50px 50px 400px;
-//   padding: 50px;
-//   width: 60%;
-//   border: 1px solid;
-// `;
 const IMAGE = styled.img`
   display: flex;
   width: 270px;
@@ -69,15 +37,7 @@ const AGE = styled.div`
   flex-direction: column;
   font-size: 25px;
 `;
-// const USERDIV = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   margin: 50px 50px 50px 400px;
-//   padding: 50px;
-//   width: 60%;
-//   height: 270px;
-//   border: 1px solid;
-// `;
+
 const NICKNAME = styled.div`
   font-size: 25px;
 `;
@@ -195,8 +155,7 @@ function MyPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [{ result }, setResult] = useCheckToken();
-  console.log(nickname);
-  console.log('resData는', resData);
+
   useEffect(() => {
     if (!resData.catInfo.name) {
       setInfo({

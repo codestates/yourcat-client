@@ -92,9 +92,7 @@ const BUTTON = styled('button')`
 const INPUT = styled.input`
   all: unset;
   padding: 3px;
-
   background: rgba(0, 0, 0, 0.003);
-
   font-weight: 300;
   font-size: 15px;
   &:hover {
@@ -102,10 +100,8 @@ const INPUT = styled.input`
   }
 `;
 
-const SELECT = styled.select`
-  
+const SELECT = styled.select`  
   padding: 3px;
-
   border: 1px solid;  
   border: 1.5px solid rgba(0, 0, 0, 0.15);
   border-radius: 7px;
@@ -181,15 +177,8 @@ export default function InputSection() {
   // 버튼을 누르면 그 값으로 계산해서 아웃풋으로 전달
   const onSubmitHandler = event => {
     event.preventDefault();
-
     // 한 스푼당 11.5g 기준
     setSpoon(Math.round(((MER / calorie) * 1000) / 11.5));
-
-    console.log(catCriteria.current.value);
-    console.log('weight: ', weight);
-    console.log('RER: ', RER);
-    console.log('MER: ', MER);
-    console.log('하루에 ', spoon, '스푼');
   };
 
   const onResetHandler = () => {

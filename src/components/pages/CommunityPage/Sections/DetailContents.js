@@ -13,7 +13,6 @@ axios.defaults.withCredentials = true;
 const TITLE = styled.div`
   display: flex;
   padding: 20px;
-
   margin-top: 50px;
   width: 70%;
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
@@ -87,21 +86,6 @@ const DESCRIPTION = styled.div`
   line-height: 180%;
 `;
 
-// const Button = styled('button')`
-//   width: 100px;
-//   height: 30px;
-//   background-color: #ffc5a1;
-//   color: white;
-//   border-radius: 10px;
-//   font-size: 17px;
-//   margin: 0 10px;
-
-//   border: none;
-//   &:hover {
-//     background-color: #f8a978;
-//   }
-// `;
-
 const Button = styled.button`
   width: 84px;
   height: 35px;
@@ -159,7 +143,7 @@ function DetailContents() {
             });
           }
         })
-        .catch(err => console.log(err));
+        .catch(() => '');
     }
   };
 
@@ -178,13 +162,9 @@ function DetailContents() {
     axios
       .get(url)
       .then(response => {
-        console.log('res.data ', response.data);
         setContentData(response.data.contentInfo);
-        console.log(response.data.contentInfo);
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(() => '');
   }, []);
 
   const commentDeleteHandler = () => {
@@ -219,9 +199,7 @@ function DetailContents() {
 
   const switchIsEdit = () => {
     setResult();
-    console.log(result);
     if (result.isAuth) {
-      console.log(user);
       if (user.userName === myInfo.nickname) {
         setIsEdit(true);
       } else {
