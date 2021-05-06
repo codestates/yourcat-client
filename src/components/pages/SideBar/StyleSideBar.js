@@ -22,6 +22,14 @@ const TEXT = styled.div`
   margin: 7px 10px;
 `;
 
+const BUTTON = styled.div`
+  margin: 7px 10px;
+  &:hover {
+    color: #badfdb;
+    cursor: pointer;
+  }
+`;
+
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -125,7 +133,7 @@ function StyleSideBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <img
-        style={{ border: '1px solid', height: '250px', width: '250px' }}
+        style={{ height: '250px', width: '250px' }}
         src={Info && Info.catInfo.image}
         alt=""
       />
@@ -142,15 +150,19 @@ function StyleSideBar() {
       </List>
       <Divider />
       <List>
-        <div>
-          <Link to="/mypage"> My Page </Link>
-        </div>
-        <div>
-          <Link to="/bookmarks"> Bookmark </Link>
-        </div>
-        <button type="button" onClick={handleClick}>
-          Logout
-        </button>
+        <ListItem>
+          <Link to="/mypage">
+            <BUTTON> My Page </BUTTON>
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to="/bookmarks">
+            <BUTTON> Bookmark </BUTTON>
+          </Link>
+        </ListItem>
+        <ListItem>
+          <BUTTON onClick={handleClick}>Logout</BUTTON>
+        </ListItem>
       </List>
     </div>
   );

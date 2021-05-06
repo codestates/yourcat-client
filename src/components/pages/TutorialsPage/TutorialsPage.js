@@ -69,10 +69,7 @@ function TutorialsPage() {
               <StyledTitle key={el.title}>{el.title}</StyledTitle>
               <StyledDate key={el.date}>{el.date}</StyledDate>
               <Div>
-                <StyledThumbnails
-                  key={el.id}
-                  src={`http://placekitten.com/300/30${el.id}`}
-                >
+                <StyledThumbnails key={el.id} src={el.thumbnails}>
                   {}
                 </StyledThumbnails>
                 <StyledSummary key={el.summary}>

@@ -34,6 +34,12 @@ const ButtonWrap = styled.section`
   justify-content: space-around;
   margin: 20px 10px;
 `;
+
+const GenderBOX = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
 // const Button = styled.button`
 //   width: 50px;
 //   margin: 5px;
@@ -155,7 +161,7 @@ const CatInfoPage = React.memo(props => {
               <Input name="name" onChange={handleChange('name')} />
             </span>
           </Div>
-          <div>
+          <GenderBOX>
             male
             <input
               type="checkbox"
@@ -170,18 +176,18 @@ const CatInfoPage = React.memo(props => {
               onChange={handleCheck}
               checked={checkGender.female}
             />
-          </div>
+          </GenderBOX>
         </form>
       </Section>
       <ButtonWrap>
         <Button type="button" onClick={handlePrevStep}>
-          이전
+          Back
         </Button>
         <Button type="button" onClick={handleWithoutCatSubmit}>
-          스킵
+          Skip
         </Button>
         <Button type="button" onClick={handleWithCatSubmit}>
-          확인
+          Submit
         </Button>
       </ButtonWrap>
     </MODAL>

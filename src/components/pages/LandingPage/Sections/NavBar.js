@@ -28,7 +28,7 @@ const Column = styled('div')`
 
 const Logo = styled('div')`
   margin: 7px 20px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
 `;
 
@@ -41,7 +41,14 @@ const Div = styled('div')`
 `;
 
 const Category = styled('div')`
-  font-size: 0.875rem;
+  font-size: 1rem;
+`;
+
+const HamburgerColumn = styled('div')`
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default function NavBar() {
@@ -68,19 +75,16 @@ export default function NavBar() {
           <Link to="/calculator">
             <Category>Calculator</Category>
           </Link>
-          <Link to="/bookmarks">
-            <Category>bookmarks</Category>
-          </Link>
         </Div>
 
         {resData ? (
-          <Column style={{ color: 'white', border: '1px solid' }}>
+          <HamburgerColumn style={{ color: 'white' }}>
             <StyleSideBar />
-          </Column>
+          </HamburgerColumn>
         ) : (
-          <Column>
+          <HamburgerColumn>
             <SideTab />
-          </Column>
+          </HamburgerColumn>
         )}
       </Nav>
     </FixedNav>

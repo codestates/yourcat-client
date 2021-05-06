@@ -29,7 +29,7 @@ function PhotoBookMarkCard({
 }) {
   const classes = useStyles();
   return (
-    <section key={contentId}>
+    <React.Fragment key={contentId}>
       <Card className={classes.root}>
         <CardHeader avatar={<Avatar src={userImage} />} title={userName} />
         <CardMedia
@@ -43,7 +43,7 @@ function PhotoBookMarkCard({
           </Typography>
         </CardContent>
       </Card>
-    </section>
+    </React.Fragment>
   );
 }
 PhotoBookMarkCard.propTypes = {

@@ -111,13 +111,13 @@ const LoginModal = React.memo(props => {
 
       <ButtonContainer>
         <Button type="button" onClick={handleCancel}>
-          취소
+          Back
         </Button>
         <Button type="button" onClick={handleSignUp}>
-          회원가입
+          Sign Up
         </Button>
         <Button type="submit" onClick={handleLogin}>
-          로그인
+          Login
         </Button>
       </ButtonContainer>
     </MODAL>
