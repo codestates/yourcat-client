@@ -81,12 +81,15 @@ const BTNBOX = styled('div')`
 const BUTTON = styled('button')`
   width: 130px;
   height: 45px;
-  background-color: #f8a978;
+  background-color: #badfdb;
   color: white;
   border-radius: 10px;
   font-size: 20px;
   font-weight: 700;
   border: none;
+  &:hover {
+    background-color: #94d4cd;
+  }
 `;
 
 const INPUT = styled.input`
