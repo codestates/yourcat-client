@@ -37,7 +37,6 @@ const TITLE = styled.div`
   padding: 10px;
 
   width: 60%;
-  background: rgba(0, 0, 0, 0.003);
 
   font-weight: 300;
   font-size: 21px;
@@ -48,7 +47,6 @@ const WRITER = styled.div`
   padding: 10px;
 
   width: 20%;
-  background: rgba(0, 0, 0, 0.003);
 
   font-weight: 300;
   font-size: 21px;
@@ -59,7 +57,6 @@ const DATE = styled.div`
   padding: 10px;
 
   width: 20%;
-  background: rgba(0, 0, 0, 0.003);
 
   font-weight: 300;
   font-size: 21px;
@@ -71,6 +68,7 @@ const SELECT = styled.select`
 
   border: 1.5px solid rgba(0, 0, 0, 0.15);
   border-radius: 7px;
+  background-color: white;
 
   font-weight: 300;
   font-size: 17px;

@@ -16,7 +16,6 @@ const TITLE = styled.div`
 
   margin-top: 50px;
   width: 70%;
-  background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-weight: 400;
   font-size: 25px;
@@ -38,7 +37,6 @@ const MidBar = styled.div`
   width: 70%;
   padding: 10px 0;
   padding-left: 30px;
-  background: rgba(0, 0, 0, 0.003);
   font-size: 15px;
 `;
 
@@ -84,7 +82,6 @@ const DESCRIPTION = styled.div`
   width: 70%;
   margin: 50px auto;
   margin-bottom: 80px;
-  background: rgba(0, 0, 0, 0.003);
   font-weight: 400;
   font-size: 20px;
   line-height: 180%;

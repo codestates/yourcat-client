@@ -25,7 +25,6 @@ const TITLE = styled.input`
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   margin: 50px auto;
   width: 70%;
-  background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   font-weight: 300;
   font-size: 25px;
@@ -45,6 +44,7 @@ const SELECT = styled.select`
   border-radius: 7px;
   font-weight: 200;
   font-size: 17px;
+  background-color: white;
   &:hover {
     border: 1.5px solid #badfdb;
 `;
