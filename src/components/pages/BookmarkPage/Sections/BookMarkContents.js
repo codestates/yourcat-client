@@ -43,14 +43,17 @@ function BookMarkContents({ category, bookmarks = [] }) {
       >
         {data.photo.map(({ _id, contentImage, title, userName, userImage }) => {
           return (
-            <Grid key={_id} item lg={3} md={4} xs={12}>
-              <PhotoBookMarkCard
-                contentImage={contentImage}
-                userImage={userImage}
-                title={title}
-                userName={userName}
-              />
-            </Grid>
+            <section key={_id}>
+              <Grid key={_id} item lg={3} md={4} xs={12}>
+                <PhotoBookMarkCard
+                  key={_id}
+                  contentImage={contentImage}
+                  userImage={userImage}
+                  title={title}
+                  userName={userName}
+                />
+              </Grid>
+            </section>
           );
         })}
       </Grid>

@@ -38,12 +38,14 @@ function Bookmark() {
   const [bookmark, setBookmark] = useState([]);
   const dispatch = useDispatch();
   const token = useSelector(data => data.token);
+  console.log(token);
   useEffect(() => {
     axios
       .get('http://localhost:4000/bookmarks/list', {
         headers: { authorization: `Bearer ${token}` },
       })
       .then(({ data }) => {
+        console.log(data);
         setBookmark(data.bookmark);
       })
       .catch(() => {
