@@ -13,7 +13,6 @@ axios.defaults.withCredentials = true;
 const TITLE = styled.div`
   display: flex;
   padding: 20px;
-
   margin-top: 50px;
   width: 70%;
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
@@ -87,21 +86,6 @@ const DESCRIPTION = styled.div`
   line-height: 180%;
 `;
 
-// const Button = styled('button')`
-//   width: 100px;
-//   height: 30px;
-//   background-color: #ffc5a1;
-//   color: white;
-//   border-radius: 10px;
-//   font-size: 17px;
-//   margin: 0 10px;
-
-//   border: none;
-//   &:hover {
-//     background-color: #f8a978;
-//   }
-// `;
-
 const Button = styled.button`
   width: 84px;
   height: 35px;
@@ -138,7 +122,7 @@ function DetailContents() {
     }
 
     if (result.isAuth) {
-      const url = `http://localhost:4000/bookmarks/edit/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/bookmarks/edit/${contentId}`;
 
       const config = {
         headers: {
@@ -148,23 +132,18 @@ function DetailContents() {
 
       axios
         .patch(url, variables, config)
-        .then(response => {
-          if (response) {
-            console.log('북마크 성공');
-          } else {
-            dispatch({ type: 'ERROR_MODAL_TRUE' });
-            dispatch({
-              type: 'SET_ERROR_MESSAGE',
-              payload: '북마크 실패',
-            });
-          }
+        .then(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '북마크 실패',
+          });
         })
-        .catch(err => console.log(err));
+        .catch(() => '');
     }
   };
 
   useEffect(() => {
-    console.log('likeSwitch', likeSwitch);
     if (likeSwitch) {
       setContentData({ title, description, user, like: like + 1 });
     } else {
@@ -174,31 +153,29 @@ function DetailContents() {
   }, [likeSwitch]);
 
   useEffect(() => {
-    const url = `http://localhost:4000/contents/detail/${contentId}`;
+    const url = `${process.env.REACT_APP_SERVER_URL}/contents/detail/${contentId}`;
     axios
       .get(url)
       .then(response => {
-        console.log('res.data ', response.data);
         setContentData(response.data.contentInfo);
-        console.log(response.data.contentInfo);
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(() => '');
   }, []);
 
   const commentDeleteHandler = () => {
     setResult();
     if (result.isAuth) {
       axios
-        .delete(`http://localhost:4000/contents/delete/${contentId}`, {
-          headers: {
-            authorization: `Bearer ${result.accessToken}`,
-            'Content-Type': 'application/json',
+        .delete(
+          `${process.env.REACT_APP_SERVER_URL}/contents/delete/${contentId}`,
+          {
+            headers: {
+              authorization: `Bearer ${result.accessToken}`,
+              'Content-Type': 'application/json',
+            },
           },
-        })
-        .then(res => {
-          console.log(res);
+        )
+        .then(() => {
           history.push('/community');
         })
         .catch(() => {
@@ -219,9 +196,7 @@ function DetailContents() {
 
   const switchIsEdit = () => {
     setResult();
-    console.log(result);
     if (result.isAuth) {
-      console.log(user);
       if (user.userName === myInfo.nickname) {
         setIsEdit(true);
       } else {

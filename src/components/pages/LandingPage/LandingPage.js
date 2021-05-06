@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-
 import BlackCat from '../../../images/blackCat.png';
 import pageImage from '../../../images/mainCalculator.png';
 import tutorialsImg from '../../../images/tutorialsImg.png';
@@ -9,42 +8,13 @@ import catphotoImg from '../../../images/catphotoImg.png';
 import calculatorImg from '../../../images/calculatorImg.png';
 import bookmarkImg from '../../../images/bookmarkImg.png';
 
-// const TextFade = keyframes`
-//   0% {
-//     transform: none;
-//     opacity: 1;
-//   }
-
-//   25% {
-//     transform: translateY(-50px);
-
-//     opacity: 0.5;
-//   }
-
-//   50% {
-//     transform: none;
-//     opacity: 1;
-
-//   }
-//   75% {
-//     transform: translateY(50px);
-
-//     opacity: 0.5;
-//   }
-//   100% {
-//     transform: none;
-//     opacity: 1;
-//   }`;
-
 const TextFade = keyframes`
   from{
     transform: translatey(0px);
   }
   to{
     transform: translatey(-30px);
-  }
-  
-  `;
+  }`;
 
 const CatWalk = keyframes`
   0% {
@@ -131,7 +101,6 @@ const Container = styled('div')`
 const CatBox = styled('div')`
   display: flex;
   justify-content: center;
-
   bottom: 10px;
   background-color: #badfdb;
   height: 50vh;

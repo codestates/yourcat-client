@@ -139,7 +139,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const editSubmit = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/useredit';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/useredit`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
@@ -147,10 +147,8 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       };
       axios
         .patch(url, { catInfo: cat, nickname: edit.nickname }, config)
-        .then(response => {
-          console.log(response);
+        .then(() => {
           setIsEdit(false);
-          console.log(email);
           dispatch(getUserInfo(result.accessToken)).then(() => {
             dispatch({ type: 'ERROR_MODAL_TRUE' });
             dispatch({
@@ -171,7 +169,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const nickNameCheck = () => {
     setResult();
     if (result.isAuth) {
-      const url = 'http://localhost:4000/users/nicknamecheck';
+      const url = `${process.env.REACT_APP_SERVER_URL}/users/nicknamecheck`;
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
@@ -179,8 +177,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       };
       axios
         .post(url, { nickname: edit.nickname }, config)
-        .then(res => {
-          console.log(res);
+        .then(() => {
           dispatch({ type: 'ERROR_MODAL_TRUE' });
           dispatch({
             type: 'SET_ERROR_MESSAGE',
@@ -199,7 +196,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const switchIsEdit = () => {
     setIsEdit(false);
   };
-  //   console.log(history);
+
   return (
     <Wrapper>
       <Main>
@@ -231,7 +228,6 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
 
             <INPUTBOX>
               <TITLE>Cat Gender: </TITLE>
-              {/* <Input onChange={handleChange('gender')} type="text" value={cat.gender} /> */}
               <SELECT onChange={handleChange('gender')}>
                 <option value="male"> Male </option>
                 <option value="female"> Female </option>
@@ -265,11 +261,5 @@ EditInfo.propTypes = {
   setIsEdit: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
 };
-// EditInfo.defaultProps = {
-//   setInfo: () => {},
-// };
+
 export default EditInfo;
-// 요청을 보낼 때 꼭 데이터를 담아서 요청을 보내기
-// 다른 부분 말고 닉네임은 중복을 확인해야 한다.
-// 닉네임 옆에 버튼을 추가해서 버튼을 누르면 닉네임 체크 요청을 보내고
-// 요청이 트루이거나, 닉네임이 변경되지 않았을 때 에딧 요청을 보낸다

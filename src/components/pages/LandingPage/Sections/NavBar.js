@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SideTab from './SideTab';
-// import Bars from './Bars';
 import StyleSideBar from '../../SideBar/StyleSideBar';
 
 const FixedNav = styled('div')`

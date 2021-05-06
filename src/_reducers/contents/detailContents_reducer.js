@@ -1,4 +1,4 @@
-export default function (state = [], action) {
+export default function detailContentsReducer(state = [], action) {
   const { type, payload } = action;
   switch (type) {
     case 'DETAIL_CONTENT':
@@ -7,5 +7,3 @@ export default function (state = [], action) {
       return state;
   }
 }
-
-// 확인을 위해 더미로 작업하고 실제 구동은 contentId

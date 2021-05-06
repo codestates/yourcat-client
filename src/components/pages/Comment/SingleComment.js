@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
-
 import Textarea from '../../../utils/Textarea';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
 
@@ -17,7 +16,6 @@ const Writer = styled('div')`
 const CommentBOX = styled('div')`
   display: flex;
   flex-direction: column;
-
   box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.05);
   padding: 8px 20px;
   margin: 10px 200px;
@@ -52,7 +50,6 @@ const TOP = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
 `;
 
@@ -73,7 +70,6 @@ const SmallButton = styled('button')`
 const ButtonContainer = styled('div')`
   height: 20px;
   width: 180px;
-
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -100,7 +96,6 @@ function SingleComment(props) {
   };
 
   const handleEditComment = event => {
-    console.log('comment id 는 ', event.currentTarget.className.split(' ')[2]);
     setRealCommentId(event.currentTarget.className.split(' ')[2]);
     setEditComment(!editComment);
   };
@@ -109,16 +104,12 @@ function SingleComment(props) {
   const onEditSubmit = event => {
     event.preventDefault();
     setResult();
-    console.log(result);
     if (result && nickname === commentUserName && result.isAuth) {
-      console.log(result.accessToken);
       const variables = {
         commentId: realCommentId,
         description: commentValue,
       };
-      console.log(`realCommentId::: ${realCommentId}`);
-      console.log(`contentId::: ${contentId}`);
-      const url = `http://localhost:4000/contents/editcomment/${contentId}`;
+      const url = `${process.env.REACT_APP_SERVER_URL}/contents/editcomment/${contentId}`;
 
       const config = {
         headers: {
@@ -130,7 +121,6 @@ function SingleComment(props) {
         .patch(url, variables, config)
         .then(response => {
           if (response) {
-            console.log(response);
             setReRender([]);
           } else {
             dispatch({ type: 'ERROR_MODAL_TRUE' });
@@ -147,30 +137,35 @@ function SingleComment(props) {
             payload: '서버 요청에 실패했습니다.',
           });
         });
+    } else if (!result) {
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요한 서비스입니다.',
+      });
+    } else {
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '권한이 없습니다.',
+      });
     }
   };
 
   // 댓글 삭제 기능
   const handleDeleteButton = event => {
-    console.log(
-      '삭제 comment id 는 ',
-      event.currentTarget.className.split(' ')[2],
-    );
     setDeleteCommentId(event.currentTarget.className.split(' ')[2]);
   };
 
   const onDeleteComment = () => {
     if (deleteCommentId) {
       setResult();
-      console.log(result);
       if (result && nickname === commentUserName && result.isAuth) {
-        console.log('deleteid', deleteCommentId);
-        console.log('axios');
         const variables = {
           commentId: deleteCommentId,
         };
 
-        const url = `http://localhost:4000/contents/deletecomment/${contentId}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/contents/deletecomment/${contentId}`;
 
         const config = {
           headers: {
@@ -182,7 +177,6 @@ function SingleComment(props) {
           .patch(url, variables, config)
           .then(response => {
             if (response) {
-              console.log(response);
               setReRender([]);
             } else {
               dispatch({ type: 'ERROR_MODAL_TRUE' });
@@ -199,20 +193,29 @@ function SingleComment(props) {
               payload: '서버 요청에 실패했습니다.',
             });
           });
+      } else if (!result) {
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '로그인이 필요한 서비스입니다.',
+        });
+      } else {
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '권한이 없습니다.',
+        });
       }
     }
   };
 
   useEffect(() => {
-    console.log('useEffect');
     onDeleteComment();
   }, [deleteCommentId]);
 
   return (
     <div>
       <CommentBOX>
-        {/* <img alt="프사" style={{ margin: '10px' }} /> */}
-
         <TOP>
           <Writer>{commentUser}</Writer>
           <ButtonContainer>

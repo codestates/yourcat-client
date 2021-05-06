@@ -19,12 +19,10 @@ const TITLE = styled.input`
   all: unset;
   display: flex;
   padding: 16px;
-
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   margin: 50px auto;
   width: 70%;
   background: rgba(0, 0, 0, 0.003);
-
   font-weight: 300;
   font-size: 25px;
   &:hover {
@@ -81,7 +79,6 @@ function EditContents({
   setIsEdit,
   setContentData,
 }) {
-  console.log(user);
   const { contentId } = useParams();
   const [change, setChange] = useState({ title, description });
   const [{ result }, setResult] = useCheckToken();
@@ -98,12 +95,10 @@ function EditContents({
   };
   const handleSubmit = () => {
     setResult();
-    console.log(result);
-    console.log(contentId);
     if (result.isAuth) {
       axios
         .patch(
-          `http://localhost:4000/contents/edit/${contentId}`,
+          `${process.env.REACT_APP_SERVER_URL}/contents/edit/${contentId}`,
           { title, description },
           {
             headers: {
@@ -160,7 +155,6 @@ function EditContents({
 }
 EditContents.propTypes = {
   like: propTypes.number.isRequired,
-
   title: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
   setIsEdit: propTypes.func.isRequired,

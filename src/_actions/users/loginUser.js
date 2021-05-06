@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function loginUser(data) {
   return axios
-    .post('http://localhost:4000/users/login', data)
+    .post(`${process.env.REACT_APP_SERVER_URL}/users/login`, data)
     .then(res => {
       return {
         type: 'USER_LOGIN',

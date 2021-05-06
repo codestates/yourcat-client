@@ -8,16 +8,11 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import Bars from '../LandingPage/Sections/Bars';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
-// import handleClick from '../../../utils/logout';
 
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
 const TEXT = styled.div`
   margin: 7px 10px;
 `;
@@ -44,8 +39,7 @@ const Default = {
   email: '',
   catInfo: {},
 };
-// TODO: 햄버거 눌렀을 때 right state를 true로
-// 그러면 모든 페이지에서 state 변경이 되어야하는데 리덕스로 해야하나? 아니면 App.js에서??
+
 function StyleSideBar() {
   const classes = useStyles();
   const resData =
@@ -53,17 +47,14 @@ function StyleSideBar() {
       return state.getUserInfo;
     }) || Default;
 
-  console.log('resData ', resData);
   const [state, setState] = useState({ right: false });
   const [Info, setInfo] = useState(resData);
   const email = useSelector(({ getUserInfo }) => getUserInfo.email);
   const [{ result }, setResult] = useCheckToken();
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log('Info는', Info);
 
   useEffect(() => {
-    console.log(resData);
     if (!resData.catInfo.name) {
       setInfo({
         ...resData,
@@ -85,7 +76,7 @@ function StyleSideBar() {
     if (result.isAuth) {
       axios
         .post(
-          'http://localhost:4000/users/logout',
+          `${process.env.REACT_APP_SERVER_URL}/users/logout`,
           { email },
           { headers: { authorization: `Bearer ${result.accessToken}` } },
         )
@@ -107,9 +98,6 @@ function StyleSideBar() {
           });
         });
     }
-    // 토큰이 있다면 토큰들고 요청
-
-    //
   };
 
   const toggleDrawer = (anchor, open) => event => {
