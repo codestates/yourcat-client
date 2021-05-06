@@ -5,80 +5,187 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import EditInfo from './Sections/EditInfo';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
+import HEADER from '../../../utils/Header';
 
-const BTNDIV = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 130px;
-  margin-left: auto;
-  margin-right: 300px;
-  margin-buttom: 10px;
-`;
-const EDITBTN = styled.button`
-  display: flex;
-  padding: 10px;
-  margin-left: auto;
-  border: 1px;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-`;
-const WITHDRAWBTN = styled.button`
-  display: flex;
-  padding: 10px;
-  border: 1px;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-`;
-const CATDIV = styled.div`
-  display: flex;
-  margin: 10px 50px 50px 400px;
-  padding: 50px;
-  width: 60%;
-  border: 1px solid;
-`;
+// const BTNDIV = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   margin-top: 130px;
+//   margin-left: auto;
+//   margin-right: 300px;
+//   margin-buttom: 10px;
+// `;
+// const EDITBTN = styled.button`
+//   display: flex;
+//   padding: 10px;
+//   margin-left: auto;
+//   border: 1px;
+//   border: 1px solid #bdbdbd;
+//   border-radius: 10px;
+//   background-color: #f5f5f5;
+// `;
+// const WITHDRAWBTN = styled.button`
+//   display: flex;
+//   padding: 10px;
+//   border: 1px;
+//   border: 1px solid #bdbdbd;
+//   border-radius: 10px;
+//   background-color: #f5f5f5;
+// `;
+// const CATDIV = styled.div`
+//   display: flex;
+//   margin: 10px 50px 50px 400px;
+//   padding: 50px;
+//   width: 60%;
+//   border: 1px solid;
+// `;
 const IMAGE = styled.img`
   display: flex;
-  width: 200px;
-  height: 200px;
+  width: 270px;
+  height: 270px;
+  border-radius: 20px;
 `;
 const TEXT = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 45px;
+  width: 50%;
+  height: 270px;
+  justify-content: center;
 `;
 const NAME = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0px 55px 0px;
+  font-size: 25px;
 `;
 const GENDER = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0px 0px 55px 0px;
+  font-size: 25px;
 `;
 const AGE = styled.div`
   display: flex;
   flex-direction: column;
+  font-size: 25px;
 `;
-const USERDIV = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 50px 50px 50px 400px;
-  padding: 50px;
-  width: 60%;
-  height: 270px;
-  border: 1px solid;
-`;
+// const USERDIV = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   margin: 50px 50px 50px 400px;
+//   padding: 50px;
+//   width: 60%;
+//   height: 270px;
+//   border: 1px solid;
+// `;
 const NICKNAME = styled.div`
-  display: flex;
-  margin: 40px 0px 55px 0px;
+  font-size: 25px;
 `;
 const EMAIL = styled.div`
-  display: flex;
-  margin: 0px 0px 55px 0px;
+  font-size: 25px;
 `;
+const CONTENT = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const CatinfoBOX = styled('form')`
+  width: 80%;
+  margin: 10px 0;
+  background-color: #fcf9ea;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const UserinfoBOX = styled('form')`
+  width: 80%;
+  margin: 10px 0;
+  background-color: #fcf9ea;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const WhiteDIV = styled('div')`
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 30px;
+  width: 95%;
+  margin: 20px 0;
+  height: 40vh;
+`;
+
+const UserWhiteDIV = styled('div')`
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 30px;
+  width: 95%;
+  margin: 20px 0;
+  height: 20vh;
+`;
+const InnerDIV = styled('div')`
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding-left: 70px;
+`;
+
+const CatInnerDIV = styled('div')`
+  width: 100%;
+  height: 40vh;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const BUTTON = styled.button`
+  padding: 10px;
+  width: 96px;
+  height: 40px;
+  background-color: #badfdb;
+  color: white;
+  border-radius: 7px;
+  font-size: 17px;
+  border: none;
+  &:hover {
+    background-color: #94d4cd;
+  }
+`;
+
+const WDBUTTON = styled.button`
+  padding: 10px;
+  width: 96px;
+  height: 40px;
+  background-color: #ffc5a1;
+  color: white;
+  border-radius: 7px;
+  font-size: 17px;
+  border: none;
+  &:hover {
+    background-color: #f8a978;
+  }
+`;
+
+const ButtonBOX = styled.div`
+  margin-left: auto;
+  margin-right: 180px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 240px;
+  height: 40px;
+`;
+
 function MyPage() {
   const resData = useSelector(state => {
     return state.getUserInfo;
@@ -140,22 +247,33 @@ function MyPage() {
     />
   ) : (
     <>
-      <BTNDIV>
-        <EDITBTN onClick={switchIsEdit}> EDIT </EDITBTN>
-        <WITHDRAWBTN onClick={deleteSubmit}> WITHDRAW </WITHDRAWBTN>
-      </BTNDIV>
-      <CATDIV>
-        <IMAGE src={catInfo && catInfo.image} alt="" />
-        <TEXT>
-          <NAME>Cat Name : {catInfo && catInfo.name}</NAME>
-          <GENDER>Gender : {catInfo && catInfo.gender}</GENDER>
-          <AGE>Age : {catInfo && catInfo.age} Months</AGE>
-        </TEXT>
-      </CATDIV>
-      <USERDIV>
-        <NICKNAME>Nickname: {nickname}</NICKNAME>
-        <EMAIL>E-Mail : {email}</EMAIL>
-      </USERDIV>
+      <HEADER>마이 페이지</HEADER>
+      <CONTENT>
+        <CatinfoBOX>
+          <WhiteDIV>
+            <CatInnerDIV>
+              <IMAGE src={catInfo && catInfo.image} alt="" />
+              <TEXT>
+                <NAME>Cat Name : {catInfo && catInfo.name}</NAME>
+                <GENDER>Cat Gender : {catInfo && catInfo.gender}</GENDER>
+                <AGE>Cat Age : {catInfo && catInfo.age} Months</AGE>
+              </TEXT>
+            </CatInnerDIV>
+          </WhiteDIV>
+        </CatinfoBOX>
+        <UserinfoBOX>
+          <UserWhiteDIV>
+            <InnerDIV>
+              <NICKNAME>Nickname: {nickname}</NICKNAME>
+              <EMAIL>E-Mail : {email}</EMAIL>
+            </InnerDIV>
+          </UserWhiteDIV>
+        </UserinfoBOX>
+        <ButtonBOX>
+          <BUTTON onClick={switchIsEdit}> 정보 수정 </BUTTON>
+          <WDBUTTON onClick={deleteSubmit}> 회원 탈퇴 </WDBUTTON>
+        </ButtonBOX>
+      </CONTENT>
     </>
   );
 }

@@ -43,7 +43,7 @@ function BookMarkContents({ category, bookmarks = [] }) {
       >
         {data.photo.map(({ _id, contentImage, title, userName, userImage }) => {
           return (
-            <section key={_id}>
+            <React.Fragment key={_id}>
               <Grid key={_id} item lg={3} md={4} xs={12}>
                 <PhotoBookMarkCard
                   key={_id}
@@ -53,7 +53,7 @@ function BookMarkContents({ category, bookmarks = [] }) {
                   userName={userName}
                 />
               </Grid>
-            </section>
+            </React.Fragment>
           );
         })}
       </Grid>
