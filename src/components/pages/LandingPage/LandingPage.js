@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-
 import BlackCat from '../../../images/blackCat.png';
 import pageImage from '../../../images/mainCalculator.png';
 
@@ -69,7 +68,6 @@ const Container = styled('div')`
 const CatBox = styled('div')`
   display: flex;
   justify-content: center;
-
   bottom: 10px;
   background-color: #badfdb;
   height: 50vh;

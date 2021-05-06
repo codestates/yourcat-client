@@ -11,12 +11,9 @@ export default function getUserInfo(accessToken) {
   const request = axios
     .get(url, config)
     .then(response => {
-      console.log(response);
       return response.data;
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(() => '');
   return {
     type: 'GET_USERINFO',
     payload: request,

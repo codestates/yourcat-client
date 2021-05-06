@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { /* useSelector */ useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -21,7 +21,6 @@ const TITLE = styled.input`
   all: unset;
   display: flex;
   padding: 16px;
-
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   margin: 50px auto;
   width: 70%;
@@ -53,7 +52,6 @@ const DESCRIPTION = styled.textarea`
   all: unset;
   display: flex;
   padding: 16px;
-
   width: 70%;
   height: 40vh;
   margin: 20px auto;
@@ -84,9 +82,6 @@ const BUTTON = styled.button`
 `;
 
 const CreateContent = () => {
-  // 유저정보 받아오는거 다시 한번 확인하기
-  // const userInfo = useSelector(loginInfo);
-  // console.log(userInfo);
   const [{ result }, setResult] = useCheckToken();
   const [createContent, setCreateContent] = useState({
     title: '',
@@ -110,12 +105,10 @@ const CreateContent = () => {
 
   const handleCreate = () => {
     setResult();
-    console.log('handleCreate 안의 result.accessToken', result.accessToken);
     if (result.accessToken) {
       const { title, description } = createContent.isFinish;
 
       if (!title || !description) {
-        console.log();
         dispatch({ type: 'ERROR_MODAL_TRUE' });
         dispatch({
           type: 'SET_ERROR_MESSAGE',
@@ -125,8 +118,6 @@ const CreateContent = () => {
         const resData = dispatch(
           createContentData({ title, category, description }),
         );
-        console.log('새로 게시글을 작성할 때  ', resData);
-        console.log('payload는?', resData.payload);
 
         const url = `${process.env.REACT_APP_SERVER_URL}/contents/create`;
         const config = {

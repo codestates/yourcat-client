@@ -1,8 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-
-// import styled from 'styled-components';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -17,7 +14,7 @@ const useStyles = makeStyles(() => ({
   },
   media: {
     height: 250,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%',
   },
 }));
 function PhotoBookMarkCard({

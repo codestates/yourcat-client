@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import signUpRequest from '../../../_actions/users/signUpRequest';
 import ImageUploader from '../../../utils/ImageUploader';
 import { MODAL, HeaderBox, HEADER } from '../../../utils/ModalHeader';
-
 import { Button } from '../../../utils/button';
-
-// import useDelete from '../../../utils/useDelete';
 
 const Div = styled.div`
   display: flex;
@@ -34,19 +31,11 @@ const ButtonWrap = styled.section`
   justify-content: space-around;
   margin: 20px 10px;
 `;
-
 const GenderBOX = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-around;
 `;
-// const Button = styled.button`
-//   width: 50px;
-//   margin: 5px;
-// `;
-//------------------------
-// 버튼 비활성화 CSS 추가 가능
-//------------------------
 
 const CatInfoPage = React.memo(props => {
   const dispatch = useDispatch();
@@ -89,7 +78,7 @@ const CatInfoPage = React.memo(props => {
         res.payload &&
         res.payload.data.message === '회원가입이 완료되었습니다.'
       ) {
-        alert('성공!');
+        alert('회원가입이 완료되었습니다.');
         dispatch({ type: 'DELETE_USER_DATA' });
         dispatch({ type: 'DELETE_USER_SIGNUP_RESPONSE' });
         props.setStep('login');
@@ -122,7 +111,6 @@ const CatInfoPage = React.memo(props => {
   };
   const storeAndGetImageURL = response => {
     const truePath = response && response.data.filePath;
-    console.log(truePath);
     if (truePath) {
       setData({ ...data, image: truePath });
     } else {
@@ -198,4 +186,3 @@ CatInfoPage.propTypes = {
 };
 
 export default CatInfoPage;
-// 나이 이름 성별 이미지

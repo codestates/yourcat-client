@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import axios from 'axios';
 import styled from 'styled-components';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PhotoCard from './Sections/PhotoCard';
@@ -48,26 +46,21 @@ export default React.memo(() => {
   };
 
   useEffect(async () => {
-    console.log('렌더렌더---------------------------');
-    console.log(token);
     const config = token
       ? {
           headers: { authorization: `Bearer ${token}` },
         }
       : undefined;
-    console.log(config);
     axios
       .post(url, undefined, config)
       .then(response => {
         const result = response.data.contentsList;
-        console.log('result', result);
         setPhotoList(result);
       })
-      .catch(err => console.log(err));
+      .catch(() => '');
   }, [reRender]);
 
   const classes = useStyles();
-  console.log(photoList);
   return (
     <>
       <HEADER>고양이 사진</HEADER>

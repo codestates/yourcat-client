@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-
 import useCheckToken from '../../../utils/Hook/useCheckToken';
 import SingleComment from './SingleComment';
 import Textarea from '../../../utils/Textarea';
@@ -36,7 +35,6 @@ function Comments() {
   const [reRender, setReRender] = useState([]);
   const [{ result }, setResult] = useCheckToken();
   const [modalMessage, setModalMessage] = useState('');
-
   const dispatch = useDispatch();
   const { contentId } = useParams();
 
@@ -44,18 +42,14 @@ function Comments() {
     setComment(event.currentTarget.value);
   };
 
-  // 댓글 목록 불러와서 렌더
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/contents/detail/${contentId}`)
       .then(response => {
-        console.log('responseData는 ', response.data);
-        console.log('comment ', response.data.contentInfo.comment);
         setCommentList(response.data.contentInfo.comment);
       });
   }, [reRender]);
 
-  // 댓글 등록 기능
   const onSubmit = event => {
     event.preventDefault();
     setResult();
@@ -77,11 +71,9 @@ function Comments() {
           .patch(url, variables, config)
           .then(response => {
             if (response) {
-              console.log(response);
               setReRender([]);
               setComment('');
             } else {
-              console.log(1);
               dispatch({ type: 'ERROR_MODAL_TRUE' });
               dispatch({
                 type: 'SET_ERROR_MESSAGE',
@@ -114,7 +106,6 @@ function Comments() {
     }
   };
 
-  // TODO: 본인이 쓴 댓글만 수정, 삭제 가능하도록
   return (
     <div style={{ margin: '50px 50px' }}>
       <div style={{ fontSize: '20px', color: '#badfdb', margin: '0 220px' }}>
