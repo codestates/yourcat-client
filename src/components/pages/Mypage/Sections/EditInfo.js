@@ -39,9 +39,8 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
             catInfo: cat,
             [key]: event.target.value,
           };
-    // console.log(data);
     setEdit({ nickname: data.nickname, email: data.email });
-    setCat({ catInfo: data.catInfo });
+    setCat(data.catInfo);
   };
   // console.log(handleChange);
   // console.log('edit', edit);
@@ -60,7 +59,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       console.log(cat);
       console.log(edit.nickname);
       axios
-        .patch(url, { catInfo: cat.catInfo, nickname: edit.nickname }, config)
+        .patch(url, { catInfo: cat, nickname: edit.nickname }, config)
         .then(response => {
           console.log(response);
           setIsEdit(false);
