@@ -105,6 +105,12 @@ function Comments() {
           payload: '댓글을 작성해주세요.',
         });
       }
+    } else {
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요합니다.',
+      });
     }
   };
 

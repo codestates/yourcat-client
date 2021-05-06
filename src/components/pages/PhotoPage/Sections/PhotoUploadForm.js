@@ -87,7 +87,11 @@ function PhotoUploadForm({ setReRender }) {
           dispatch({ type: 'PHOTO_MODAL_FALSE' });
           setReRender([]);
         } else {
-          console.log('사진 업로드에 실패했어요');
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '사진 업로드에 실패했어요',
+          });
         }
       });
     }
@@ -111,7 +115,11 @@ function PhotoUploadForm({ setReRender }) {
     if (truePath) {
       setPhoto(truePath);
     } else {
-      console.log('응답 실패');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '응답에 실패했습니다.',
+      });
     }
   };
 

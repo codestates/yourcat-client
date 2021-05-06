@@ -70,7 +70,7 @@ function StyleSideBar() {
     } else {
       setInfo(resData);
     }
-  }, []);
+  }, [resData]);
 
   const handleClick = () => {
     setResult();
@@ -84,13 +84,19 @@ function StyleSideBar() {
         .then(() => {
           dispatch({ type: 'DELETE_TOKEN' });
           dispatch({ type: 'DELETE_USERINFO' });
-          alert('로그아웃이 완료 되었습니다.');
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '로그아웃이 완료 되었습니다.',
+          });
           history.push('/');
         })
-        .catch(e => {
-          console.log(e);
-          alert('오류');
-          return '';
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '서버 요청에 실패했습니다.',
+          });
         });
     }
     // 토큰이 있다면 토큰들고 요청
