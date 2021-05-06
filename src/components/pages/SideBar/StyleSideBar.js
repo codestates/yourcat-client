@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState, memo } from 'react';
 import clsx from 'clsx';
 import styled from 'styled-components';
@@ -9,9 +10,11 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import ListItemText from '@material-ui/core/ListItemText';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import Bars from '../LandingPage/Sections/Bars';
+import useCheckToken from '../../../utils/Hook/useCheckToken';
+// import handleClick from '../../../utils/logout';
 
 // import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MailIcon from '@material-ui/icons/Mail';
@@ -28,32 +31,72 @@ const useStyles = makeStyles({
   },
 });
 
+const Default = {
+  nickname: '',
+  email: '',
+  catInfo: {},
+};
 // TODO: 햄버거 눌렀을 때 right state를 true로
 // 그러면 모든 페이지에서 state 변경이 되어야하는데 리덕스로 해야하나? 아니면 App.js에서??
 function StyleSideBar() {
   const classes = useStyles();
-  const resData = useSelector(state => {
-    return state.getUserInfo;
-  });
+  const resData =
+    useSelector(state => {
+      return state.getUserInfo;
+    }) || Default;
+
   console.log('resData ', resData);
   const [state, setState] = useState({ right: false });
-  const [Info, setInfo] = useState('');
+  const [Info, setInfo] = useState(resData);
+  const email = useSelector(({ getUserInfo }) => getUserInfo.email);
+  const [{ result }, setResult] = useCheckToken();
+  const dispatch = useDispatch();
+  const history = useHistory();
   console.log('Info는', Info);
 
   useEffect(() => {
-    if (!resData.catInfo) {
+    console.log(resData);
+    if (!resData.catInfo.name) {
       setInfo({
+        ...resData,
         catInfo: {
           name: 'Your Cat',
-          age: '12',
+          age: 12,
           gender: 'Male',
-          image: 'resData.catInfo.image',
+          image:
+            'https://testyourcat.s3.ap-northeast-2.amazonaws.com/images/1620144235807.png ',
         },
       });
     } else {
       setInfo(resData);
     }
-  }, [state]);
+  }, []);
+
+  const handleClick = () => {
+    setResult();
+    if (result.isAuth) {
+      axios
+        .post(
+          'http://localhost:4000/users/logout',
+          { email },
+          { headers: { authorization: `Bearer ${result.accessToken}` } },
+        )
+        .then(() => {
+          dispatch({ type: 'DELETE_TOKEN' });
+          dispatch({ type: 'DELETE_USERINFO' });
+          alert('로그아웃이 완료 되었습니다.');
+          history.push('/');
+        })
+        .catch(e => {
+          console.log(e);
+          alert('오류');
+          return '';
+        });
+    }
+    // 토큰이 있다면 토큰들고 요청
+
+    //
+  };
 
   const toggleDrawer = (anchor, open) => event => {
     if (
@@ -94,14 +137,14 @@ function StyleSideBar() {
       <Divider />
       <List>
         <div>
-          <Link to="/mypage">My Page </Link>
+          <Link to="/mypage"> My Page </Link>
         </div>
-        <ListItem button key="Bookmark">
-          <TEXT> Bookmark </TEXT>
-        </ListItem>
-        <ListItem button key="Logout">
-          <TEXT> Logout </TEXT>
-        </ListItem>
+        <div>
+          <Link to="/bookmarks"> Bookmark </Link>
+        </div>
+        <button type="button" onClick={handleClick}>
+          Logout
+        </button>
       </List>
     </div>
   );
