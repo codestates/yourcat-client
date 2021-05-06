@@ -78,17 +78,16 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
   const nickNameCheck = () => {
     setResult();
     if (result.isAuth) {
-      console.log(result.accessToken);
       const url = 'http://localhost:4000/users/nicknamecheck';
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
         },
       };
-      console.log(edit.nickname);
       axios
         .post(url, { nickname: edit.nickname }, config)
-        .then(() => {
+        .then(res => {
+          console.log(res);
           dispatch({ type: 'ERROR_MODAL_TRUE' });
           dispatch({
             type: 'SET_ERROR_MESSAGE',
@@ -113,7 +112,11 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       <DIV>Cat Name: </DIV>
       <INPUT onChange={handleChange('name')} type="text" value={cat.name} />
       <DIV>Gender: </DIV>
-      <INPUT onChange={handleChange('gender')} type="text" value={cat.gender} />
+      {/* <INPUT onChange={handleChange('gender')} type="text" value={cat.gender} /> */}
+      <select onChange={handleChange('gender')}>
+        <option value="male"> Male </option>
+        <option value="female"> Female </option>
+      </select>
       <DIV>Age: </DIV>
       <INPUT onChange={handleChange('age')} type="number" value={cat.age} />
       <DIV>Nickname: </DIV>
