@@ -18,7 +18,6 @@ const LIST = styled.div`
   display: flex;
   justify-content: center;
   padding: 10px 0;
-
   width: 70%;
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.09);
 `;
@@ -29,16 +28,13 @@ const TopBar = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
   margin: 30px;
   margin-bottom: 60px;
 `;
 
 const TITLE = styled.div`
   padding: 10px;
-
   width: 60%;
-
   font-weight: 300;
   font-size: 21px;
   text-align: center;
@@ -46,9 +42,7 @@ const TITLE = styled.div`
 
 const WRITER = styled.div`
   padding: 10px;
-
   width: 20%;
-
   font-weight: 300;
   font-size: 21px;
   text-align: center;
@@ -56,9 +50,7 @@ const WRITER = styled.div`
 
 const DATE = styled.div`
   padding: 10px;
-
   width: 20%;
-
   font-weight: 300;
   font-size: 21px;
   text-align: center;
@@ -66,11 +58,9 @@ const DATE = styled.div`
 
 const SELECT = styled.select`
   padding: 8px;
-
   border: 1.5px solid rgba(0, 0, 0, 0.15);
   border-radius: 7px;
   background-color: white;
-
   font-weight: 300;
   font-size: 17px;
   margin: 0 20px;
@@ -81,12 +71,10 @@ const SELECT = styled.select`
 
 const NEWPOSTBNT = styled.button`
   padding: 10px;
-
   background-color: #badfdb;
   color: white;
   border-radius: 7px;
   font-size: 17px;
-
   border: none;
   &:hover {
     background-color: #94d4cd;
@@ -99,26 +87,21 @@ const LISTCATEGORY = styled.div`
   width: 70%;
   justify-content: center;
   padding: 5px 0;
-
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 `;
 
 const CATEGORYTITLE = styled.div`
   padding: 10px 20px;
-
   width: 60%;
   background: rgba(0, 0, 0, 0.003);
-
   font-weight: 300;
   font-size: 20px;
 `;
 
 const CATEGORYWRITER = styled.div`
   padding: 10px;
-
   width: 20%;
   background: rgba(0, 0, 0, 0.003);
-
   font-weight: 300;
   font-size: 20px;
   text-align: center;
@@ -126,10 +109,8 @@ const CATEGORYWRITER = styled.div`
 
 const CATEGORYDATE = styled.div`
   padding: 10px;
-
   width: 20%;
   background: rgba(0, 0, 0, 0.003);
-
   font-weight: 300;
   font-size: 20px;
   text-align: center;
@@ -137,13 +118,11 @@ const CATEGORYDATE = styled.div`
 
 const MOREBUTTON = styled.button`
   padding: 10px;
-
   background-color: #ffc5a1;
   color: white;
   border-radius: 7px;
   font-size: 17px;
   margin: 30px 0;
-
   border: none;
   &:hover {
     background-color: #94d4cd;
@@ -165,25 +144,17 @@ function CommunityPage() {
   const url = `http://localhost:4000/contents/${categoryValue}`;
 
   useEffect(() => {
-    console.log(categoryValue);
-
     axios
       .post(url)
       .then(response => {
-        console.log('res.data는 ', response.data);
         const resData = response.data.contentsList;
-        console.log('resData', resData);
-
         setCategorys(resData);
-
         setSize(response.data.contentsLength);
       })
-      .catch(err => console.log(err));
+      .catch(() => '');
   }, [categoryValue]);
 
   const createPost = () => {
-    // 로그인 상태이면 /create로 이동
-    // 로그인 false면 금지금지
     setResult();
     if (!result) {
       dispatch({ type: 'ERROR_MODAL_TRUE' });
@@ -197,7 +168,6 @@ function CommunityPage() {
   };
 
   const loadMoreHandler = () => {
-    console.log('더보기');
     const skip = Skip + Limit;
     const body = {
       skip: Skip,
@@ -208,9 +178,7 @@ function CommunityPage() {
     axios
       .post(url, body)
       .then(response => {
-        console.log('res.data.contentList', response.data.contentsList);
         const resData = response.data.contentsList;
-        console.log('resData', resData);
         if (body.loadMore) {
           setCategorys([...categorys, ...resData]);
         } else {
@@ -218,7 +186,7 @@ function CommunityPage() {
         }
         setSize(response.data.contentsLength);
       })
-      .catch(err => console.log(err));
+      .catch(() => '');
     setSkip(skip);
   };
 
@@ -273,7 +241,3 @@ function CommunityPage() {
 }
 
 export default CommunityPage;
-
-// 버튼 만들어서 버튼을 누르면 다음 페이지가 렌더링 되게 해주기
-// select 가 바뀌면 category의 useParms()가 바뀌어야한다.
-// useParmas 쓰지말고 그냥 링크만 걸어줄까? state로?

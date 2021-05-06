@@ -54,7 +54,6 @@ const TITLE = styled('div')`
 `;
 
 function PhotoUploadForm({ setReRender }) {
-  console.log(setReRender);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [photo, setPhoto] = useState('');
@@ -63,7 +62,6 @@ function PhotoUploadForm({ setReRender }) {
 
   const handleClickOutside = event => {
     if (ref.current && !ref.current.contains(event.target)) {
-      console.log('바깥을 클릭했다!!');
       dispatch({ type: 'PHOTO_MODAL_FALSE' });
     }
   };
@@ -82,7 +80,6 @@ function PhotoUploadForm({ setReRender }) {
     setResult();
     if (result.isAuth) {
       dispatch(createPhoto(reqData, result.accessToken)).then(res => {
-        console.log(res);
         if (res.payload) {
           dispatch({ type: 'PHOTO_MODAL_FALSE' });
           setReRender([]);
@@ -98,7 +95,6 @@ function PhotoUploadForm({ setReRender }) {
   };
   const handleSubmit = () => {
     if (title && photo) {
-      // 모든 파일이 존재하는 경우
       handleRequest({
         title,
         category: 'photo',
@@ -109,9 +105,7 @@ function PhotoUploadForm({ setReRender }) {
     }
   };
   const getPhotoPath = response => {
-    console.log('getphotopathres는 ', response);
     const truePath = response && response.data.filePath;
-    console.log('path는 ', truePath);
     if (truePath) {
       setPhoto(truePath);
     } else {

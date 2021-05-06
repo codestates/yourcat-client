@@ -12,7 +12,6 @@ const Login = styled('div')`
 `;
 
 export default function SideTab() {
-  // TODO : onClick 이벤트가 발생하면 LoginModal state변경
   const dispatch = useDispatch();
   const handleView = () => {
     dispatch({ type: 'LOGIN_MODAL_TRUE' });

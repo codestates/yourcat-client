@@ -2,7 +2,6 @@ const initState = {
   message: '',
 };
 export default function ErrorModalMessagereducer(state = initState, action) {
-  console.log(action);
   switch (action.type) {
     case 'SET_ERROR_MESSAGE':
       return {

@@ -1,8 +1,6 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
 import propTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Grid from '@material-ui/core/Grid';
 import PhotoBookMarkCard from './PhotoBookMarkCard';
 import CommunityBookMark from './CommunityBookMark';
@@ -72,20 +70,3 @@ BookMarkContents.propTypes = {
 };
 
 export default BookMarkContents;
-/**
-//  BookMarkContents.propTypes = {
-//    category: propTypes.string.isRequired,
-//  };
-// propTypes.shape({
-//   contentId: propTypes.shape({
-//     category: propTypes.string,
-//     title: propTypes.string,
-//     image: propTypes.string,
-//     _id: propTypes.string,
-//     userId: propTypes.shape({
-//       _id: propTypes.string,
-//       nickname: propTypes.string,
-//     }),
-//   }),
-// })
-*/

@@ -127,7 +127,3 @@ LoginModal.propTypes = {
   setStep: propTypes.func.isRequired,
 };
 export default LoginModal;
-/* 1. 로그인 했니?
-로그인 상태를 페이지마다 가져와야 한다.
-전역상태관리엔 리덕스가 크게 이점이 없는듯.
-*/
