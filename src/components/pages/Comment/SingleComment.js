@@ -147,6 +147,18 @@ function SingleComment(props) {
             payload: '서버 요청에 실패했습니다.',
           });
         });
+    } else if (!result) {
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요한 서비스입니다.',
+      });
+    } else {
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '권한이 없습니다.',
+      });
     }
   };
 
@@ -199,6 +211,18 @@ function SingleComment(props) {
               payload: '서버 요청에 실패했습니다.',
             });
           });
+      } else if (!result) {
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '로그인이 필요한 서비스입니다.',
+        });
+      } else {
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '권한이 없습니다.',
+        });
       }
     }
   };
