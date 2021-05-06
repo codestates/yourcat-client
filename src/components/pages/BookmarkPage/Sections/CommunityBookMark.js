@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const BIGBOX = styled('div')`
   display: flex;
   justify-content: center;
+  align-items: center;
 
   flex-direction: column;
   margin: 0 30px;
@@ -13,21 +14,23 @@ const BIGBOX = styled('div')`
 `;
 
 const CATEGORY = styled('div')`
-  margin: 10px 200px;
-  margin-top: 80px;
-  margin-bottom: 10px;
   color: #badfdb;
   font-size: 25px;
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.09);
+  margin-left: 5px;
+`;
+
+const CategoryBOX = styled.div`
+  width: 70%;
   padding: 10px;
   padding-bottom: 20px;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.09);
 `;
 
 const LIST = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px 0;
-  width: 70%;
+  padding: 5px 0;
+
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 `;
 
@@ -40,6 +43,7 @@ const TITLE = styled.div`
   text-align: center;
   &:hover {
     color: #f8a978;
+    font-weight: 400;
   }
 `;
 
@@ -52,28 +56,21 @@ const WRITER = styled.div`
   text-align: center;
 `;
 
-const CONTENT = styled('div')`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-`;
-
 function CommunityBookMark({ data, division }) {
   return (
     <BIGBOX>
-      <CATEGORY>{division}</CATEGORY>
-      <div>
+      <CategoryBOX>
+        <CATEGORY>{division}</CATEGORY>
+      </CategoryBOX>
+      <div style={{ width: '70%' }}>
         {data.map(bookmark => {
           const { contentId, title, userName } = bookmark;
           return (
             <Link to={`community/detail/${contentId}`} key={contentId}>
-              <CONTENT>
-                <LIST key={contentId}>
-                  <TITLE>{title}</TITLE>
-                  <WRITER>{userName}</WRITER>
-                </LIST>
-              </CONTENT>
+              <LIST key={contentId}>
+                <TITLE>{title}</TITLE>
+                <WRITER>{userName}</WRITER>
+              </LIST>
             </Link>
           );
         })}

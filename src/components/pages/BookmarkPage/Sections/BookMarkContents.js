@@ -30,7 +30,7 @@ function BookMarkContents({ category, bookmarks = [] }) {
     <div
       className={classes.root}
       style={{
-        padding: '20px 30px',
+        padding: '20px 50px',
         backgroundColor: '#fcf9ea',
       }}
     >

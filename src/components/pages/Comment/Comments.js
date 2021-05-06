@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
 import SingleComment from './SingleComment';
 import Textarea from '../../../utils/Textarea';
+import ErrModal from '../../../utils/ErrModal/ErrModal';
 
 const SubmitButton = styled('button')`
   height: 52px;
@@ -34,6 +35,8 @@ function Comments() {
   const [commentList, setCommentList] = useState([]);
   const [reRender, setReRender] = useState([]);
   const [{ result }, setResult] = useCheckToken();
+  const [modalMessage, setModalMessage] = useState('');
+
   const dispatch = useDispatch();
   const { contentId } = useParams();
 
@@ -69,38 +72,47 @@ function Comments() {
         },
       };
 
-      axios
-        .patch(url, variables, config)
-        .then(response => {
-          if (response) {
-            console.log(response);
-            setReRender([]);
-            setComment('');
-          } else {
-            console.log(1);
+      if (variables.description.length !== 0) {
+        axios
+          .patch(url, variables, config)
+          .then(response => {
+            if (response) {
+              console.log(response);
+              setReRender([]);
+              setComment('');
+            } else {
+              console.log(1);
+              dispatch({ type: 'ERROR_MODAL_TRUE' });
+              dispatch({
+                type: 'SET_ERROR_MESSAGE',
+                payload: '댓글 등록에 실패했습니다.',
+              });
+            }
+          })
+
+          .catch(() => {
             dispatch({ type: 'ERROR_MODAL_TRUE' });
             dispatch({
               type: 'SET_ERROR_MESSAGE',
-              payload: '댓글 등록에 실패했습니다.',
+              payload: '서버 요청에 실패했습니다.',
             });
-          }
-        })
-
-        .catch(() => {
-          dispatch({ type: 'ERROR_MODAL_TRUE' });
-          dispatch({
-            type: 'SET_ERROR_MESSAGE',
-            payload: '서버 요청에 실패했습니다.',
           });
+      } else {
+        setModalMessage('댓글을 작성해주세요.');
+        dispatch({ type: 'ERROR_MODAL_TRUE' });
+        dispatch({
+          type: 'SET_ERROR_MESSAGE',
+          payload: '댓글을 작성해주세요.',
         });
+      }
     }
   };
 
   // TODO: 본인이 쓴 댓글만 수정, 삭제 가능하도록
   return (
     <div style={{ margin: '50px 50px' }}>
-      <div style={{ fontSize: '20px', color: '#badfdb', margin: '0 200px' }}>
-        Comments
+      <div style={{ fontSize: '20px', color: '#badfdb', margin: '0 220px' }}>
+        댓글
       </div>
       <br />
       <br />
@@ -124,6 +136,7 @@ function Comments() {
         <SubmitButton type="button" onClick={onSubmit}>
           Submit
         </SubmitButton>
+        <ErrModal message={modalMessage} />
       </FORM>
     </div>
   );

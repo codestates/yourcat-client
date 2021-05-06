@@ -74,6 +74,8 @@ const BUTTON = styled.button`
   background-color: #badfdb;
   color: white;
   border-radius: 7px;
+  width: 96px;
+  height: 40px;
   font-size: 17px;
   border: none;
   &:hover {

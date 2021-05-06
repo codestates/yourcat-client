@@ -66,7 +66,7 @@ function Bookmark() {
 
   return (
     <>
-      <HEADER>Bookmark</HEADER>
+      <HEADER>북마크</HEADER>
       <ButtonDIV>
         <Button
           type="button"

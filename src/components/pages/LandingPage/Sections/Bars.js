@@ -14,6 +14,7 @@ const BARS = styled('div')`
   justify-content: flex-end;
   align-items: center;
   cursor: pointer;
+  color: white;
 `;
 
 function Bars() {

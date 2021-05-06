@@ -1,11 +1,50 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import BlackCat from '../../../images/blackCat.png';
 import pageImage from '../../../images/mainCalculator.png';
 
+const TextFade = keyframes`
+  0% {
+    transform: translateY(-50px);
+    opacity: 0.2;
+  }
+
+  20% {
+    transform: translateY(-50px);
+    opacity: 0.5;
+  }
+
+  60% {
+    transform: none;
+    opacity: 1;
+
+  }
+  80% {
+    transform: none;
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 0.5;
+  }`;
+
+const CatWalk = keyframes`
+  0% {
+    transform: translateX(-30vw);
+    opacity: 0.5;
+    
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }`;
+
 const CatImg = styled('img')`
-  width: 33%;
+  width: 30%;
+  animation: ${CatWalk} 3.5s ease-in-out;
+  margin-top: auto;
+  margin-bottom: 0;
 `;
 
 CatImg.defaultProps = {
@@ -30,15 +69,14 @@ const Container = styled('div')`
 const CatBox = styled('div')`
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 200px;
+
+  bottom: 10px;
   background-color: #badfdb;
-  height: 500px;
+  height: 50vh;
 `;
 
 const Box = styled('div')`
-  border: 1px solid black;
-  height: 500px;
+  height: 50vh;
 `;
 
 const YellowBox = styled('div')`
@@ -52,7 +90,7 @@ const OrangeBox = styled('div')`
 `;
 
 const MainTextBox = styled('div')`
-  height: 400px;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,6 +102,7 @@ const LeftTextBox = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: ${TextFade} 2s ease-in forwards infinite;
 `;
 
 const RightTextBox = styled('div')`
@@ -72,6 +111,8 @@ const RightTextBox = styled('div')`
   flex-direction: column;
   justify-content: center;
   align-items: end;
+  animation: ${TextFade} 2s ease-in forwards infinite;
+  animation-delay: 2s;
 `;
 
 const WelcomeTitle = styled('h1')`
@@ -118,6 +159,7 @@ export default function LandingPage() {
       </Box>
       <MainTextBox>
         <WelcomeTitle>Your Cat</WelcomeTitle>
+
         <WelcomeDesc>
           Your Cat is all about cat.
           <br />
@@ -206,7 +248,7 @@ export default function LandingPage() {
             <br />
             북마크 기능을 이용해 보세요! <br />
             <br />
-            마이 페이지에서 내가 저장한 사진과 글을 볼 수 있습니다.
+            북마크 페이지에서 내가 저장한 사진과 글을 볼 수 있습니다.
           </LeftDesc>
         </LeftTextBox>
         <IMG />
