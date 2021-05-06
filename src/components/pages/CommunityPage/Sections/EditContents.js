@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import useCheckToken from '../../../../utils/Hook/useCheckToken';
 import HEADER from '../../../../utils/Header';
@@ -84,6 +85,7 @@ function EditContents({
   const { contentId } = useParams();
   const [change, setChange] = useState({ title, description });
   const [{ result }, setResult] = useCheckToken();
+  const dispatch = useDispatch();
   const handleDetailChange = key => event => {
     const data = {
       ...change,
@@ -109,11 +111,21 @@ function EditContents({
             },
           },
         )
-        .then(res => {
-          console.log(res);
+        .then(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '글 작성에 성공했습니다.',
+          });
           setIsEdit(false);
         })
-        .catch(err => err);
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '서버 요청에 실패했습니다.',
+          });
+        });
     }
   };
   const switchIsEdit = () => {

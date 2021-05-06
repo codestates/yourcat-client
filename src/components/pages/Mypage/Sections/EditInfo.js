@@ -42,10 +42,7 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
     setEdit({ nickname: data.nickname, email: data.email });
     setCat(data.catInfo);
   };
-  // console.log(handleChange);
-  // console.log('edit', edit);
-  // console.log('catInfo', catInfo);
-  // console.log('nickname', nickname);
+
   const editSubmit = () => {
     setResult();
     if (result.isAuth) {
@@ -55,44 +52,54 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
           authorization: `Bearer ${result.accessToken}`,
         },
       };
-      console.log('_-------------------------------------------');
-      console.log(cat);
-      console.log(edit.nickname);
       axios
         .patch(url, { catInfo: cat, nickname: edit.nickname }, config)
         .then(response => {
           console.log(response);
           setIsEdit(false);
           console.log(email);
-          dispatch(getUserInfo(result.accessToken));
-          // dispatch({
-          //   type: "CHANGE_USERINFO",
-          //   payload: { catInfo, nickname, email },
-          // });
+          dispatch(getUserInfo(result.accessToken)).then(() => {
+            dispatch({ type: 'ERROR_MODAL_TRUE' });
+            dispatch({
+              type: 'SET_ERROR_MESSAGE',
+              payload: '정보가 수정됐습니다.',
+            });
+          });
         })
-        .catch(err => console.log(err));
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '서버 요청에 실패했습니다.',
+          });
+        });
     }
   };
   const nickNameCheck = () => {
     setResult();
     if (result.isAuth) {
-      console.log(result.accessToken);
       const url = 'http://localhost:4000/users/nicknamecheck';
       const config = {
         headers: {
           authorization: `Bearer ${result.accessToken}`,
         },
       };
-      console.log(edit.nickname);
       axios
         .post(url, { nickname: edit.nickname }, config)
-        .then(response => {
-          console.log('닉네임 변경 요청에 대한 응답', response);
-          alert('변경 가능한 닉네임입니다.');
+        .then(res => {
+          console.log(res);
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '변경 가능한 닉네임입니다.',
+          });
         })
-        .catch(err => {
-          console.log('에러?', err);
-          alert('중복된 닉네임이 존재합니다.');
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '중복된 닉네임이 존재합니다.',
+          });
         });
     }
   };
@@ -105,7 +112,11 @@ const EditInfo = React.memo(({ catInfo, nickname, setIsEdit, email }) => {
       <DIV>Cat Name: </DIV>
       <INPUT onChange={handleChange('name')} type="text" value={cat.name} />
       <DIV>Gender: </DIV>
-      <INPUT onChange={handleChange('gender')} type="text" value={cat.gender} />
+      {/* <INPUT onChange={handleChange('gender')} type="text" value={cat.gender} /> */}
+      <select onChange={handleChange('gender')}>
+        <option value="male"> Male </option>
+        <option value="female"> Female </option>
+      </select>
       <DIV>Age: </DIV>
       <INPUT onChange={handleChange('age')} type="number" value={cat.age} />
       <DIV>Nickname: </DIV>

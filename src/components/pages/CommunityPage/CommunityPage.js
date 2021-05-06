@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import Header from './Sections/Header';
 import useCheckToken from '../../../utils/Hook/useCheckToken';
 
@@ -156,6 +157,7 @@ function CommunityPage() {
   const [size, setSize] = useState(0);
   const [categoryValue, setCategoryValue] = useState('general');
   const [{ result }, setResult] = useCheckToken();
+  const dispatch = useDispatch();
   const history = useHistory();
 
   console.log(setLimit);
@@ -184,7 +186,11 @@ function CommunityPage() {
     // 로그인 false면 금지금지
     setResult();
     if (!result) {
-      alert('로그인이 필요한 서비스 입니다.');
+      dispatch({ type: 'ERROR_MODAL_TRUE' });
+      dispatch({
+        type: 'SET_ERROR_MESSAGE',
+        payload: '로그인이 필요한 서비스 입니다.',
+      });
     } else {
       history.push('/community/create');
     }

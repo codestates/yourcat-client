@@ -232,9 +232,19 @@ function MyPage() {
           history.push('/');
           dispatch({ type: 'DELETE_TOKEN' });
           dispatch({ type: 'DELETE_USERINFO' });
-          alert('계정이 삭제되었습니다.');
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '계정이 삭제되었습니다.',
+          });
         })
-        .catch(err => console.log(err));
+        .catch(() => {
+          dispatch({ type: 'ERROR_MODAL_TRUE' });
+          dispatch({
+            type: 'SET_ERROR_MESSAGE',
+            payload: '서버 요청에 실패했습니다.',
+          });
+        });
     }
   };
   return isEdit ? (
