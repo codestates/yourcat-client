@@ -205,16 +205,17 @@ function MyPage() {
         });
     }
   };
-  return isEdit ? (
-    <EditInfo
-      catInfo={catInfo}
-      nickname={nickname}
-      setIsEdit={setIsEdit}
-      setInfo={setInfo}
-      email={email}
-    />
-  ) : (
+  return (
     <>
+      {isEdit ? (
+        <EditInfo
+          catInfo={catInfo}
+          nickname={nickname}
+          setIsEdit={setIsEdit}
+          setInfo={setInfo}
+          email={email}
+        />
+      ) : null}
       <HEADER>마이 페이지</HEADER>
       <CONTENT>
         <CatinfoBOX>

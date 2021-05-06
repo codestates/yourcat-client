@@ -2,30 +2,18 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import BlackCat from '../../../images/blackCat.png';
 import pageImage from '../../../images/mainCalculator.png';
+import tutorialsImg from '../../../images/tutorialsImg.png';
+import communityImg from '../../../images/communityImg.png';
+import catphotoImg from '../../../images/catphotoImg.png';
+import calculatorImg from '../../../images/calculatorImg.png';
+import bookmarkImg from '../../../images/bookmarkImg.png';
 
 const TextFade = keyframes`
-  0% {
-    transform: translateY(-50px);
-    opacity: 0.2;
+  from{
+    transform: translatey(0px);
   }
-
-  20% {
-    transform: translateY(-50px);
-    opacity: 0.5;
-  }
-
-  60% {
-    transform: none;
-    opacity: 1;
-
-  }
-  80% {
-    transform: none;
-    opacity: 1;
-  }
-  100% {
-    transform: none;
-    opacity: 0.5;
+  to{
+    transform: translatey(-30px);
   }`;
 
 const CatWalk = keyframes`
@@ -56,6 +44,51 @@ const IMG = styled('img')`
 
 IMG.defaultProps = {
   src: pageImage,
+};
+
+const TutoIMG = styled('img')`
+  width: 40%;
+  animation: ${TextFade} 1s infinite ease-in-out alternate;
+`;
+
+TutoIMG.defaultProps = {
+  src: tutorialsImg,
+};
+
+const CommuImg = styled('img')`
+  width: 40%;
+  animation: ${TextFade} 1s infinite ease-in-out alternate;
+`;
+
+CommuImg.defaultProps = {
+  src: communityImg,
+};
+
+const CatPhotoImg = styled('img')`
+  width: 40%;
+  animation: ${TextFade} 1s infinite ease-in-out alternate;
+`;
+
+CatPhotoImg.defaultProps = {
+  src: catphotoImg,
+};
+
+const BookImg = styled('img')`
+  width: 40%;
+  animation: ${TextFade} 1s infinite ease-in-out alternate;
+`;
+
+BookImg.defaultProps = {
+  src: bookmarkImg,
+};
+
+const CalImg = styled('img')`
+  width: 40%;
+  animation: ${TextFade} 1s infinite ease-in-out alternate;
+`;
+
+CalImg.defaultProps = {
+  src: calculatorImg,
 };
 
 const Container = styled('div')`
@@ -100,7 +133,6 @@ const LeftTextBox = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: ${TextFade} 2s ease-in forwards infinite;
 `;
 
 const RightTextBox = styled('div')`
@@ -109,7 +141,7 @@ const RightTextBox = styled('div')`
   flex-direction: column;
   justify-content: center;
   align-items: end;
-  animation: ${TextFade} 2s ease-in forwards infinite;
+
   animation-delay: 2s;
 `;
 
@@ -179,13 +211,13 @@ export default function LandingPage() {
             있습니다!
           </LeftDesc>
         </LeftTextBox>
-        <IMG />
+        <TutoIMG />
       </Container>
 
       <OrangeBox />
 
       <Container>
-        <IMG />
+        <CommuImg />
         <RightTextBox>
           <RightTitle>Community</RightTitle>
           <RightDesc>
@@ -220,11 +252,11 @@ export default function LandingPage() {
             <br /> your cat? our cat!
           </LeftDesc>
         </LeftTextBox>
-        <IMG />
+        <CatPhotoImg />
       </Container>
       <OrangeBox />
       <Container>
-        <IMG />
+        <CalImg />
         <RightTextBox>
           <RightTitle>Calculator</RightTitle>
           <RightDesc>
@@ -249,7 +281,7 @@ export default function LandingPage() {
             사이드바의 북마크에서 내가 저장한 사진과 글을 볼 수 있습니다.
           </LeftDesc>
         </LeftTextBox>
-        <IMG />
+        <BookImg />
       </Container>
     </div>
   );
