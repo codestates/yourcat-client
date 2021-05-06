@@ -12,6 +12,7 @@ const CONTENT = styled('div')`
   align-items: center;
   flex-direction: column;
   margin: 0 30px;
+  padding-bottom: 60px;
 `;
 
 const LIST = styled.div`
@@ -137,12 +138,12 @@ const CATEGORYDATE = styled.div`
 
 const MOREBUTTON = styled.button`
   padding: 10px;
+  margin-top: 30px;
 
   background-color: #ffc5a1;
   color: white;
   border-radius: 7px;
   font-size: 17px;
-  margin: 30px 0;
 
   border: none;
   &:hover {
