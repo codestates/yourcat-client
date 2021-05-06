@@ -70,7 +70,7 @@ function StyleSideBar() {
     } else {
       setInfo(resData);
     }
-  }, []);
+  }, [resData]);
 
   const handleClick = () => {
     setResult();
