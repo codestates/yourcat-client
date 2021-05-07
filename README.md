@@ -1,1 +1,1 @@
-# yourcat-client
+# Your Cat - client
